@@ -1,0 +1,15 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() { return request.auth != null; }
+    // Keep this list in sync with FACILITATOR_EMAILS in docs/firebase-config.js
+    function facilitator() {
+      return signedIn() && request.auth.token.email != null
+        && request.auth.token.email.lower() in ['admins@mars.com'];
+    }
+    match /scenarios/{id} { allow read: if signedIn(); allow write: if facilitator(); }
+    match /config/{id}    { allow read: if signedIn(); allow write: if facilitator(); }
+    match /teams/{id}     { allow read, create, update: if signedIn(); allow delete: if facilitator(); }
+    match /locks/{id}     { allow read, write: if signedIn(); }
+  }
+}
