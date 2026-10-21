@@ -3,10 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0000A0">
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}img{max-width:100%}</style>
 <title>Mars Field Sales Run</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700;6..12,800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Fredoka:wght@500;600;700&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700;6..12,800&display=swap">
 <style>
 /* Layout: sticky HUD over one active screen (lobby, map, store, overlays). Single bright "game world" theme, set explicitly. */
 :root{
@@ -47,7 +48,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .hud .wrap{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding-block:9px}
 .hud .logo{background:#fff;border-radius:8px;padding:4px 8px;display:flex}
 .hud .logo img{height:16px;display:block}
-.hud .title{font-family:var(--display);font-weight:600;font-size:17px;margin-right:auto}
+.hud .title{font-family:var(--display);font-weight:600;font-size:17px;margin-inline-end:auto}
 .hud .stat{display:flex;align-items:center;gap:6px;font-weight:800}
 .hud .stat small{opacity:.75;font-weight:700;font-size:11px;letter-spacing:.06em;text-transform:uppercase}
 .hearts{display:flex;gap:3px}
@@ -279,6 +280,62 @@ legend{font-family:var(--display);font-weight:600;font-size:17px;padding:0 6px;c
 .pausewall{position:fixed;inset:0;z-index:55;background:rgba(0,0,80,.85);display:flex;align-items:center;justify-content:center;color:#fff;text-align:center;padding:24px}
 .pausewall h2{font-size:38px}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+/* language */
+html[lang=ar]{--display:'Cairo','Fredoka',system-ui,sans-serif;--body:'Cairo','Nunito Sans',system-ui,sans-serif}
+html[lang=ar] .label,html[lang=ar] .lb th{letter-spacing:0}
+.stage,.drivebox{direction:ltr}
+.hudbtns{display:flex;gap:6px;flex-wrap:wrap}
+#langBtn{font-family:'Cairo','Nunito Sans',sans-serif}
+.headbtns{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.kbdhint{font-size:13px;margin:8px 0 0}
+/* touch driving */
+.touchpad{position:absolute;left:0;right:0;bottom:0;display:none;justify-content:space-between;align-items:flex-end;padding:12px max(12px,env(safe-area-inset-right,0px)) 12px max(12px,env(safe-area-inset-left,0px));pointer-events:none}
+.touchpad>div{display:flex;gap:10px;align-items:flex-end;pointer-events:auto}
+.tpb{width:70px;height:70px;border-radius:50%;border:0;background:rgba(255,255,255,.9);color:var(--mars);font-size:22px;font-weight:800;box-shadow:0 4px 14px rgba(0,0,40,.28);touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;font-family:var(--body)}
+.tpb.gas{background:var(--mars);color:#fff;width:86px;height:86px;font-size:16px}
+.tpb.brk{font-size:14px}
+.tpb.on{transform:scale(.92);filter:brightness(.9)}
+@media (pointer:coarse),(max-width:760px){.touchpad{display:flex}.kbdhint{display:none}.driveprompt{bottom:auto;top:112px}.driveprompt .btn{font-size:15px;padding:12px 16px}}
+button,.pack,.gap,.spot,.npc{touch-action:manipulation}
+@media (max-width:640px){
+ .hud .wrap{gap:8px;padding-block:7px}
+ .hud .title,#hudTeam{display:none!important}
+ .hud .stat small{display:none}
+ .hud .logo{margin-inline-end:auto}
+ .hud .btn.sm{padding:6px 9px;font-size:12px}
+ .screen{padding-block:12px 28px}
+ .storehead h2{font-size:21px}
+ .hero{padding:18px}
+ .sheet{padding:12px;border-radius:16px}
+ .ov{padding-left:6px;padding-right:6px}
+ .chat{max-height:190px}
+ .nego .actions{position:sticky;bottom:0;background:var(--card);padding-block:10px;margin-bottom:-12px;z-index:2;border-top:1px solid var(--line)}
+ .sheethead h2{font-size:20px}
+}
+/* backend */
+.scbar{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;margin-bottom:12px}
+.acc{background:var(--card);border:1px solid var(--line);border-radius:14px;margin-bottom:10px}
+.acc summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:10px;padding:14px 16px}
+.acc summary::-webkit-details-marker{display:none}
+.acc summary b{display:block;font-family:var(--display);font-weight:600;font-size:18px}
+.acc summary::after{content:"+";font-weight:800;font-size:22px;color:var(--mars);flex:none}
+.acc[open] summary::after{content:"−"}
+.accbody{padding:0 16px 16px}
+.accbody h4{font-family:var(--display);font-weight:600;font-size:15px;margin:18px 0 8px;color:var(--mars)}
+.prow{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-top:1px solid var(--line)}
+.prow .fields{flex:1;min-width:0}
+.pk-prev{width:46px;height:58px;border-radius:6px;flex:none;display:flex;align-items:flex-end;justify-content:center;font-size:9px;font-weight:800;padding:3px;text-align:center;box-shadow:inset 0 -3px 0 rgba(0,0,0,.18)}
+.field.w2{grid-column:span 2}
+.fields.two{grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
+.field input[type=color]{height:40px;padding:2px}
+.savebar{position:sticky;bottom:calc(10px + env(safe-area-inset-bottom,0px));display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--ink);color:#fff;border-radius:14px;padding:10px 12px;margin-top:12px;z-index:5;box-shadow:0 8px 24px rgba(0,0,30,.25);font-weight:700}
+.savebar.dirty{background:var(--mars)}
+.teamcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin-top:12px}
+.teamcard{border:1px solid var(--line);border-radius:12px;padding:12px;display:grid;gap:6px}
+.tc-head{display:flex;align-items:center;gap:8px;min-width:0}
+.tc-stats{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:13px;color:var(--muted)}
+.tc-stats b{color:var(--ink)}
+@media (max-width:640px){.prow{flex-direction:column}.field.w2{grid-column:1/-1}.fields{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.fields.two{grid-template-columns:minmax(0,1fr)}.acc summary{padding:12px}.accbody{padding:0 12px 12px}}
 </style>
 
 
@@ -344,6 +401,7 @@ legend{font-family:var(--display);font-weight:600;font-size:17px;padding:0 6px;c
   window.claude={use:async function(name){var u=await ready;if(!u)return null;if(name==='db')return db;if(name==='user')return userNs;return null;}};
 
   // Facilitator sign-in link + form
+  function A(){try{return localStorage.getItem('msr-lang')==='ar';}catch(e){return false;}}
   function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
   document.addEventListener('DOMContentLoaded',async function(){
     var host=document.querySelector('#scrLobby .wrap');if(!host)return;
@@ -351,13 +409,13 @@ legend{font-family:var(--display);font-weight:600;font-size:17px;padding:0 6px;c
     host.appendChild(bar);
     var u=await ready;
     if(!u){bar.innerHTML='<b style="color:var(--bad)">Player sign-in failed ('+esc(window.__fbAnonError||'unknown')+').</b> Enable Anonymous in Authentication > Sign-in method, and add this website under Authorized domains.';return;}
-    if(u&&!u.isAnonymous&&!isFac(u)){bar.innerHTML='Signed in as '+esc(u.email)+', but this email is not in FACILITATOR_EMAILS in firebase-config.js. <button class="btn ghost sm" id="fbOut">Sign out</button>';bar.querySelector('#fbOut').onclick=async function(){await auth.signOut();location.reload();};}
-    else if(isFac(u)){bar.innerHTML='Signed in as facilitator ('+esc(u.email)+') <button class="btn ghost sm" id="fbOut">Sign out</button>';
+    if(u&&!u.isAnonymous&&!isFac(u)){bar.innerHTML=(A()?'داخل بـ '+esc(u.email)+'، بس الإيميل ده مش في FACILITATOR_EMAILS في firebase-config.js. ':'Signed in as '+esc(u.email)+', but this email is not in FACILITATOR_EMAILS in firebase-config.js. ')+'<button class="btn ghost sm" id="fbOut">'+(A()?'خروج':'Sign out')+'</button>';bar.querySelector('#fbOut').onclick=async function(){await auth.signOut();location.reload();};}
+    else if(isFac(u)){bar.innerHTML=(A()?'داخل كمسؤول (':'Signed in as facilitator (')+esc(u.email)+') <button class="btn ghost sm" id="fbOut">'+(A()?'خروج':'Sign out')+'</button> <a class="btn sm" href="#admin" id="fbAdm">'+(A()?'لوحة التحكم':'Open backend')+'</a>';var fa=bar.querySelector('#fbAdm');fa.onclick=function(e){e.preventDefault();if(window.openAdmin)window.openAdmin();};
       bar.querySelector('#fbOut').onclick=async function(){await auth.signOut();location.reload();};}
-    else{bar.innerHTML='<button class="btn ghost sm" id="fbIn">Facilitator sign-in</button>';
+    else{bar.innerHTML='<button class="btn ghost sm" id="fbIn">'+(A()?'دخول المسؤول':'Facilitator sign-in')+'</button>';
       bar.querySelector('#fbIn').onclick=function(){
         var ov=document.getElementById('overlay');ov.hidden=false;
-        ov.innerHTML='<div class="sheet narrow"><div class="sheethead"><h2>Facilitator sign-in</h2><button class="btn ghost sm" id="fbX">Cancel</button></div><form id="fbForm" class="fields"><div class="field wide"><label for="fbE">Email</label><input id="fbE" type="email" required autocomplete="username"></div><div class="field wide"><label for="fbP">Password</label><input id="fbP" type="password" required autocomplete="current-password"></div><div class="field wide"><button class="btn" type="submit">Sign in</button> <span id="fbErr" style="color:var(--bad);font-weight:700"></span></div></form></div>';
+        ov.innerHTML='<div class="sheet narrow"><div class="sheethead"><h2>'+(A()?'دخول المسؤول':'Facilitator sign-in')+'</h2><button class="btn ghost sm" id="fbX">'+(A()?'إلغاء':'Cancel')+'</button></div><form id="fbForm" class="fields"><div class="field wide"><label for="fbE">'+(A()?'الإيميل':'Email')+'</label><input id="fbE" type="email" required autocomplete="username"></div><div class="field wide"><label for="fbP">'+(A()?'كلمة السر':'Password')+'</label><input id="fbP" type="password" required autocomplete="current-password"></div><div class="field wide"><button class="btn" type="submit">'+(A()?'دخول':'Sign in')+'</button> <span id="fbErr" style="color:var(--bad);font-weight:700"></span></div></form></div>';
         ov.querySelector('#fbX').onclick=function(){ov.hidden=true;ov.innerHTML='';};
         ov.querySelector('#fbForm').onsubmit=async function(e){e.preventDefault();
           try{await auth.signInWithEmailAndPassword(ov.querySelector('#fbE').value.trim(),ov.querySelector('#fbP').value);location.reload();}
@@ -372,106 +430,118 @@ legend{font-family:var(--display);font-weight:600;font-size:17px;padding:0 6px;c
 <header class="hud" id="hud">
   <div class="wrap">
     <span class="logo"><img id="hudLogo" alt="Mars"></span>
-    <span class="title" id="hudTitle">Field Sales Run</span>
+    <span class="title" data-i18n="title">Field Sales Run</span>
     <span class="stat" id="hudTeam" hidden></span>
-    <span class="stat" id="hudDay" hidden><small>Day</small><span class="num" id="dayN">1</span></span>
-    <span class="stat" id="hudLives" hidden><small>Lives</small><span class="hearts" id="hearts"></span></span>
-    <span class="stat" id="hudMoney" hidden><small>Wallet</small><span class="num" id="money">EGP 0</span></span>
-    <button class="btn sm" id="pauseBtn" hidden>Pause &amp; save</button>
-    <button class="btn sm" id="adminBtn" hidden>Facilitator</button>
+    <span class="stat" id="hudDay" hidden><small data-i18n="day">Day</small><span class="num" id="dayN">1</span></span>
+    <span class="stat" id="hudLives" hidden><small data-i18n="lives">Lives</small><span class="hearts" id="hearts"></span></span>
+    <span class="stat" id="hudMoney" hidden><small data-i18n="wallet">Wallet</small><span class="num" id="money">EGP 0</span></span>
+    <span class="hudbtns">
+      <button class="btn sm" id="langBtn" data-i18n="langBtn">عربي</button>
+      <button class="btn sm" id="pauseBtn" hidden data-i18n="pause">Pause &amp; save</button>
+      <button class="btn sm" id="adminBtn" hidden data-i18n="facil">Facilitator</button>
+    </span>
   </div>
 </header>
 
 <main>
-  <!-- LOBBY -->
   <section class="screen" id="scrLobby">
     <div class="wrap">
       <div class="hero">
         <div>
-          <span class="chip" style="background:rgba(255,255,255,.15);color:#fff" id="eventChip">Sales training · Egypt</span>
-          <h1 style="margin-top:10px">Field Sales Run</h1>
-          <p>Drive your route, walk the store, fix the shelf, then close the deal with the owner. Every store type plays by different rules. Lose three negotiations and your run is over.</p>
+          <span class="chip" style="background:rgba(255,255,255,.15);color:#fff" id="eventChip"></span>
+          <h1 style="margin-top:10px" data-i18n="title">Field Sales Run</h1>
+          <p data-i18n="heroP"></p>
         </div>
         <div class="badge"><img id="heroLogo" alt="Mars"></div>
       </div>
       <div class="steps">
-        <div class="step"><b>1 · Drive</b>Pick a kiosk, a supermarket or a hypermarket. Fuel comes out of your wallet.</div>
-        <div class="step"><b>2 · Store check</b>Find out-of-stock gaps, spot who owns eye level, and place the right POSM in the right spot.</div>
-        <div class="step"><b>3 · Negotiate</b>Build the order, choose discount, free goods and payment terms inside company policy.</div>
+        <div class="step"><b data-i18n="s1t"></b><span data-i18n="s1"></span></div>
+        <div class="step"><b data-i18n="s2t"></b><span data-i18n="s2"></span></div>
+        <div class="step"><b data-i18n="s3t"></b><span data-i18n="s3"></span></div>
       </div>
       <div class="grid2" style="margin-top:18px">
         <div class="card">
           <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap">
-            <h2 style="font-size:22px">Leaderboard</h2>
-            <span class="chip" id="lbScenario">Scenario</span>
+            <h2 style="font-size:22px" data-i18n="leaderboard"></h2>
+            <span class="chip" id="lbScenario"></span>
           </div>
           <div style="overflow-x:auto;margin-top:8px"><table class="lb" id="lbTable"></table></div>
           <p class="tip" id="lbNote"></p>
         </div>
         <div class="card">
-          <h2 style="font-size:22px">Your team</h2>
-          <p class="muted" style="margin:.3em 0 0">Create a team or pick yours to continue where you stopped. Progress saves automatically.</p>
+          <h2 style="font-size:22px" data-i18n="yourTeam"></h2>
+          <p class="muted" style="margin:.3em 0 0" data-i18n="yourTeamP"></p>
           <div class="form">
-            <input type="text" id="teamName" maxlength="28" placeholder="Team name, e.g. Delta Riders">
+            <input type="text" id="teamName" maxlength="28" data-i18n-ph="teamPh">
             <div class="swatches" id="swatches"></div>
-            <button class="btn" id="createTeam">Start new run</button>
+            <button class="btn" id="createTeam" data-i18n="startRun"></button>
           </div>
           <div id="teamList" style="margin-top:12px"></div>
-          <div class="label" style="margin-top:16px">On the shelf</div>
+          <div class="label" style="margin-top:16px" data-i18n="onShelf"></div>
           <div class="legend" id="legend"></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- MAP -->
   <section class="screen" id="scrMap" hidden>
     <div class="wrap">
       <div class="storehead">
-        <div><div class="label" id="mapDayLabel">Day 1 route</div><h2>Drive your route</h2></div>
-        <div style="display:flex;gap:8px;flex-wrap:wrap">
-          <span class="chip" id="targetChip">Target</span>
-          <button class="btn ghost sm" id="camBtn">Camera: behind van</button><button class="btn ghost sm" id="sndBtn" aria-pressed="false">Engine sound: off</button><button class="btn ghost sm" id="endDayBtn">End day</button>
+        <div><div class="label" id="mapDayLabel"></div><h2 data-i18n="driveRoute"></h2></div>
+        <div class="headbtns">
+          <span class="chip" id="targetChip"></span>
+          <button class="btn ghost sm" id="camBtn" data-i18n="camChase"></button>
+          <button class="btn ghost sm" id="sndBtn" aria-pressed="false" data-i18n="sndOff"></button>
+          <button class="btn ghost sm" id="endDayBtn" data-i18n="endDay"></button>
         </div>
       </div>
-      <div class="drivebox"><canvas id="drive" aria-label="Drivable 3D city with the Mars van, houses and three stores"></canvas><canvas id="hudc" aria-hidden="true"></canvas><div id="drivePrompt" class="driveprompt"></div></div>
-      <div class="controls">
-        <button class="hold" id="dLeft" aria-label="Steer left">&larr;</button>
-        <button class="hold" id="dRight" aria-label="Steer right">&rarr;</button>
-        <span class="muted" style="font-size:13px">Drive with <kbd>&uarr;</kbd><kbd>&darr;</kbd><kbd>&larr;</kbd><kbd>&rarr;</kbd> or WASD. Stop in the gold ring and press <kbd>E</kbd> to step out. <kbd>C</kbd> switches camera.</span>
-        <span class="sp"></span>
-        <button class="hold wide" id="dBrake" aria-label="Brake and reverse">Brake</button>
-        <button class="hold wide gas" id="dGas" aria-label="Accelerate">Gas</button>
+      <div class="drivebox"><canvas id="drive" aria-label="Mars van driving view"></canvas><canvas id="hudc" aria-hidden="true"></canvas><div id="drivePrompt" class="driveprompt"></div>
+        <div class="touchpad">
+          <div><button class="tpb" id="dLeft" data-i18n-al="steerL">&#9664;</button><button class="tpb" id="dRight" data-i18n-al="steerR">&#9654;</button></div>
+          <div><button class="tpb brk" id="dBrake" data-i18n="brake"></button><button class="tpb gas" id="dGas" data-i18n="gas"></button></div>
+        </div>
       </div>
+      <p class="kbdhint muted" data-i18n="kbdHint"></p>
       <div class="stores" id="storeCards"></div>
     </div>
   </section>
 
-  <!-- STORE -->
   <section class="screen" id="scrStore" hidden>
     <div class="wrap">
       <div class="storehead">
         <div><div class="label" id="stKind"></div><h2 id="stName"></h2></div>
-        <div style="display:flex;gap:8px;flex-wrap:wrap">
-          <button class="btn ghost sm" id="hlBtn" aria-pressed="false">Highlight Mars range</button>
-          <button class="btn sm" id="talkBtn">Talk to owner</button>
+        <div class="headbtns">
+          <button class="btn ghost sm" id="hlBtn" aria-pressed="false" data-i18n="hl"></button>
+          <button class="btn sm" id="talkBtn" data-i18n="talk"></button>
         </div>
       </div>
       <div class="stage" id="stage"><div class="world" id="world"></div></div>
       <div class="controls">
-        <button class="hold" id="leftBtn" aria-label="Walk left">&larr;</button>
-        <button class="hold" id="rightBtn" aria-label="Walk right">&rarr;</button>
-        <span class="muted" style="font-size:13px">Tap anything to walk to it. Keys: <kbd>&larr;</kbd> <kbd>&rarr;</kbd></span>
+        <button class="hold" id="leftBtn" data-i18n-al="walkL">&#9664;</button>
+        <button class="hold" id="rightBtn" data-i18n-al="walkR">&#9654;</button>
+        <span class="muted" style="font-size:13px" data-i18n="tapHint"></span>
         <span class="sp"></span>
-        <button class="btn ghost sm" id="leaveBtn">Back to car</button>
+        <button class="btn ghost sm" id="leaveBtn" data-i18n="backCar"></button>
       </div>
       <div class="audit" id="audit"></div>
+    </div>
+  </section>
+
+  <section class="screen" id="scrAdmin" hidden>
+    <div class="wrap">
+      <div class="storehead">
+        <div><div class="label" data-i18n="backend"></div><h2 data-i18n="ctrlRoom"></h2></div>
+        <button class="btn ghost sm" id="admBack" data-i18n="backGame"></button>
+      </div>
+      <div class="tabs" id="admTabs" role="tablist"></div>
+      <div id="admBody"></div>
+      <div class="savebar" id="admSave" hidden><span id="admSaveMsg"></span><button class="btn gold sm" id="admSaveBtn" data-i18n="saveScen"></button></div>
     </div>
   </section>
 </main>
 
 <div id="overlay" class="ov" hidden></div>
-<div id="pauseWall" class="pausewall" hidden><div><h2>Event paused</h2><p id="pauseMsg" style="font-size:18px;max-width:40ch;margin:12px auto 0">The facilitator paused the game. Your progress is saved.</p></div></div>
+<div id="pauseWall" class="pausewall" hidden><div><h2 data-i18n="eventPaused"></h2><p id="pauseMsg" style="font-size:18px;max-width:40ch;margin:12px auto 0"></p></div></div>
 <div id="toast" aria-live="polite"></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -479,20 +549,19 @@ legend{font-family:var(--display);font-weight:600;font-size:17px;padding:0 6px;c
 const LOGO="data:image/png;base64,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";
 document.getElementById('hudLogo').src=LOGO;document.getElementById('heroLogo').src=LOGO;
 
-/* ---------- catalogue ---------- */
-const SKUS=[
- {id:'galaxy',name:'Galaxy Smooth Milk 36g',short:'Galaxy',pack:'24 pcs',bg:'#5b2615',fg:'#f0cf9b'},
- {id:'flutes',name:'Galaxy Flutes 22.5g',short:'Flutes',pack:'24 pcs',bg:'#7a3a1c',fg:'#f6dcb0'},
- {id:'jewels',name:'Galaxy Jewels 200g box',short:'Jewels',pack:'6 boxes',bg:'#3e1b4d',fg:'#f1d48a'},
- {id:'snickers',name:'Snickers 50g',short:'Snickers',pack:'24 pcs',bg:'#3d2516',fg:'#8fbcff'},
- {id:'mars',name:'Mars 51g',short:'Mars',pack:'24 pcs',bg:'#141414',fg:'#ff6a5a'},
- {id:'twix',name:'Twix 50g',short:'Twix',pack:'24 pcs',bg:'#c99a3a',fg:'#6a0d0d'},
- {id:'bounty',name:'Bounty 57g',short:'Bounty',pack:'24 pcs',bg:'#1f6fb2',fg:'#ffffff'},
- {id:'mms',name:"M&M's Peanut 45g",short:"M&M's",pack:'24 pcs',bg:'#f2c230',fg:'#5a2a10'},
- {id:'maltesers',name:'Maltesers 37g',short:'Maltesers',pack:'24 pcs',bg:'#b3141c',fg:'#ffffff'},
- {id:'skittles',name:'Skittles 38g',short:'Skittles',pack:'24 pcs',bg:'#d61f3c',fg:'#ffffff'}
+const DEF_PRODUCTS=[
+ {id:'galaxy',name:'Galaxy Smooth Milk 36g',name_ar:'جالاكسي سموث ميلك ٣٦ جم',short:'Galaxy',pack:'24 pcs',pack_ar:'24 قطعة',price:720,bg:'#5b2615',fg:'#f0cf9b'},
+ {id:'flutes',name:'Galaxy Flutes 22.5g',name_ar:'جالاكسي فلوتس ٢٢.٥ جم',short:'Flutes',pack:'24 pcs',pack_ar:'24 قطعة',price:432,bg:'#7a3a1c',fg:'#f6dcb0'},
+ {id:'jewels',name:'Galaxy Jewels 200g box',name_ar:'جالاكسي جولز علبة ٢٠٠ جم',short:'Jewels',pack:'6 boxes',pack_ar:'6 علب',price:1500,bg:'#3e1b4d',fg:'#f1d48a'},
+ {id:'snickers',name:'Snickers 50g',name_ar:'سنيكرز ٥٠ جم',short:'Snickers',pack:'24 pcs',pack_ar:'24 قطعة',price:624,bg:'#3d2516',fg:'#8fbcff'},
+ {id:'mars',name:'Mars 51g',name_ar:'مارس ٥١ جم',short:'Mars',pack:'24 pcs',pack_ar:'24 قطعة',price:600,bg:'#141414',fg:'#ff6a5a'},
+ {id:'twix',name:'Twix 50g',name_ar:'تويكس ٥٠ جم',short:'Twix',pack:'24 pcs',pack_ar:'24 قطعة',price:600,bg:'#c99a3a',fg:'#6a0d0d'},
+ {id:'bounty',name:'Bounty 57g',name_ar:'باونتي ٥٧ جم',short:'Bounty',pack:'24 pcs',pack_ar:'24 قطعة',price:600,bg:'#1f6fb2',fg:'#ffffff'},
+ {id:'mms',name:"M&M's Peanut 45g",name_ar:'إم آند إمز فول سوداني ٤٥ جم',short:"M&M's",pack:'24 pcs',pack_ar:'24 قطعة',price:672,bg:'#f2c230',fg:'#5a2a10'},
+ {id:'maltesers',name:'Maltesers 37g',name_ar:'مالتيزرز ٣٧ جم',short:'Maltesers',pack:'24 pcs',pack_ar:'24 قطعة',price:648,bg:'#b3141c',fg:'#ffffff'},
+ {id:'skittles',name:'Skittles 38g',name_ar:'سكيتلز ٣٨ جم',short:'Skittles',pack:'24 pcs',pack_ar:'24 قطعة',price:480,bg:'#d61f3c',fg:'#ffffff'}
 ];
-const COMP=[
+const DEF_COMP=[
  {id:'kitkat',short:'KitKat',co:'Nestlé',bg:'#c8102e',fg:'#fff'},
  {id:'lion',short:'Lion',co:'Nestlé',bg:'#e8a317',fg:'#4a2408'},
  {id:'smarties',short:'Smarties',co:'Nestlé',bg:'#1f6fd1',fg:'#fff'},
@@ -506,33 +575,37 @@ const COMP=[
  {id:'rocher',short:'Rocher',co:'Ferrero',bg:'#6b4a1f',fg:'#f3d27a'},
  {id:'corona',short:'Corona',co:'Corona (local)',bg:'#b8322a',fg:'#fff'}
 ];
-const SK=Object.fromEntries(SKUS.map(s=>[s.id,s])), CP=Object.fromEntries(COMP.map(c=>[c.id,c]));
+let SKUS=DEF_PRODUCTS,COMP=DEF_COMP,SK={},CP={};
+function indexCatalog(){SK=Object.fromEntries(SKUS.map(s=>[s.id,s]));CP=Object.fromEntries(COMP.map(c=>[c.id,c]));}
+indexCatalog();
 const POSM={
- gondola:{name:'Gondola end',desc:'Full Mars end-cap unit, 4 shelves'},
- floorstand:{name:'Floor stand',desc:'Free-standing branded display'},
- cdu:{name:'Counter display unit',desc:'Small box of impulse packs at the till'},
- sticker:{name:'Shelf strip / sticker',desc:'Branded strip for shelf edge, door or header'},
- dangler:{name:'Dangler',desc:'Hanging card that catches the eye'}
+ gondola:{name:'Gondola end',name_ar:'رأس جندولة',desc:'Full Mars end-cap unit, 4 shelves',desc_ar:'وحدة مارس كاملة بأربع رفوف'},
+ floorstand:{name:'Floor stand',name_ar:'ستاند أرضي',desc:'Free-standing branded display',desc_ar:'ستاند مستقل عليه البراند'},
+ cdu:{name:'Counter display unit',name_ar:'ستاند كاونتر',desc:'Small box of impulse packs at the till',desc_ar:'علبة صغيرة بمنتجات الشراء الاندفاعي عند الكاشير'},
+ sticker:{name:'Shelf strip / sticker',name_ar:'شريط رف / استيكر',desc:'Branded strip for shelf edge, door or header',desc_ar:'شريط بالبراند لحافة الرف أو الباب أو الهيدر'},
+ dangler:{name:'Dangler',name_ar:'دانجلر',desc:'Hanging card that catches the eye',desc_ar:'كارت معلّق بيلفت النظر'}
 };
 const TERMS=['Cash','15 days','30 days'];
 const TYPES=['koshk','super','hyper'];
-
-/* ---------- default scenario (overridden by facilitator data) ---------- */
 const DEFAULT_SCENARIO={
  name:'Cairo standard', startMoney:1500, lives:3, commission:5, dayTarget:2500, auditBonus:75, fuelRate:0.1,
  policy:{t1:5000,d1:2,t2:20000,d2:5,d3:8,freeStack:2},
  posmCost:{gondola:600,floorstand:250,cdu:150,sticker:40,dangler:30},
- prices:{galaxy:720,flutes:432,jewels:1500,snickers:624,mars:600,twix:600,bounty:600,mms:672,maltesers:648,skittles:480},
+ products:DEF_PRODUCTS, competitors:DEF_COMP,
  stores:{
-  koshk:{name:'Koshk El Saada',kind:'Traditional trade · kiosk',owner:'Hagg Saber',role:'Kiosk owner',min:1500,max:4500,wantDisc:2,wantTerms:0,maxTerms:0,need:6,patience:3,likesFree:true,needsGondola:false,marsShare:0.5,eyeChance:0.4,fast:'flutes,snickers,galaxy,twix',avoid:'jewels',open:'Ahlan ya basha. Make it quick, customers are waiting. What do you have for me?'},
-  super:{name:'Fresh Mart',kind:'Modern trade · supermarket',owner:'Mona Adel',role:'Store manager',min:6000,max:18000,wantDisc:3,wantTerms:1,maxTerms:1,need:7,patience:4,likesFree:false,needsGondola:false,marsShare:0.45,eyeChance:0.8,fast:'galaxy,snickers,mms,maltesers',avoid:'',open:'Good morning. I have ten minutes before the delivery truck arrives. Let me see your proposal.'},
-  hyper:{name:'HyperMax',kind:'Key account · hypermarket',owner:'Tarek Fouad',role:'Category buyer',min:25000,max:70000,wantDisc:5,wantTerms:2,maxTerms:2,need:8,patience:4,likesFree:false,needsGondola:true,marsShare:0.38,eyeChance:1,fast:'galaxy,snickers,mms,jewels,maltesers',avoid:'',open:'You have five minutes. A hypermarket runs on volume and visibility. Show me both.'}
+  koshk:{name:'Koshk El Saada',name_ar:'كشك السعادة',kind:'Traditional trade · kiosk',kind_ar:'تجارة تقليدية · كشك',owner:'Hagg Saber',owner_ar:'الحاج صابر',role:'Kiosk owner',role_ar:'صاحب الكشك',min:1500,max:4500,wantDisc:2,wantTerms:0,maxTerms:0,need:6,patience:3,likesFree:true,needsGondola:false,marsShare:0.5,eyeChance:0.4,fast:'flutes,snickers,galaxy,twix',avoid:'jewels',
+   open:'Ahlan ya basha. Make it quick, customers are waiting. What do you have for me?',open_ar:'أهلاً يا باشا. بسرعة عشان الزباين مستنية. معاك إيه النهارده؟',
+   lines:{low:'That is a very small order, even for me. Add a bit more of what sells.',high:'Where would I put all of this? My kiosk is two meters wide. Cut the quantity.',disc:'The wholesaler down the street gives me something off. What about a small discount?',terms:'I pay cash, you give me a cash price. That is how kiosks work.',free:'Throw in a free carton on top and we finish faster.',fast:'Bring me what moves: Flutes, Snickers, small Galaxy, Twix. Kids buy those every hour.',avoid:'Gift boxes in a kiosk? Nobody buys Jewels from me. Take that off.',oos:'And you did not notice my {sku} is finished? Put it in the order.',prep:'Last month KitKat gave me a counter display. What are you doing for my visibility?',eye:'Look at my rack. The middle shelf is all competitors. Help me fix that.',gondola:'',accept:'Tamam, done. Send it with the van tomorrow morning.',walkout:'Khalas, I am busy. Come back another day.'},
+   lines_ar:{low:'دي طلبية صغيرة أوي حتى بالنسبة لي. زوّد شوية من اللي بيتباع.',high:'هحط ده كله فين؟ الكشك مترين بالعافية. قلّل الكمية.',disc:'تاجر الجملة اللي جنبي بيعمل لي خصم. إيه رأيك في خصم صغير؟',terms:'أنا بدفع كاش، يبقى تديني سعر الكاش. ده نظام الأكشاك.',free:'زوّدني كرتونة هدية ونخلص بسرعة.',fast:'هات اللي بيتسحب: فلوتس وسنيكرز وجالاكسي الصغيرة وتويكس. العيال بتشتريهم كل ساعة.',avoid:'علب هدايا في كشك؟ محدش بيشتري جولز مني. شيلها من الطلبية.',oos:'وإنت مخدتش بالك إن {sku} خلصان عندي؟ حطه في الطلبية.',prep:'الشهر اللي فات كيت كات إدوني ستاند على الكاونتر. إنت هتعمل إيه عشان الظهور؟',eye:'بص على الرف. الرف اللي في النص كله منافسين. ساعدني أظبطه.',gondola:'',accept:'تمام، اتفقنا. ابعتها مع العربية بكرة الصبح.',walkout:'خلاص، أنا مشغول. تعالى يوم تاني.'}},
+  super:{name:'Fresh Mart',name_ar:'فريش مارت',kind:'Modern trade · supermarket',kind_ar:'تجارة حديثة · سوبرماركت',owner:'Mona Adel',owner_ar:'منى عادل',role:'Store manager',role_ar:'مديرة الفرع',min:6000,max:18000,wantDisc:3,wantTerms:1,maxTerms:1,need:7,patience:4,likesFree:false,needsGondola:false,marsShare:0.45,eyeChance:0.8,fast:'galaxy,snickers,mms,maltesers',avoid:'',
+   open:'Good morning. I have ten minutes before the delivery truck arrives. Let me see your proposal.',open_ar:'صباح الخير. عندي عشر دقايق قبل عربية التوريد ما توصل. وريني عرضك.',
+   lines:{low:'This barely refills one shelf. A supermarket our size needs a real order.',high:'That is more stock than I can sell before expiry. Scale it down.',disc:'Cadbury is giving me 3% this month. Match it and we can talk.',terms:'We work on 15 days with every supplier. Cash on delivery will not pass finance.',free:'',fast:"Focus on fast movers: Galaxy, Snickers, M&M's, Maltesers.",avoid:'',oos:'{sku} has been out for days. I saw the empty tag. Include it.',prep:'I need visibility support: a shelf strip, danglers, something at the checkout.',eye:'Nestlé sits at eye level and your brands are near the floor. Show me you noticed and I will move them.',gondola:'',accept:'Agreed. Send me the PO and I will sign it today.',walkout:"We are not aligned today. Let's try again next visit."},
+   lines_ar:{low:'دي يا دوب تملا رف واحد. سوبرماركت بحجمنا محتاج طلبية حقيقية.',high:'ده مخزون أكتر من اللي أقدر أبيعه قبل الصلاحية. قلّله.',disc:'كادبوري بيدّوني ٣٪ الشهر ده. وصل لها ونتكلم.',terms:'إحنا شغالين ١٥ يوم مع كل الموردين. الدفع عند الاستلام مش هيعدي من الحسابات.',free:'',fast:'ركز على الأصناف السريعة: جالاكسي وسنيكرز وإم آند إمز ومالتيزرز.',avoid:'',oos:'{sku} خلصان من أيام. شفت التيكت فاضي. حطه في الطلبية.',prep:'محتاجة دعم في الظهور: شريط رف، دانجلر، أي حاجة عند الكاشير.',eye:'نستله واخدة مستوى النظر وبراندات حضرتك تحت عند الأرض. وريني إنك لاحظت وأنا أنقلهم.',gondola:'',accept:'اتفقنا. ابعتلي أمر الشراء وأمضيه النهارده.',walkout:'مش متفقين النهارده. نحاول تاني الزيارة الجاية.'}},
+  hyper:{name:'HyperMax',name_ar:'هايبر ماكس',kind:'Key account · hypermarket',kind_ar:'عميل رئيسي · هايبرماركت',owner:'Tarek Fouad',owner_ar:'طارق فؤاد',role:'Category buyer',role_ar:'مشتري الفئة',min:25000,max:70000,wantDisc:5,wantTerms:2,maxTerms:2,need:8,patience:4,likesFree:false,needsGondola:true,marsShare:0.38,eyeChance:1,fast:'galaxy,snickers,mms,jewels,maltesers',avoid:'',
+   open:'You have five minutes. A hypermarket runs on volume and visibility. Show me both.',open_ar:'معاك خمس دقايق. الهايبر ماشي بالكميات والظهور. وريني الاتنين.',
+   lines:{low:'This is a supermarket order. Hypermarket volume starts at twenty-five thousand pounds.',high:'Too much. My warehouse will reject the delivery. Bring it down.',disc:'Volume like this gets 5% from every chocolate supplier I work with.',terms:'Our standard is 30 days. Finance will not approve anything shorter.',free:'',fast:"Lead with your heroes: Galaxy, Snickers, M&M's, Maltesers and Jewels for gifting.",avoid:'',oos:'You are missing {sku} on my shelf. That is lost sales for both of us.',prep:'What is your in-store activation plan? I need POSM support.',eye:'Nestlé paid for eye level. If you want it, show me you checked the planogram.',gondola:'No gondola end, no deal. Every big brand has an end-cap in my store.',accept:'Good. I will release the PO and book your end-cap for the month.',walkout:'We are done for today. Send me something better by email.'},
+   lines_ar:{low:'دي طلبية سوبرماركت. كميات الهايبر بتبدأ من ٢٥ ألف جنيه.',high:'كتير أوي. المخزن هيرفض الشحنة. قلّلها.',disc:'كمية زي دي بتاخد ٥٪ من كل مورد شوكولاتة بتعامل معاه.',terms:'النظام عندنا ٣٠ يوم. الحسابات مش هتوافق على أقل من كده.',free:'',fast:'ابدأ بالأبطال: جالاكسي وسنيكرز وإم آند إمز ومالتيزرز وجولز للهدايا.',avoid:'',oos:'ناقصك {sku} على الرف عندي. ده بيع ضايع علينا إحنا الاتنين.',prep:'إيه خطة التفعيل في المحل؟ محتاج دعم مواد دعاية.',eye:'نستله دافعة عشان مستوى النظر. لو عايزه، وريني إنك راجعت البلانوجرام.',gondola:'من غير جندولة مفيش صفقة. كل البراندات الكبيرة ليها جندولة عندي.',accept:'كويس. هطلع أمر الشراء وأحجزلك الجندولة الشهر ده.',walkout:'خلصنا النهارده. ابعتلي عرض أحسن على الإيميل.'}}
  }
-};
-const LINES={
- koshk:{low:'That is a very small order, even for me. Add a bit more of what sells.',high:'Where would I put all of this? My kiosk is two meters wide. Cut the quantity.',disc:'The wholesaler down the street gives me something off. What about a small discount?',terms:'I pay cash, you give me a cash price. That is how kiosks work.',free:'Throw in a free carton on top and we finish faster.',fast:'Bring me what moves: Flutes, Snickers, small Galaxy, Twix. Kids buy those every hour.',avoid:'Gift boxes in a kiosk? Nobody buys Jewels from me. Take that off.',oos:'And you did not notice my {sku} is finished? Put it in the order.',prep:'Last month KitKat gave me a counter display. What are you doing for my visibility?',eye:'Look at my rack. The middle shelf is all competitors. Help me fix that.',gondola:'',accept:'Tamam, done. Send it with the van tomorrow morning.',walkout:'Khalas, I am busy. Come back another day.'},
- super:{low:'This barely refills one shelf. A supermarket our size needs a real order.',high:'That is more stock than I can sell before expiry. Scale it down.',disc:'Cadbury is giving me 3% this month. Match it and we can talk.',terms:'We work on 15 days with every supplier. Cash on delivery will not pass finance.',free:'',fast:'Focus on fast movers: Galaxy, Snickers, M&M\'s, Maltesers.',avoid:'',oos:'{sku} has been out for days. I saw the empty tag. Include it.',prep:'I need visibility support: a shelf strip, danglers, something at the checkout.',eye:'Nestlé sits at eye level and your brands are near the floor. Show me you noticed and I will move them.',gondola:'',accept:'Agreed. Send me the PO and I will sign it today.',walkout:'We are not aligned today. Let\'s try again next visit.'},
- hyper:{low:'This is a supermarket order. Hypermarket volume starts at twenty-five thousand pounds.',high:'Too much. My warehouse will reject the delivery. Bring it down.',disc:'Volume like this gets 5% from every chocolate supplier I work with.',terms:'Our standard is 30 days. Finance will not approve anything shorter.',free:'',fast:'Lead with your heroes: Galaxy, Snickers, M&M\'s, Maltesers and Jewels for gifting.',avoid:'',oos:'You are missing {sku} on my shelf. That is lost sales for both of us.',prep:'What is your in-store activation plan? I need POSM support.',eye:'Nestlé paid for eye level. If you want it, show me you checked the planogram.',gondola:'No gondola end, no deal. Every big brand has an end-cap in my store.',accept:'Good. I will release the PO and book your end-cap for the month.',walkout:'We are done for today. Send me something better by email.'}
 };
 const PRIORITY=['high','low','gondola','avoid','oos','disc','terms','eye','prep','fast','free'];
 
@@ -562,10 +635,17 @@ const LAYOUT={
   ]}
 };
 
+const SPOT_AR={
+ koshk:{side:['مساحة الرصيف','الكشك مفيهوش أرضية جوه. ستاند صغير على الرصيف بيلفت نظر المارة؛ الجندولة مش هتدخل.'],fridge:['باب التلاجة','الشوكولاتة الساقعة بتتباع في صيف مصر. استيكر على الباب بيقول للزبون إن جالاكسي جوه.'],counter:['سطح الكاونتر','أغلب بيع الكشك بيحصل عند الكاونتر. ستاند كاونتر بيخلي فلوتس وسنيكرز في متناول الإيد.']},
+ super:{entry:['أرضية المدخل','المدخل أول حاجة الزبون بيشوفها. ستاند أرضي هناك بيبدأ الرحلة ببراندك.'],header:['هيدر الرف (فاضي)','هيدر بالبراند بيحدد بلوك الشوكولاتة وبيسهّل الوصول لمنتجات مارس.'],ceil:['خطاف السقف','الدانجلر فوق الممر بيلفت النظر من بعيد ويشد الزبون لممر الشوكولاتة.'],end:['جندولة فاضية','رأس الجندولة عليه أعلى حركة في السوبرماركت. جندولة كاملة بتزود الشراء الاندفاعي.'],till:['الكاشير','الكاشير آخر فرصة للشراء الاندفاعي. ستاند كاونتر بالأصابع الفردي بيحوّل الطابور لمبيعات.']},
+ hyper:{entry:['منطقة العروض','منطقة العروض عند المدخل مساحة مؤجرة. ستاند أرضي ينفع؛ الجندولة الكاملة أكتر من اللازم هنا.'],header:['هيدر الرف (فاضي)','هيدر طويل بيعمل بلوك بصري لمنتجات مارس على طول الممر.'],end:['جندولة فاضية','في الهايبر رأس الجندولة هو الأساس. في منافس عنده ستاند جنبها، فمحتاج جندولة كاملة تنافس.'],ceil:['خطاف السقف','الدانجلر فوق ممرات الهايبر الواسعة بيبان من خطوط الكاشير.'],till:['خط الكاشير','كل خط كاشير فرصة شراء اندفاعي. ستاند كاونتر لكل خط هو الطلب المعتاد.']}
+};
+for(const t in SPOT_AR)for(const sp of LAYOUT[t].spots){const a=SPOT_AR[t][sp.id];if(a){sp.label_ar=a[0];sp.tip_ar=a[1];}}
+
 /* ---------- helpers ---------- */
 const $=s=>document.querySelector(s);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const egp=n=>'EGP '+Math.round(n).toLocaleString('en-US');
+const egp=n=>LANG==='ar'?Math.round(n).toLocaleString('en-US')+' ج.م':'EGP '+Math.round(n).toLocaleString('en-US');
 const pick=a=>a[Math.floor(Math.random()*a.length)];
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 const list=s=>String(s||'').split(',').map(x=>x.trim()).filter(x=>SK[x]);
@@ -573,9 +653,124 @@ function toast(t,kind=''){const d=document.createElement('div');d.className='toa
 function deepMerge(base,over){if(!over||typeof over!=='object')return JSON.parse(JSON.stringify(base));const o=Array.isArray(base)?[...base]:{...base};for(const k of Object.keys(over)){const b=base?base[k]:undefined,v=over[k];o[k]=(b&&typeof b==='object'&&!Array.isArray(b)&&v&&typeof v==='object')?deepMerge(b,v):v;}return o;}
 const heart=on=>`<svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.5-9.2C1 8.3 3.3 5 6.7 5c2 0 3.6 1.1 4.3 2.6h2C13.7 6.1 15.3 5 17.3 5 20.7 5 23 8.3 21.5 11.8 19.5 16.4 12 21 12 21z" fill="${on?'#ff5a6e':'rgba(255,255,255,.25)'}"/></svg>`;
 const star=on=>`<svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.8-4.9 4.5 1.3 6.5L12 17l-5.9 3.3 1.3-6.5L2.5 9.3l6.6-.8z" fill="${on?'#f2b705':'#d8daee'}"/></svg>`;
-const show=id=>{for(const s of ['scrLobby','scrMap','scrStore'])$('#'+s).hidden=s!==id;window.scrollTo(0,0);subTeams(id==='scrLobby');};
+const show=id=>{for(const s of ['scrLobby','scrMap','scrStore','scrAdmin'])$('#'+s).hidden=s!==id;window.scrollTo(0,0);subTeams(id==='scrLobby'||id==='scrAdmin');};
 let unsubTeams=null;
-function subTeams(on){if(!db)return;if(on&&!unsubTeams)unsubTeams=db.collection('teams').onSnapshot(s=>{TEAMS=s.docs.map(d=>({id:d.id,...d.data()}));renderLobby();if(!$('#overlay').hidden&&ADM.tab==='teams'&&$('#overlay').querySelector('[data-tab]'))renderAdmin();},e=>{$('#lbNote').textContent='Leaderboard could not load. Refresh the page.';});if(!on&&unsubTeams){unsubTeams();unsubTeams=null;}}
+function subTeams(on){if(!db)return;if(on&&!unsubTeams)unsubTeams=db.collection('teams').onSnapshot(s=>{TEAMS=s.docs.map(d=>({id:d.id,...d.data()}));renderLobby();if(!$('#overlay').hidden&&ADM.tab==='teams'&&$('#overlay').querySelector('[data-tab]'))renderAdmin();},e=>{NOTE_KEY='lbFail';$('#lbNote').textContent=tr('lbFail');});if(!on&&unsubTeams){unsubTeams();unsubTeams=null;}}
+
+/* ---------- language ---------- */
+let LANG='en';try{LANG=localStorage.getItem('msr-lang')||'en';}catch(e){}
+const I18N={
+en:{title:'Field Sales Run',day:'Day',lives:'Lives',wallet:'Wallet',pause:'Pause & save',facil:'Facilitator',langBtn:'عربي',
+ heroChip:'Sales training · Egypt',heroP:'Drive your route, walk the store, fix the shelf, then close the deal with the owner. Every store type plays by different rules. Lose three negotiations and your run is over.',
+ s1t:'1 · Drive',s1:'Pick a kiosk, a supermarket or a hypermarket. Fuel comes out of your wallet.',s2t:'2 · Store check',s2:'Find out-of-stock gaps, spot who owns eye level, and place the right POSM in the right spot.',s3t:'3 · Negotiate',s3:'Build the order, choose discount, free goods and payment terms inside company policy.',
+ leaderboard:'Leaderboard',scenario:'Scenario',team:'Team',deals:'Deals',noTeams:'No teams yet. Create the first one and it will appear here live.',out:'Out',
+ yourTeam:'Your team',yourTeamP:'Create a team or pick yours to continue where you stopped. Progress saves automatically.',teamPh:'Team name, e.g. Delta Riders',startRun:'Start new run',continueRun:'Continue a run',resume:'Resume',view:'View',onShelf:'On the shelf',teamColor:'Team colour',
+ offline:'Offline mode: the shared leaderboard is not available here, so progress is saved in this browser only.',viewOnly:'You have view access, so you can watch the leaderboard. Ask the facilitator for Contributor access to play.',lbFail:'Leaderboard could not load. Refresh the page.',
+ nameFirst:'Give your team a name first.',runStarted:'Run started for {name}. Good luck on the road.',createFail:'Could not create the team: {msg}',dbFull:'The game database is full. Ask the facilitator to remove old teams.',
+ teammate:'A teammate is playing as this team right now. Try again in about 30 seconds.',welcomeBack:'Welcome back, {name}.',saved:'Saved. Pick your team from the list to continue later.',saveDenied:'Saving is not allowed with your access level.',
+ eventPaused:'Event paused',pausedMsg:'The facilitator paused the game. Your progress is saved.',pausedChip:'Event paused by facilitator',
+ dayRoute:'Day {n} route',driveRoute:'Drive your route',todayTarget:'Today {x} of {y} target',camChase:'Camera: behind van',camTop:'Camera: top view',sndOn:'Engine sound: on',sndOff:'Engine sound: off',endDay:'End day',
+ kbdHint:'Drive with arrows or WASD. Stop in the gold ring and press E to step out. C switches camera.',gas:'Gas',brake:'Brake',steerL:'Steer left',steerR:'Steer right',
+ contact:'Contact',typical:'Typical order',status:'Status',dealClosed:'Deal closed',lost:'Lost',inTalks:'In talks',open:'Open',gpsSet:'GPS set',setGps:'Set GPS',gpsToast:'GPS: follow the gold arrow to {name}.',
+ doneToday:'deal closed today',lostToday:'lost today',slowDown:'Slow down to park at {name}',stepOut:'Step out at {name}',arrived:'arrived',onRoad:'ON ROAD',offRoad:'OFF ROAD · SLOW',
+ lblDone:'Deal closed today',lblLost:'Lost today',lblTalks:'In talks · park here',lblOpen:'Open · park in the bay',depot:'Mars depot',
+ bump:'Bump! Careful with the company van.',fuel:'Fuel for the trip: −{x}',
+ hl:'Highlight Mars range',talk:'Talk to owner',backCar:'Back to car',tapHint:'Tap anything to walk to it.',walkL:'Walk left',walkR:'Walk right',exit:'Exit',manager:'Manager',buyer:'Category buyer',compStand:'Competitor stand',eye:'Eye level',flagged:'Flagged OOS',empty:'Empty',
+ walkFirst:'Walk the store first. Tap shelves, empty tags and the dashed spots before you talk to {name}.',
+ aOos:'Out-of-stock check',aOosT:'Empty price tags mean lost sales. Tap them to flag.',aEye:'Eye-level share',aEyeSpot:'Competitor spotted',aEyeNo:'Not checked',aEyeT:'Who owns the shelf at eye level? Tap the packs there to check.',aPosm:'Visibility (POSM)',spots:'spots',aPosmT:'{n} placed perfectly. Each item costs money from your wallet.',
+ eyeLogged:'Logged: {co} owns eye level. Propose moving Galaxy and Snickers up in the meeting.',marsRange:'Mars range',competitor:'competitor',alreadyFlagged:'{x} is already flagged.',oosFlag:'Out of stock: {x}. It is now marked in your order sheet.',
+ placePosm:'Place POSM',cancel:'Cancel',posmP:'Pick the material that fits this spot. Wrong choices waste money and annoy the owner.',
+ posmBest:'Strong placement: {x}. {tip}',posmOk:'{x} works here, but {best} would work better.',posmBad:'The owner frowns. {tip}',
+ nego:'Negotiation',closeDeal:'Close the deal',stepOutTalks:'Step out (keep talks open)',stepOutShort:'Step out',patience:'Patience',interest:'Interest after last offer',noOffer:'no offer yet',
+ policy:'Company trade terms policy',pol1:'Discount: up to {d1}% under {t1}, up to {d2}% under {t2}, up to {d3}% above.',pol2:'Payment terms in this channel: {terms} only.',pol3:'Free goods (1 carton per 6) cannot stack with a discount above {x}%.',pol4:'Breaking policy costs one life. Each rejected offer costs patience.',
+ order:'Order (cartons)',ctn:'ctn',fastTag:'Fast mover',oosTag:'OOS',discount:'Discount',terms:'Payment terms',freeGoods:'Free goods',none:'None',freeOpt:'1 free carton per 6',
+ gross:'Gross order ({n} cartons)',discLine:'Discount {d}%',polMax:'(policy max {x}%)',freeLine:'Free goods ({n} ctn)',net:'Net order',comm:'Your commission ({x}%)',makeOffer:'Make the offer',
+ addCarton:'Add at least one carton to the order first.',offer:'Offer: {c} cartons, {g} gross, {d}% off, {t}{f}.',offerFree:', 1 free per 6',
+ amBlock:'Area manager: deal blocked. {x} You lose a life.',breachToast:'Policy breach. You lost a life.',
+ brDisc:'A {d}% discount is above the {m}% limit for a {g} order.',brTerms:'{t} payment terms are not allowed in this channel.',brFree:'Free goods cannot be combined with a discount above {x}%.',notGood:'Not good enough. Try again.',thatProduct:'that product',
+ prepGood:'I like the display you set up.',prepBad:'That display you put up is in the wrong place.',prepShelf:'I see you checked my shelf.',
+ cOos:'Found {f} of {n} out-of-stock gaps.',cOosMiss:'Found {f} of {n} out-of-stock gaps. Missed: {x}. Scan every shelf row before the meeting.',cEyeYes:'You spotted the competitor at eye level and used it in the pitch.',cEyeNo:'A competitor held eye level and you did not raise it.',
+ cUnused:'Unused spot: {s}. Best fit: {b}.',cBest:'{s}: {p} was the right call.',cOk:'{s}: {p} worked; {b} would be stronger.',cBad:'{s}: {p} was the wrong material. {tip}',cExpect:'{o} expected about {d}% discount and {t} terms on an order of {a} to {b}.',
+ dealClosedT:'Deal closed',walkedOut:'{o} walked out',lostLife:'You lost a life.',netVal:'Net order value',commission:'Commission',bonus:'Store-check bonus',walletNow:'Wallet now',coachNotes:'Coaching notes',backToCar:'Back to the car',
+ daySum:'Day {n} summary',smashed:'Target smashed',solid:'Solid day',some:'Some progress',tough:'Tough day',notVisited:'Not visited',dayResult:'Day result',stillOpen:'{n} store(s) still open. Ending the day now skips them.',lifeBack:'Target hit: you win back one life.',startDay:'Start day {n}',keepDriving:'Keep driving',newDayToast:'Day {n}. New stock levels, same owners. Check the shelves again.',
+ outLives:'Out of lives',endedOn:'Your run ended on day {d}. Final wallet {w} with {n} deals closed. Your score stays on the leaderboard.',closedPlus:'closed, +{x}',lostW:'lost',toLobby:'Back to the lobby',
+ storeDone:'This store is done for today.',
+ /* admin */
+ ctrlRoom:'Control room',backend:'Facilitator backend',backGame:'Back to game',tScen:'Scenarios',tEvent:'Event',tTeams:'Teams',needAccess:'Facilitator access needed',needAccessP:'Sign in as facilitator from the lobby to edit scenarios and manage teams.',
+ unsaved:'Unsaved changes',allSaved:'All changes saved',saveScen:'Save scenario',
+ gStatus:'Game status',running:'Running',pausedAll:'Paused for everyone',scenNew:'Scenario for new teams',evMsg:'Message on the lobby and pause screen',evMsgPh:'e.g. Round 2 starts at 3 pm',applyAll:'Apply to everyone',evTip:'Pausing freezes every player\'s screen and saves their progress. Teams already playing keep the scenario they started with.',evSaved:'Event updated for everyone.',saveFail:'Could not save. Check you are signed in as facilitator.',
+ nTeams:'{n} teams',csv:'Copy results (CSV)',restart:'Restart',remove:'Remove',restartQ:'Restart {x}?',removeQ:'Remove {x}?',restartP:'Progress goes back to day 1.',removeP:'The team disappears from the leaderboard.',noUndo:'This cannot be undone.',restartBtn:'Restart team',removeBtn:'Remove team',teamRestarted:'Team restarted.',teamRemoved:'Team removed.',notAllowed:'That change was not allowed.',csvDone:'Results copied. Paste into Excel or Google Sheets.',csvManual:'Select all and copy the text below.',noTeamsA:'No teams yet.',
+ live:'live',newB:'New',dup:'Duplicate',del:'Delete',delQ:'Delete "{x}"?',delP:'Teams that already use it keep playing with default values.',delBtn:'Delete scenario',liveNoDel:'The live scenario cannot be deleted',
+ basics:'Basics',gameRules:'Game rules',policyH:'Policy',discFree:'Discounts and free goods',items:'{n} items',marsProducts:'Mars products',brands:'{n} brands',competitors:'Competitors on the shelf',addProd:'Add product',addComp:'Add competitor',posmCosts:'Material costs',
+ identity:'Identity',ownerWants:'What the owner wants',fastWants:'Fast movers this owner wants',wrongProd:'Wrong products for this store',ownerSays:'What the owner says',emptyLineTip:'Leave a line empty and the owner will not use that complaint. Arabic lines are used when the game is in Arabic.',
+ saveFirst:'Save or discard the current changes first.',scenCreated:'Scenario created. Edit it below and save.',scenCreateFail:'Could not create the scenario.',scenDeleted:'Scenario deleted.',scenDelFail:'Could not delete the scenario.',minMax:'{x}: the minimum order must be below the maximum.',needProd:'Add at least one product.',scenSaved:'Scenario saved. Players see the change on their next action.',leaveWarn:'You have unsaved scenario changes. Press Back again to leave without saving.',keep3:'Keep at least 3 products',
+ yes:'Yes',no:'No',arabic:'Arabic',kiosk:'Kiosk',supermarket:'Supermarket',hypermarket:'Hypermarket'
+},
+ar:{title:'رحلة البيع الميداني',day:'اليوم',lives:'المحاولات',wallet:'المحفظة',pause:'إيقاف وحفظ',facil:'لوحة التحكم',langBtn:'English',
+ heroChip:'تدريب مبيعات · مصر',heroP:'قُد في مسارك، لف في المحل، ظبّط الرف، وبعدين اقفل الصفقة مع صاحب المحل. كل نوع محل ليه قواعده. لو خسرت ٣ مفاوضات جولتك بتخلص.',
+ s1t:'١ · القيادة',s1:'اختار كشك أو سوبرماركت أو هايبرماركت. البنزين بيتخصم من محفظتك.',s2t:'٢ · فحص المحل',s2:'دوّر على الأصناف الناقصة، شوف مين واخد مستوى النظر، وحط مواد الدعاية الصح في المكان الصح.',s3t:'٣ · التفاوض',s3:'كوّن الطلبية واختار الخصم والهدايا وشروط الدفع في حدود سياسة الشركة.',
+ leaderboard:'لوحة الصدارة',scenario:'السيناريو',team:'الفريق',deals:'الصفقات',noTeams:'لسه مفيش فرق. اعمل أول فريق وهيظهر هنا مباشرة.',out:'خرج',
+ yourTeam:'فريقك',yourTeamP:'اعمل فريق أو اختار فريقك عشان تكمل من مكان ما وقفت. التقدم بيتحفظ تلقائي.',teamPh:'اسم الفريق، مثلاً فرسان الدلتا',startRun:'ابدأ جولة جديدة',continueRun:'استكمل جولة',resume:'استكمال',view:'عرض',onShelf:'على الرف',teamColor:'لون الفريق',
+ offline:'وضع بدون اتصال: لوحة الصدارة المشتركة مش متاحة، فالتقدم بيتحفظ على المتصفح ده بس.',viewOnly:'عندك صلاحية مشاهدة بس، تقدر تتابع لوحة الصدارة. اطلب من المسؤول صلاحية المشاركة عشان تلعب.',lbFail:'لوحة الصدارة ما اتحملتش. حدّث الصفحة.',
+ nameFirst:'اكتب اسم الفريق الأول.',runStarted:'بدأت الجولة لفريق {name}. بالتوفيق في الطريق.',createFail:'مقدرناش نعمل الفريق: {msg}',dbFull:'قاعدة البيانات مليانة. اطلب من المسؤول يمسح فرق قديمة.',
+ teammate:'في زميل بيلعب بالفريق ده دلوقتي. جرّب تاني بعد ٣٠ ثانية تقريباً.',welcomeBack:'أهلاً بيك تاني يا {name}.',saved:'اتحفظ. اختار فريقك من القايمة عشان تكمل بعدين.',saveDenied:'الحفظ مش مسموح بصلاحيتك الحالية.',
+ eventPaused:'اللعبة متوقفة',pausedMsg:'المسؤول وقّف اللعبة. تقدمك محفوظ.',pausedChip:'المسؤول وقّف اللعبة',
+ dayRoute:'مسار اليوم {n}',driveRoute:'قُد في مسارك',todayTarget:'النهارده {x} من هدف {y}',camChase:'الكاميرا: ورا العربية',camTop:'الكاميرا: من فوق',sndOn:'صوت الموتور: شغال',sndOff:'صوت الموتور: مقفول',endDay:'إنهاء اليوم',
+ kbdHint:'سوق بالأسهم أو WASD. اقف جوه الدايرة الدهبي ودوس E عشان تنزل. C بتغير الكاميرا.',gas:'بنزين',brake:'فرامل',steerL:'شمال',steerR:'يمين',
+ contact:'المسؤول',typical:'الطلبية المعتادة',status:'الحالة',dealClosed:'تمت الصفقة',lost:'خسرت',inTalks:'في التفاوض',open:'مفتوح',gpsSet:'الملاحة مظبوطة',setGps:'اضبط الملاحة',gpsToast:'الملاحة: امشي ورا السهم الدهبي لـ {name}.',
+ doneToday:'تمت الصفقة النهارده',lostToday:'خسرت النهارده',slowDown:'هدّي السرعة عشان تركن عند {name}',stepOut:'انزل عند {name}',arrived:'وصلت',onRoad:'على الطريق',offRoad:'خارج الطريق · ببطء',
+ lblDone:'تمت الصفقة النهارده',lblLost:'خسرت النهارده',lblTalks:'في التفاوض · اركن هنا',lblOpen:'مفتوح · اركن في الباكية',depot:'مخزن مارس',
+ bump:'خبطة! خلي بالك من عربية الشركة.',fuel:'بنزين المشوار: −{x}',
+ hl:'أظهر منتجات مارس',talk:'كلّم صاحب المحل',backCar:'ارجع للعربية',tapHint:'دوس على أي حاجة عشان تمشي لها.',walkL:'امشي شمال',walkR:'امشي يمين',exit:'خروج',manager:'المدير',buyer:'مشتري الفئة',compStand:'ستاند منافس',eye:'مستوى النظر',flagged:'ناقص',empty:'فاضي',
+ walkFirst:'لف في المحل الأول. دوس على الرفوف والتيكتات الفاضية والأماكن المنقطة قبل ما تكلم {name}.',
+ aOos:'فحص النواقص',aOosT:'التيكت الفاضي يعني بيع ضايع. دوس عليه عشان تسجله.',aEye:'حصة مستوى النظر',aEyeSpot:'لقيت منافس',aEyeNo:'لسه متفحصش',aEyeT:'مين واخد الرف اللي في مستوى النظر؟ دوس على المنتجات هناك.',aPosm:'الظهور (مواد الدعاية)',spots:'أماكن',aPosmT:'{n} اتحطوا صح. كل قطعة بتتخصم من محفظتك.',
+ eyeLogged:'اتسجل: {co} واخدة مستوى النظر. اقترح في الاجتماع تطلّع جالاكسي وسنيكرز لفوق.',marsRange:'منتجات مارس',competitor:'منافس',alreadyFlagged:'{x} متسجل قبل كده.',oosFlag:'ناقص: {x}. اتعلم عليه في ورقة الطلبية.',
+ placePosm:'حط مادة دعاية',cancel:'إلغاء',posmP:'اختار المادة المناسبة للمكان ده. الاختيار الغلط بيضيع فلوس وبيضايق صاحب المحل.',
+ posmBest:'اختيار ممتاز: {x}. {tip}',posmOk:'{x} تنفع هنا، بس {best} هتبقى أحسن.',posmBad:'صاحب المحل مش مبسوط. {tip}',
+ nego:'التفاوض',closeDeal:'اقفل الصفقة',stepOutTalks:'اطلع (التفاوض يفضل مفتوح)',stepOutShort:'اطلع',patience:'الصبر',interest:'الاهتمام بعد آخر عرض',noOffer:'لسه مفيش عرض',
+ policy:'سياسة الشركة للشروط التجارية',pol1:'الخصم: لحد {d1}% تحت {t1}، ولحد {d2}% تحت {t2}، ولحد {d3}% فوق كده.',pol2:'شروط الدفع في القناة دي: {terms} بس.',pol3:'الهدايا (كرتونة لكل ٦) متتجمعش مع خصم أكتر من {x}%.',pol4:'مخالفة السياسة بتخسرك محاولة. وكل عرض مرفوض بيقلل الصبر.',
+ order:'الطلبية (كراتين)',ctn:'كرتونة',fastTag:'سريع البيع',oosTag:'ناقص',discount:'الخصم',terms:'شروط الدفع',freeGoods:'هدايا',none:'بدون',freeOpt:'كرتونة هدية لكل ٦',
+ gross:'إجمالي الطلبية ({n} كرتونة)',discLine:'خصم {d}%',polMax:'(أقصى حد {x}%)',freeLine:'هدايا ({n} كرتونة)',net:'صافي الطلبية',comm:'عمولتك ({x}%)',makeOffer:'قدّم العرض',
+ addCarton:'زوّد كرتونة واحدة على الأقل في الطلبية.',offer:'العرض: {c} كرتونة، إجمالي {g}، خصم {d}%، {t}{f}.',offerFree:'، كرتونة هدية لكل ٦',
+ amBlock:'مدير المنطقة: الصفقة اتوقفت. {x} خسرت محاولة.',breachToast:'مخالفة للسياسة. خسرت محاولة.',
+ brDisc:'خصم {d}% أعلى من حد {m}% لطلبية بقيمة {g}.',brTerms:'شروط دفع {t} مش مسموحة في القناة دي.',brFree:'الهدايا متتجمعش مع خصم أعلى من {x}%.',notGood:'مش كفاية. جرّب تاني.',thatProduct:'المنتج ده',
+ prepGood:'عجبني الديسبلاي اللي عملته.',prepBad:'الديسبلاي اللي حطيته في مكان غلط.',prepShelf:'شايف إنك راجعت الرف بتاعي.',
+ cOos:'لقيت {f} من {n} نواقص.',cOosMiss:'لقيت {f} من {n} نواقص. فاتك: {x}. افحص كل رف قبل الاجتماع.',cEyeYes:'لاحظت المنافس في مستوى النظر واستخدمتها في العرض.',cEyeNo:'منافس كان واخد مستوى النظر ومتكلمتش عن ده.',
+ cUnused:'مكان مش مستغل: {s}. الأنسب: {b}.',cBest:'{s}: {p} كان اختيار صح.',cOk:'{s}: {p} نفع؛ بس {b} كان هيبقى أقوى.',cBad:'{s}: {p} مادة غلط. {tip}',cExpect:'{o} كان متوقع خصم حوالي {d}% وشروط دفع {t} لطلبية من {a} لـ {b}.',
+ dealClosedT:'تمت الصفقة',walkedOut:'{o} مشي',lostLife:'خسرت محاولة.',netVal:'صافي قيمة الطلبية',commission:'العمولة',bonus:'مكافأة فحص المحل',walletNow:'المحفظة دلوقتي',coachNotes:'ملاحظات التدريب',backToCar:'ارجع للعربية',
+ daySum:'ملخص اليوم {n}',smashed:'كسرت التارجت',solid:'يوم كويس',some:'شوية تقدم',tough:'يوم صعب',notVisited:'متزارش',dayResult:'نتيجة اليوم',stillOpen:'لسه في {n} محل مفتوح. لو قفلت اليوم دلوقتي هيفوتوك.',lifeBack:'حققت التارجت: رجعتلك محاولة.',startDay:'ابدأ اليوم {n}',keepDriving:'كمّل سواقة',newDayToast:'اليوم {n}. مخزون جديد ونفس أصحاب المحلات. افحص الرفوف تاني.',
+ outLives:'خلصت المحاولات',endedOn:'جولتك خلصت في اليوم {d}. المحفظة النهائية {w} و{n} صفقات. نتيجتك باقية في لوحة الصدارة.',closedPlus:'تمت، +{x}',lostW:'خسرت',toLobby:'ارجع للرئيسية',
+ storeDone:'المحل ده خلص النهارده.',
+ ctrlRoom:'غرفة التحكم',backend:'لوحة تحكم المسؤول',backGame:'ارجع للعبة',tScen:'السيناريوهات',tEvent:'الفعالية',tTeams:'الفرق',needAccess:'محتاج صلاحية المسؤول',needAccessP:'سجّل دخول كمسؤول من الصفحة الرئيسية عشان تعدّل السيناريوهات وتدير الفرق.',
+ unsaved:'في تعديلات مش محفوظة',allSaved:'كل التعديلات محفوظة',saveScen:'احفظ السيناريو',
+ gStatus:'حالة اللعبة',running:'شغالة',pausedAll:'متوقفة للكل',scenNew:'سيناريو الفرق الجديدة',evMsg:'رسالة في الرئيسية وشاشة الإيقاف',evMsgPh:'مثلاً الجولة التانية الساعة ٣',applyAll:'طبّق على الكل',evTip:'الإيقاف بيجمّد شاشة كل اللاعبين وبيحفظ تقدمهم. الفرق اللي بدأت بتفضل على السيناريو بتاعها.',evSaved:'الفعالية اتحدثت للكل.',saveFail:'مقدرناش نحفظ. اتأكد إنك داخل كمسؤول.',
+ nTeams:'{n} فريق',csv:'انسخ النتايج (CSV)',restart:'إعادة',remove:'حذف',restartQ:'إعادة {x}؟',removeQ:'حذف {x}؟',restartP:'التقدم هيرجع لليوم ١.',removeP:'الفريق هيختفي من لوحة الصدارة.',noUndo:'مينفعش ترجع في ده.',restartBtn:'أعد الفريق',removeBtn:'احذف الفريق',teamRestarted:'الفريق اتعاد.',teamRemoved:'الفريق اتحذف.',notAllowed:'التعديل ده مش مسموح.',csvDone:'النتايج اتنسخت. الصقها في Excel أو Google Sheets.',csvManual:'حدد الكل وانسخ النص اللي تحت.',noTeamsA:'لسه مفيش فرق.',
+ live:'شغال',newB:'جديد',dup:'نسخة',del:'حذف',delQ:'حذف "{x}"؟',delP:'الفرق اللي شغالة بيه هتكمل بالقيم الافتراضية.',delBtn:'احذف السيناريو',liveNoDel:'مينفعش تحذف السيناريو الشغال',
+ basics:'الأساسيات',gameRules:'قواعد اللعبة',policyH:'السياسة',discFree:'الخصومات والهدايا',items:'{n} منتج',marsProducts:'منتجات مارس',brands:'{n} براند',competitors:'المنافسين على الرف',addProd:'أضف منتج',addComp:'أضف منافس',posmCosts:'تكلفة مواد الدعاية',
+ identity:'البيانات',ownerWants:'صاحب المحل عايز إيه',fastWants:'الأصناف السريعة اللي عايزها',wrongProd:'منتجات غلط للمحل ده',ownerSays:'صاحب المحل بيقول إيه',emptyLineTip:'لو سبت جملة فاضية صاحب المحل مش هيقولها. الجمل العربي بتظهر لما اللعبة تبقى بالعربي.',
+ saveFirst:'احفظ أو الغي التعديلات الحالية الأول.',scenCreated:'السيناريو اتعمل. عدّله تحت واحفظ.',scenCreateFail:'مقدرناش نعمل السيناريو.',scenDeleted:'السيناريو اتحذف.',scenDelFail:'مقدرناش نحذف السيناريو.',minMax:'{x}: أقل طلبية لازم تبقى أصغر من أكبر طلبية.',needProd:'أضف منتج واحد على الأقل.',scenSaved:'السيناريو اتحفظ. اللاعبين هيشوفوا التغيير مع أول حركة.',leaveWarn:'في تعديلات مش محفوظة. دوس رجوع تاني عشان تخرج من غير حفظ.',keep3:'لازم يفضل ٣ منتجات على الأقل',
+ yes:'أيوه',no:'لأ',arabic:'عربي',kiosk:'كشك',supermarket:'سوبرماركت',hypermarket:'هايبرماركت'
+}};
+function tr(k,v){let s=(I18N[LANG]&&I18N[LANG][k])??I18N.en[k]??k;if(v)for(const x in v)s=s.split('{'+x+'}').join(v[x]);return s;}
+function L(o,k){if(!o)return '';return (LANG==='ar'&&o[k+'_ar'])?o[k+'_ar']:o[k];}
+const termName=i=>LANG==='ar'?['كاش','١٥ يوم','٣٠ يوم'][i]:TERMS[i];
+const stName=t=>L(ST(t),'name'),stOwner=t=>L(ST(t),'owner'),stRole=t=>L(ST(t),'role'),stKind=t=>L(ST(t),'kind');
+function ownerLine(t,k){const st=ST(t);if(k==='open')return L(st,'open');const ar=LANG==='ar'&&st.lines_ar&&st.lines_ar[k];return ar||(st.lines||{})[k]||'';}
+const pName=p=>L(p,'name'),pShort=p=>L(p,'short')||p.short,pPack=p=>L(p,'pack');
+const spLabel=sp=>L(sp,'label'),spTip=sp=>L(sp,'tip'),posmName=k=>L(POSM[k],'name'),posmDesc=k=>L(POSM[k],'desc');
+function applyLang(){
+  const r=document.documentElement;r.lang=LANG;r.dir=LANG==='ar'?'rtl':'ltr';
+  document.querySelectorAll('[data-i18n]').forEach(e=>e.textContent=tr(e.dataset.i18n));
+  document.querySelectorAll('[data-i18n-ph]').forEach(e=>e.placeholder=tr(e.dataset.i18nPh));
+  document.querySelectorAll('[data-i18n-al]').forEach(e=>e.setAttribute('aria-label',tr(e.dataset.i18nAl)));
+}
+function setLang(l){
+  LANG=l;try{localStorage.setItem('msr-lang',l);}catch(e){}applyLang();
+  renderHud();renderLobby();
+  if(!$('#scrMap').hidden&&G){$('#mapDayLabel').textContent=tr('dayRoute',{n:G.day});const de=G.money-G.dayStart;$('#targetChip').textContent=tr('todayTarget',{x:(de>=0?'+':'')+egp(de),y:egp(S().dayTarget)});renderStoreCards();if(R3)updateWorld3D();lastPrompt='';$('#camBtn').textContent=tr(R3&&R3.camMode==='top'?'camTop':'camChase');$('#sndBtn').textContent=tr(soundOn?'sndOn':'sndOff');}
+  if(!$('#scrStore').hidden&&CUR){const keep=px;enterStore(CUR,true);px=keep;place();if(!$('#overlay').hidden&&G.visits[CUR].nego&&$('#offerBtn'))renderNegoKeep();}
+  if(!$('#scrAdmin').hidden)renderAdmin();
+}
 
 /* ---------- global state ---------- */
 const TAB=Math.random().toString(36).slice(2);
@@ -583,10 +778,13 @@ let db=null,user=null,me=null,isAdmin=false,canWrite=true;
 let SCEN={}, EVENT={status:'running',message:'',activeScenario:'cairo-standard'}, TEAMS=[];
 let G=null;            // current team game state
 let TEAM=null;         // {id,name,color,scenarioId}
+let NOTE_KEY='';
 let leaseTimer=null, saveTimer=null, saving=false, saveQueued=false;
 let SWATCH='#0000A0';
 const SWATCHES=['#0000A0','#cf2e2e','#178a4c','#d97b00','#7a2bb5','#0b8fa6','#3d2516'];
-const S=()=>deepMerge(DEFAULT_SCENARIO,SCEN[(TEAM&&TEAM.scenarioId)||EVENT.activeScenario]||{});
+function buildScenario(src){const m=deepMerge(DEFAULT_SCENARIO,src||{});if(src&&src.prices&&!src.products)m.products=m.products.map(p=>({...p,price:src.prices[p.id]??p.price}));if(!Array.isArray(m.products)||!m.products.length)m.products=JSON.parse(JSON.stringify(DEF_PRODUCTS));if(!Array.isArray(m.competitors))m.competitors=JSON.parse(JSON.stringify(DEF_COMP));return m;}
+let _sc={src:undefined,m:null};
+const S=()=>{const id=(TEAM&&TEAM.scenarioId)||EVENT.activeScenario;const src=SCEN[id]||null;if(_sc.m&&_sc.src===src)return _sc.m;const m=buildScenario(src);SKUS=m.products;COMP=m.competitors;indexCatalog();_sc={src,m};return m;};
 const ST=t=>S().stores[t];
 
 /* ---------- persistence ---------- */
@@ -595,11 +793,11 @@ async function initBackend(){
   try{user=await claude.use('user');}catch(e){user=null;}
   if(user){try{me=await user.id();isAdmin=await user.canEdit();const cw=await user.can('data.write');if(cw===false)canWrite=false;}catch(e){}}
   $('#adminBtn').hidden=!isAdmin;
-  if(!db){$('#lbNote').textContent='Offline mode: the shared leaderboard is not available here, so progress is saved in this browser only.';loadLocalTeams();renderLobby();return;}
+  if(!db){NOTE_KEY='offline';$('#lbNote').textContent=tr('offline');loadLocalTeams();renderLobby();return;}
   db.collection('scenarios').onSnapshot(s=>{SCEN={};s.docs.forEach(d=>SCEN[d.id]=d.data());renderLobby();if(G)renderHud();},()=>{});
   db.doc('config/event').onSnapshot(s=>{if(s.exists)EVENT={...EVENT,...s.data()};renderLobby();applyPause();},()=>{});
   subTeams(!$('#scrLobby').hidden);
-  if(!canWrite){$('#createTeam').disabled=true;$('#lbNote').textContent='You have view access, so you can watch the leaderboard. Ask the facilitator for Contributor access to play.';}
+  if(!canWrite){$('#createTeam').disabled=true;NOTE_KEY='viewOnly';$('#lbNote').textContent=tr('viewOnly');}
 }
 function loadLocalTeams(){try{TEAMS=JSON.parse(localStorage.getItem('msr-teams')||'[]');}catch(e){TEAMS=[];}}
 function saveLocalTeams(){try{localStorage.setItem('msr-teams',JSON.stringify(TEAMS));}catch(e){}}
@@ -613,7 +811,7 @@ async function doSave(){
   try{
     if(db){await db.doc('teams/'+TEAM.id).update(body);}
     else{const t=TEAMS.find(x=>x.id===TEAM.id);if(t)Object.assign(t,body);saveLocalTeams();}
-  }catch(e){if(e&&e.code==='invalid_argument'){toast('Saving is not allowed with your access level.','bad');}else if(e&&e.code==='quota_exceeded'){toast('The game database is full. Ask the facilitator to remove old teams.','bad');}}
+  }catch(e){if(e&&e.code==='invalid_argument'){toast(tr('saveDenied'),'bad');}else if(e&&e.code==='quota_exceeded'){toast(tr('dbFull'),'bad');}}
   saving=false;if(saveQueued){saveQueued=false;doSave();}
 }
 async function takeLease(id){
@@ -624,20 +822,21 @@ function keepLease(){clearInterval(leaseTimer);if(!db||!TEAM)return;leaseTimer=s
 
 /* ---------- lobby ---------- */
 function renderLobby(){
-  const sc=S();
-  $('#lbScenario').textContent='Scenario: '+(SCEN[EVENT.activeScenario]?.name||DEFAULT_SCENARIO.name);
-  $('#eventChip').textContent=EVENT.status==='paused'?'Event paused by facilitator':(EVENT.message||'Sales training · Egypt');
-  $('#swatches').innerHTML=SWATCHES.map(c=>`<button style="background:${c}" aria-label="Team color" aria-pressed="${c===SWATCH}" data-c="${c}"></button>`).join('');
+  S();
+  $('#lbNote').textContent=NOTE_KEY?tr(NOTE_KEY):'';
+  $('#lbScenario').textContent=tr('scenario')+': '+(SCEN[EVENT.activeScenario]?.name||DEFAULT_SCENARIO.name);
+  $('#eventChip').textContent=EVENT.status==='paused'?tr('pausedChip'):(EVENT.message||tr('heroChip'));
+  $('#swatches').innerHTML=SWATCHES.map(c=>`<button style="background:${c}" aria-label="${tr('teamColor')}" aria-pressed="${c===SWATCH}" data-c="${c}"></button>`).join('');
   const sorted=[...TEAMS].sort((a,b)=>(b.money||0)-(a.money||0)||(b.deals||0)-(a.deals||0));
-  $('#lbTable').innerHTML=`<thead><tr><th></th><th>Team</th><th class="r">Day</th><th class="r">Deals</th><th class="r">Lives</th><th class="r">Wallet</th></tr></thead><tbody>`+
-   (sorted.length?sorted.map((t,i)=>`<tr class="${TEAM&&TEAM.id===t.id?'me':''}"><td class="rank">${i+1}</td><td><span style="display:flex;align-items:center;gap:8px;min-width:0"><span class="dot" style="background:${esc(t.color||'#0000A0')}"></span><b style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(t.name)}</b>${t.status==='over'?'<span class="chip bad">Out</span>':''}</span></td><td class="r num">${t.day||1}</td><td class="r num">${t.deals||0}</td><td class="r num">${t.lives??'-'}</td><td class="r num"><b>${egp(t.money||0)}</b></td></tr>`).join(''):`<tr><td colspan="6" class="muted" style="padding:16px 6px">No teams yet. Create the first one and it will appear here live.</td></tr>`)+'</tbody>';
-  $('#teamList').innerHTML=sorted.length?`<div class="label">Continue a run</div>`+sorted.map(t=>`<div class="teamrow"><span class="dot" style="background:${esc(t.color||'#0000A0')}"></span><span class="nm">${esc(t.name)}</span><span class="muted num" style="font-size:13px;margin-left:auto;white-space:nowrap">Day ${t.day||1} · ${egp(t.money||0)}</span><button class="btn sm ${t.status==='over'?'ghost':''}" data-team="${esc(t.id)}" ${canWrite?'':'disabled'}>${t.status==='over'?'View':'Resume'}</button></div>`).join(''):'';
-  $('#legend').innerHTML=SKUS.map(s=>`<span class="pk" style="background:${s.bg};color:${s.fg}">${esc(s.short)}</span>`).join('')+COMP.map(c=>`<span class="pk" style="background:#eef0f7;color:var(--muted)">${esc(c.short)}</span>`).join('');
+  $('#lbTable').innerHTML=`<thead><tr><th></th><th>${tr('team')}</th><th class="r">${tr('day')}</th><th class="r">${tr('deals')}</th><th class="r">${tr('lives')}</th><th class="r">${tr('wallet')}</th></tr></thead><tbody>`+
+   (sorted.length?sorted.map((t,i)=>`<tr class="${TEAM&&TEAM.id===t.id?'me':''}"><td class="rank">${i+1}</td><td><span style="display:flex;align-items:center;gap:8px;min-width:0"><span class="dot" style="background:${esc(t.color||'#0000A0')}"></span><b style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(t.name)}</b>${t.status==='over'?`<span class="chip bad">${tr('out')}</span>`:''}</span></td><td class="r num">${t.day||1}</td><td class="r num">${t.deals||0}</td><td class="r num">${t.lives??'-'}</td><td class="r num"><b>${egp(t.money||0)}</b></td></tr>`).join(''):`<tr><td colspan="6" class="muted" style="padding:16px 6px">${tr('noTeams')}</td></tr>`)+'</tbody>';
+  $('#teamList').innerHTML=sorted.length?`<div class="label">${tr('continueRun')}</div>`+sorted.map(t=>`<div class="teamrow"><span class="dot" style="background:${esc(t.color||'#0000A0')}"></span><span class="nm">${esc(t.name)}</span><span class="muted num" style="font-size:13px;margin-inline-start:auto;white-space:nowrap">${tr('day')} ${t.day||1} · ${egp(t.money||0)}</span><button class="btn sm ${t.status==='over'?'ghost':''}" data-team="${esc(t.id)}" ${canWrite?'':'disabled'}>${tr(t.status==='over'?'view':'resume')}</button></div>`).join(''):'';
+  $('#legend').innerHTML=SKUS.map(s=>`<span class="pk" style="background:${esc(s.bg)};color:${esc(s.fg)}">${esc(pShort(s))}</span>`).join('')+COMP.map(c=>`<span class="pk" style="background:#eef0f7;color:var(--muted)">${esc(c.short)}</span>`).join('');
 }
 $('#swatches').addEventListener('click',e=>{const b=e.target.closest('[data-c]');if(b){SWATCH=b.dataset.c;renderLobby();}});
 $('#createTeam').addEventListener('click',async()=>{
   const name=$('#teamName').value.trim();
-  if(!name){toast('Give your team a name first.','warn');$('#teamName').focus();return;}
+  if(!name){toast(tr('nameFirst'),'warn');$('#teamName').focus();return;}
   const id=name.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,24)+'-'+Math.random().toString(36).slice(2,6);
   const scenarioId=EVENT.activeScenario||'cairo-standard';
   TEAM={id,name,color:SWATCH,scenarioId};
@@ -647,19 +846,19 @@ $('#createTeam').addEventListener('click',async()=>{
   try{
     if(db){await db.doc('teams/'+id).set(body);await takeLease(id);}
     else{TEAMS.push({id,...body});saveLocalTeams();}
-  }catch(e){$('#createTeam').disabled=false;toast(e&&e.code==='quota_exceeded'?'The game database is full. Ask the facilitator to remove old teams.':'Could not create the team: '+String((e&&e.message)||'unknown error').slice(0,90),'bad');TEAM=null;G=null;return;}
+  }catch(e){$('#createTeam').disabled=false;toast(e&&e.code==='quota_exceeded'?tr('dbFull'):tr('createFail',{msg:String((e&&e.message)||'error').slice(0,90)}),'bad');TEAM=null;G=null;return;}
   $('#createTeam').disabled=false;$('#teamName').value='';
-  keepLease();enterMap();toast('Run started for '+name+'. Good luck on the road.','good');
+  keepLease();enterMap();toast(tr('runStarted',{name}),'good');
 });
 $('#teamList').addEventListener('click',async e=>{
   const b=e.target.closest('[data-team]');if(!b)return;
   const t=TEAMS.find(x=>x.id===b.dataset.team);if(!t)return;
-  if(t.status!=='over'){const ok=await takeLease(t.id);if(!ok){toast('A teammate is playing as this team right now. Try again in about 30 seconds.','warn');return;}}
+  if(t.status!=='over'){const ok=await takeLease(t.id);if(!ok){toast(tr('teammate'),'warn');return;}}
   TEAM={id:t.id,name:t.name,color:t.color,scenarioId:t.scenarioId||EVENT.activeScenario};
   G=t.state?JSON.parse(JSON.stringify(t.state)):newGame();
   keepLease();
   if(G.over){gameOver(true);return;}
-  enterMap();toast('Welcome back, '+t.name+'.');
+  enterMap();toast(tr('welcomeBack',{name:t.name}));
 });
 
 /* ---------- game state ---------- */
@@ -667,32 +866,36 @@ function newGame(){const s=S();return{day:1,lives:s.lives,money:s.startMoney,car
 function newVisits(){const v={};for(const t of TYPES)v[t]=newVisit(t);return v;}
 function newVisit(t){
   const st=ST(t),fast=list(st.fast);
-  const pool=fast.length>=2?fast:['galaxy','snickers','twix'];
-  const oos=[];while(oos.length<2){const p=pick(pool);if(!oos.includes(p))oos.push(p);}
+  const pool=fast.length>=2?fast:SKUS.slice(0,3).map(s=>s.id);
+  const need=Math.min(2,pool.length),oos=[];
+  while(oos.length<need){const p=pick(pool);if(!oos.includes(p))oos.push(p);}
   const v={status:'open',oos,oosFound:[],eyeIssue:Math.random()<st.eyeChance,eyeFound:false,spots:{},nego:null,shelf:null,earned:0,coach:null};
   v.shelf=genShelf(t,v);return v;
 }
 function genShelf(t,v){
-  const st=ST(t),cols=LAYOUT[t].shelf.cols,rows=4;
-  const marsPool=SKUS.map(s=>s.id).filter(id=>!v.oos.includes(id)&&!(t==='koshk'&&id==='jewels'));
-  const compPool=COMP.map(c=>c.id);
+  const st=ST(t),cols=LAYOUT[t].shelf.cols,rows=4,avoid=list(st.avoid);
+  let marsPool=SKUS.map(s=>s.id).filter(id=>!v.oos.includes(id)&&!avoid.includes(id));
+  if(!marsPool.length)marsPool=SKUS.map(s=>s.id).filter(id=>!v.oos.includes(id));
+  if(!marsPool.length)marsPool=SKUS.map(s=>s.id);
+  const compPool=COMP.length?COMP.map(c=>c.id):marsPool;
+  const fastIn=list(st.fast).filter(x=>marsPool.includes(x));
   const g=[];
   for(let r=0;r<rows;r++){
     const row=[];
     while(row.length<cols){
       let id;
-      if(r===1&&v.eyeIssue)id=pick(['kitkat','cdm','bueno','milka','kitkat','cdm','lion']);
-      else if(r===1)id=pick(['galaxy','snickers','galaxy','mms','twix'].filter(x=>marsPool.includes(x)));
+      if(r===1&&v.eyeIssue)id=pick(compPool.slice(0,Math.min(4,compPool.length)));
+      else if(r===1)id=pick(fastIn.length?fastIn:marsPool);
       else id=Math.random()<st.marsShare?pick(marsPool):pick(compPool);
       const n=2+(Math.random()<.4?1:0);
       for(let i=0;i<n&&row.length<cols;i++)row.push(id);
     }
     g.push(row);
   }
-  const rowsOK=v.eyeIssue?[0,2,3]:[0,2,3],used=new Set();
+  const used=new Set();
   for(const sku of v.oos){
     let r,c,guard=0;
-    do{r=pick(rowsOK);c=2*Math.floor(Math.random()*(cols/2));guard++;}while(used.has(r+'-'+c)&&guard<50);
+    do{r=pick([0,2,3]);c=2*Math.floor(Math.random()*(cols/2));guard++;}while(used.has(r+'-'+c)&&guard<50);
     used.add(r+'-'+c);g[r][c]='gap:'+sku;g[r][c+1]='gap2';
   }
   return g;
@@ -702,19 +905,18 @@ function genShelf(t,v){
 function renderHud(){
   const inGame=!!G;
   for(const id of ['hudDay','hudLives','hudMoney','pauseBtn','hudTeam'])$('#'+id).hidden=!inGame;
-  if(!inGame){$('#hudTitle').textContent='Field Sales Run';return;}
-  $('#hudTitle').textContent='Field Sales Run';
+  if(!inGame)return;
   $('#hudTeam').innerHTML=`<span class="dot" style="background:#fff;box-shadow:0 0 0 3px ${esc(TEAM.color)} inset"></span>${esc(TEAM.name)}`;
   $('#dayN').textContent=G.day;
   $('#hearts').innerHTML=Array.from({length:S().lives},(_,i)=>heart(i<G.lives)).join('');
   $('#money').textContent=egp(G.money);
 }
-$('#pauseBtn').addEventListener('click',()=>{if(CAR&&!$('#scrMap').hidden)G.car={x:CAR.x,y:CAR.y,a:CAR.a};save(true);stopLoop();stopDrive();closeOv();clearInterval(leaseTimer);G=null;TEAM=null;renderHud();renderLobby();show('scrLobby');toast('Saved. Pick your team from the list to continue later.','good');});
+$('#pauseBtn').addEventListener('click',()=>{if(CAR&&!$('#scrMap').hidden)G.car={x:CAR.x,y:CAR.y,a:CAR.a};save(true);stopLoop();stopDrive();closeOv();clearInterval(leaseTimer);G=null;TEAM=null;renderHud();renderLobby();show('scrLobby');toast(tr('saved'),'good');});
 function applyPause(){
   const paused=EVENT.status==='paused'&&!isAdmin&&!!G;
   $('#pauseWall').hidden=!paused;
-  if(EVENT.message)$('#pauseMsg').textContent=EVENT.message;
-  if(paused){save(true);keys.l=keys.r=false;}
+  $('#pauseMsg').textContent=EVENT.message||tr('pausedMsg');
+  if(paused){save(true);keys.l=keys.r=false;for(const k in DK)DK[k]=false;}
 }
 
 /* ---------- 3D renderer (three.js) ---------- */
@@ -832,11 +1034,11 @@ function buildScene3D(){
 function updateWorld3D(){
   if(!R3)return;
   const cols={depot:['#0000A0','#fff'],koshk:['#1f7a46','#fff'],super:['#c62828','#fff'],hyper:['#ef6c00','#fff']};
-  for(const t of ['depot',...TYPES]){const s=R3.stores[t],name=t==='depot'?'Mars depot':ST(t).name;
+  for(const t of ['depot',...TYPES]){const s=R3.stores[t],name=t==='depot'?tr('depot'):stName(t);
     if(s.name!==name){s.name=name;const old=s.sign.material.map;s.sign.material.map=t==='depot'?logoPanelTex():signTex(name,cols[t][0],cols[t][1]);s.sign.material.needsUpdate=true;old&&old.dispose();}
     if(t==='depot')continue;
     const v=G.visits[t];R3.rings[t].visible=v.status==='open';
-    drawLabel(R3.labels[t],ST(t).name,v.status==='won'?'Deal closed today':v.status==='failed'?'Lost today':(v.nego?'In talks · park here':'Open · park in the bay'),v.status==='won'?'#7fe0a6':v.status==='failed'?'#ff8a8a':'#f2b705');
+    drawLabel(R3.labels[t],stName(t),tr(v.status==='won'?'lblDone':v.status==='failed'?'lblLost':(v.nego?'lblTalks':'lblOpen')),v.status==='won'?'#7fe0a6':v.status==='failed'?'#ff8a8a':'#f2b705');
   }
 }
 function buildVan(){
@@ -912,7 +1114,7 @@ function toggleSound(){
       o.type='sawtooth';o2.type='square';f.type='lowpass';f.frequency.value=380;g.gain.value=0;o.connect(f);o2.connect(f);f.connect(g);g.connect(ac.destination);o.start();o2.start();AUD={ac,o,o2,g};}
     soundOn=!soundOn;AUD.ac.resume();AUD.g.gain.setTargetAtTime(soundOn?.045:0,AUD.ac.currentTime,.08);
   }catch(e){soundOn=false;}
-  $('#sndBtn').textContent=soundOn?'Engine sound: on':'Engine sound: off';$('#sndBtn').setAttribute('aria-pressed',soundOn);
+  $('#sndBtn').textContent=tr(soundOn?'sndOn':'sndOff');$('#sndBtn').setAttribute('aria-pressed',soundOn);
 }
 function engineSound(){if(!AUD||!soundOn)return;const t=AUD.ac.currentTime,f=36+Math.abs(CAR.v)*.42+(DK.up?10:0);AUD.o.frequency.setTargetAtTime(f,t,.06);AUD.o2.frequency.setTargetAtTime(f*.5,t,.06);}
 
@@ -965,26 +1167,29 @@ function enterMap(){
   CAR={x:G.car.x,y:G.car.y,a:G.car.a,v:0,brake:false,steer:0};if(R3){R3.camInit=false;updateWorld3D();}
   stepOut=null;
   if(!gpsTarget||G.visits[gpsTarget]?.status!=='open')gpsTarget=TYPES.find(t=>G.visits[t].status==='open')||null;
-  $('#mapDayLabel').textContent='Day '+G.day+' route';
+  $('#mapDayLabel').textContent=tr('dayRoute',{n:G.day});
   const dayEarn=G.money-G.dayStart;
-  $('#targetChip').textContent=`Today ${dayEarn>=0?'+':''}${egp(dayEarn)} of ${egp(s.dayTarget)} target`;
+  $('#targetChip').textContent=tr('todayTarget',{x:(dayEarn>=0?'+':'')+egp(dayEarn),y:egp(s.dayTarget)});
+  $('#camBtn').textContent=tr(R3&&R3.camMode==='top'?'camTop':'camChase');$('#camBtn').hidden=!R3;
   renderStoreCards();sizeCanvas();startDrive();
+  if($('#drive').parentElement.clientWidth<760)requestAnimationFrame(()=>window.scrollTo(0,$('.drivebox').getBoundingClientRect().top+window.scrollY-($('#hud').offsetHeight||50)-8));
 }
 function renderStoreCards(){
   $('#storeCards').innerHTML=TYPES.map(t=>{const st=ST(t),v=G.visits[t];
-    const status=v.status==='won'?'<span class="chip good">Deal closed</span>':v.status==='failed'?'<span class="chip bad">Lost</span>':v.nego?'<span class="chip warn">In talks</span>':'<span class="chip">Open</span>';
-    return `<div class="card storecard"><div class="label">${esc(st.kind)}</div><h3>${esc(st.name)}</h3>
-     <div class="row"><span class="muted">Contact</span><b>${esc(st.owner)}</b></div>
-     <div class="row"><span class="muted">Typical order</span><b class="num">${egp(st.min)} – ${egp(st.max)}</b></div>
-     <div class="row"><span class="muted">Status</span>${status}</div>
-     <button class="btn ${gpsTarget===t?'gold':'ghost'}" data-gps="${t}" ${v.status!=='open'?'disabled':''}>${gpsTarget===t?'GPS set':'Set GPS'}</button></div>`;}).join('');
+    const status=v.status==='won'?`<span class="chip good">${tr('dealClosed')}</span>`:v.status==='failed'?`<span class="chip bad">${tr('lost')}</span>`:v.nego?`<span class="chip warn">${tr('inTalks')}</span>`:`<span class="chip">${tr('open')}</span>`;
+    return `<div class="card storecard"><div class="label">${esc(stKind(t))}</div><h3>${esc(stName(t))}</h3>
+     <div class="row"><span class="muted">${tr('contact')}</span><b>${esc(stOwner(t))}</b></div>
+     <div class="row"><span class="muted">${tr('typical')}</span><b class="num">${egp(st.min)} – ${egp(st.max)}</b></div>
+     <div class="row"><span class="muted">${tr('status')}</span>${status}</div>
+     <button class="btn ${gpsTarget===t?'gold':'ghost'}" data-gps="${t}" ${v.status!=='open'?'disabled':''}>${tr(gpsTarget===t?'gpsSet':'setGps')}</button></div>`;}).join('');
 }
-$('#storeCards').addEventListener('click',e=>{const b=e.target.closest('[data-gps]');if(!b)return;gpsTarget=b.dataset.gps;renderStoreCards();toast('GPS: follow the gold arrow to '+ST(gpsTarget).name+'.');$('#drive').scrollIntoView({behavior:reduce()?'auto':'smooth',block:'center'});});
+$('#storeCards').addEventListener('click',e=>{const b=e.target.closest('[data-gps]');if(!b)return;gpsTarget=b.dataset.gps;renderStoreCards();toast(tr('gpsToast',{name:stName(gpsTarget)}));$('#drive').scrollIntoView({behavior:reduce()?'auto':'smooth',block:'center'});});
 function sizeCanvas(){
   const c=$('#drive'),hc=$('#hudc'),bx=c.parentElement,dpr=Math.min(2,window.devicePixelRatio||1);
-  const w=bx.clientWidth,h=clamp(Math.round(window.innerHeight*.62),340,580);
+  const w=bx.clientWidth,narrow=w<760;
+  const h=narrow?clamp(Math.round(window.innerHeight-($('#hud').offsetHeight||50)-16),300,760):clamp(Math.round(window.innerHeight*.62),340,580);
   c.style.height=h+'px';hc.style.height=h+'px';hc.width=Math.round(w*dpr);hc.height=Math.round(h*dpr);hc.dataset.dpr=dpr;
-  if(R3){R3.renderer.setPixelRatio(Math.min(dpr,1.6));R3.renderer.setSize(w,h,false);R3.camera.aspect=w/h;R3.camera.updateProjectionMatrix();}
+  if(R3){R3.renderer.setPixelRatio(Math.min(dpr,narrow?1.4:1.6));R3.renderer.setSize(w,h,false);R3.camera.aspect=w/h;R3.camera.updateProjectionMatrix();}
   else{c.width=Math.round(w*dpr);c.height=Math.round(h*dpr);c.dataset.dpr=dpr;}
 }
 function startDrive(){if(AUD&&soundOn)AUD.g.gain.setTargetAtTime(.045,AUD.ac.currentTime,.1);cancelAnimationFrame(driveRaf);driveLast=performance.now();driveRaf=requestAnimationFrame(driveLoop);}
@@ -1022,7 +1227,7 @@ function physics(dt){
   else if(!carHits(CAR.x,CAR.y+dy,CAR.a)){CAR.y+=dy;CAR.v*=.97;}
   else moved=false;
   if(moved)G.odo+=Math.hypot(dx,dy);
-  else{const now=performance.now();if(Math.abs(CAR.v)>70&&now-lastBump>2500){lastBump=now;toast('Bump! Careful with the company van.','warn');}CAR.v*=-.2;if(carHits(CAR.x,CAR.y,CAR.a))CAR.a-=yaw*dt;}
+  else{const now=performance.now();if(Math.abs(CAR.v)>70&&now-lastBump>2500){lastBump=now;toast(tr('bump'),'warn');}CAR.v*=-.2;if(carHits(CAR.x,CAR.y,CAR.a))CAR.a-=yaw*dt;}
   nearPlace=null;
   for(const t of TYPES){const d=PLACES[t].door;if(Math.hypot(CAR.x-d[0],CAR.y-d[1])<120){nearPlace=t;break;}}
   updatePrompt();
@@ -1030,10 +1235,10 @@ function physics(dt){
 let lastPrompt='';
 function updatePrompt(){
   const p=$('#drivePrompt');let html='';
-  if(nearPlace){const v=G.visits[nearPlace],st=ST(nearPlace);
-    if(v.status!=='open')html=`<span class="chip ${v.status==='won'?'good':'bad'}">${esc(st.name)}: ${v.status==='won'?'deal closed today':'lost today'}</span>`;
-    else if(Math.abs(CAR.v)>30)html=`<span class="chip warn">Slow down to park at ${esc(st.name)}</span>`;
-    else html=`<button class="btn gold" id="stepBtn">Step out at ${esc(st.name)} <kbd>E</kbd></button>`;
+  if(nearPlace){const v=G.visits[nearPlace],nm=esc(stName(nearPlace));
+    if(v.status!=='open')html=`<span class="chip ${v.status==='won'?'good':'bad'}">${nm}: ${tr(v.status==='won'?'doneToday':'lostToday')}</span>`;
+    else if(Math.abs(CAR.v)>30)html=`<span class="chip warn">${tr('slowDown',{name:nm})}</span>`;
+    else html=`<button class="btn gold" id="stepBtn">${tr('stepOut',{name:nm})} <kbd>E</kbd></button>`;
   }
   if(html!==lastPrompt){p.innerHTML=html;lastPrompt=html;}
 }
@@ -1048,7 +1253,7 @@ function doStepOut(){
 function arriveStore(t){
   const fuel=Math.round(G.odo*S().fuelRate*.25);
   G.money-=fuel;G.odo=0;G.car={x:CAR.x,y:CAR.y,a:CAR.a};save();
-  stopDrive();if(fuel>0)toast('Fuel for the trip: −'+egp(fuel));
+  stopDrive();if(fuel>0)toast(tr('fuel',{x:egp(fuel)}));
   enterStore(t);
 }
 function render2D(now){
@@ -1117,11 +1322,10 @@ function render2D(now){
   drawHud(ctx,cw,ch);
 }
 function drawHud(ctx,cw,ch){
-  // HUD on canvas: gps distance + minimap
   if(gpsTarget&&G.visits[gpsTarget].status==='open'){
     const d=PLACES[gpsTarget].door,m=Math.round(Math.hypot(d[0]-CAR.x,d[1]-CAR.y)/4/10)*10;
-    const txt='GPS · '+ST(gpsTarget).name+' · '+(m<40?'arrived':m+' m');
-    ctx.font='800 13px Nunito Sans, sans-serif';const tw=ctx.measureText(txt).width;
+    const txt='GPS · '+stName(gpsTarget)+' · '+(m<40?tr('arrived'):m+(LANG==='ar'?' م':' m'));
+    ctx.font='800 13px Nunito Sans, Cairo, sans-serif';const tw=ctx.measureText(txt).width;
     ctx.fillStyle='rgba(21,22,59,.85)';ctx.beginPath();ctx.roundRect(12,12,tw+24,30,10);ctx.fill();ctx.fillStyle='#fff';ctx.fillText(txt,24,32);
   }
   const ms=cw<620?.055:.075,mw=WORLD.W*ms,mh=WORLD.H*ms,mx=cw-mw-12,my=12;
@@ -1130,10 +1334,12 @@ function drawHud(ctx,cw,ch){
   for(const t of TYPES){const r=PLACES[t].rect,st=G.visits[t].status;ctx.fillStyle=st==='won'?'#178a4c':st==='failed'?'#cf2e2e':t===gpsTarget?'#f2b705':'#0000A0';ctx.fillRect(mx+r[0]*ms,my+r[1]*ms,Math.max(6,r[2]*ms),Math.max(5,r[3]*ms));}
   ctx.fillStyle='#555';const dr=PLACES.depot.rect;ctx.fillRect(mx+dr[0]*ms,my+dr[1]*ms,dr[2]*ms,dr[3]*ms);
   ctx.fillStyle='#cf2e2e';ctx.beginPath();ctx.arc(mx+CAR.x*ms,my+CAR.y*ms,4,0,7);ctx.fill();ctx.strokeStyle='#fff';ctx.lineWidth=1.5;ctx.stroke();
-  const kmh=Math.round(Math.abs(CAR.v)/10*3.6);
-  ctx.fillStyle='rgba(21,22,59,.85)';ctx.beginPath();ctx.roundRect(12,ch-66,112,54,12);ctx.fill();
-  ctx.fillStyle='#fff';ctx.font='600 30px Fredoka, sans-serif';ctx.fillText(String(kmh),24,ch-30);ctx.font='800 11px Nunito Sans, sans-serif';ctx.fillStyle='#f2b705';ctx.fillText('KM/H',24+ctx.measureText(String(kmh)).width*0+70,ch-30);
-  ctx.fillStyle='rgba(255,255,255,.7)';ctx.font='700 10px Nunito Sans, sans-serif';ctx.fillText(onRoad(CAR.x,CAR.y)?'ON ROAD':'OFF ROAD · SLOW',24,ch-18);
+  const coarse=window.matchMedia('(pointer:coarse)').matches||cw<760;
+  const kmh=Math.round(Math.abs(CAR.v)/10*3.6),by=coarse?50:ch-66;
+  ctx.fillStyle='rgba(21,22,59,.85)';ctx.beginPath();ctx.roundRect(12,by,112,54,12);ctx.fill();
+  ctx.fillStyle='#fff';ctx.font='600 30px Fredoka, sans-serif';ctx.fillText(String(kmh),24,by+36);
+  ctx.font='800 11px Nunito Sans, Cairo, sans-serif';ctx.fillStyle='#f2b705';ctx.fillText(LANG==='ar'?'كم/س':'KM/H',82,by+36);
+  ctx.fillStyle='rgba(255,255,255,.7)';ctx.font='700 10px Nunito Sans, Cairo, sans-serif';ctx.fillText(tr(onRoad(CAR.x,CAR.y)?'onRoad':'offRoad'),24,by+48);
 }
 function drawBuilding(ctx,t){
   const [x,y,w,h]=PLACES[t].rect;
@@ -1186,11 +1392,11 @@ addEventListener('keydown',e=>{
   if(k==='e'||k==='enter'){if(nearPlace){e.preventDefault();doStepOut();}}
 });
 addEventListener('keyup',e=>{const k=e.key.toLowerCase();const map={arrowup:'up',w:'up',arrowdown:'down',s:'down',arrowleft:'left',a:'left',arrowright:'right',d:'right'};if(map[k])DK[map[k]]=false;});
-for(const [id,k] of [['dLeft','left'],['dRight','right'],['dGas','up'],['dBrake','down']]){const b=$('#'+id);b.addEventListener('pointerdown',e=>{e.preventDefault();DK[k]=true;b.setPointerCapture(e.pointerId);});for(const ev of ['pointerup','pointercancel','lostpointercapture'])b.addEventListener(ev,()=>DK[k]=false);}
+for(const [id,k] of [['dLeft','left'],['dRight','right'],['dGas','up'],['dBrake','down']]){const b=$('#'+id);b.addEventListener('pointerdown',e=>{e.preventDefault();DK[k]=true;b.classList.add('on');try{b.setPointerCapture(e.pointerId);}catch(x){}});for(const ev of ['pointerup','pointercancel','lostpointercapture'])b.addEventListener(ev,()=>{DK[k]=false;b.classList.remove('on');});b.addEventListener('contextmenu',e=>e.preventDefault());}
 addEventListener('resize',()=>{if(!$('#scrMap').hidden)sizeCanvas();});
 const reduce=()=>window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 $('#endDayBtn').addEventListener('click',()=>endDay());
-function toggleCam(){if(!R3)return;R3.camMode=R3.camMode==='chase'?'top':'chase';$('#camBtn').textContent=R3.camMode==='chase'?'Camera: behind van':'Camera: top view';}
+function toggleCam(){if(!R3)return;R3.camMode=R3.camMode==='chase'?'top':'chase';$('#camBtn').textContent=tr(R3.camMode==='chase'?'camChase':'camTop');}
 $('#camBtn').addEventListener('click',toggleCam);
 $('#sndBtn').addEventListener('click',toggleSound);
 
@@ -1198,46 +1404,46 @@ $('#sndBtn').addEventListener('click',toggleSound);
 let CUR=null,px=0,target=null,pending=null,keys={l:false,r:false},raf=0,lastT=0,camX=0;
 function box(x,y,w,h,cls,inner='',attrs=''){return `<div class="${cls}" style="left:${x}px;top:${y}px;width:${w}px;height:${h}px" ${attrs}>${inner}</div>`;}
 function personHTML(shirt,hair,pants,cls=''){return `<div class="person ${cls}" style="--shirt:${shirt};--hair:${hair};--pants:${pants}"><div class="hd"></div><div class="bd"></div><div class="lg"></div></div>`;}
-function enterStore(t){
-  CUR=t;const L=LAYOUT[t],st=ST(t),v=G.visits[t];
+function enterStore(t,quiet){
+  CUR=t;const L_=LAYOUT[t],v=G.visits[t];
   renderHud();show('scrStore');
-  $('#stKind').textContent=st.kind;$('#stName').textContent=st.name;
-  const w=$('#world');w.className='world '+t;w.style.width=L.W+'px';
-  let h=`<div class="wall" style="width:${L.W}px"></div><div class="floor" style="width:${L.W}px"></div>`;
+  $('#stKind').textContent=stKind(t);$('#stName').textContent=stName(t);
+  const w=$('#world');w.className='world '+t;w.style.width=L_.W+'px';
+  let h=`<div class="wall" style="width:${L_.W}px"></div><div class="floor" style="width:${L_.W}px"></div>`;
   if(t==='koshk'){
-    h+=box(180,30,1020,40,'awning')+box(470,2,320,30,'sign',esc(st.name))+box(300,70,880,260,'kiosk-in');
+    h+=box(180,30,1020,40,'awning')+box(470,2,320,30,'sign',esc(stName(t)))+box(300,70,880,260,'kiosk-in');
     h+=box(640,92,140,238,'fridge','<div class="glass"></div>');
-    h+=box(16,252,150,64,'vanside','<div class="panel"><img src="'+LOGO+'" alt=""></div><div class="win"></div>')+box(10,190,170,140,'exit','<span>Back to car</span>','data-act="exit" tabindex="0" role="button"');
+    h+=box(16,252,150,64,'vanside','<div class="panel"><img src="'+LOGO+'" alt=""></div><div class="win"></div>')+box(10,190,170,140,'exit',`<span>${tr('backCar')}</span>`,'data-act="exit" tabindex="0" role="button"');
   }else{
-    h+=box(20,90,130,240,'doors','<span>Exit</span>','data-act="exit" tabindex="0" role="button"');
-    if(t==='super'){h+=box(1130,240,300,90,'counter')+box(1330,200,60,40,'till')+box(1520,90,130,240,'office','Manager');}
-    else{h+=box(1000,120,110,210,'compstand','<b>KitKat</b><i></i><i></i><i></i><small>Competitor stand</small>');
-      h+=box(1450,240,240,90,'counter')+box(1630,200,50,40,'till')+box(1740,240,240,90,'counter')+box(1920,200,50,40,'till')+box(2060,90,130,240,'office','Category buyer');}
+    h+=box(20,90,130,240,'doors',`<span>${tr('exit')}</span>`,'data-act="exit" tabindex="0" role="button"');
+    if(t==='super'){h+=box(1130,240,300,90,'counter')+box(1330,200,60,40,'till')+box(1520,90,130,240,'office',esc(tr('manager')));}
+    else{h+=box(1000,120,110,210,'compstand',`<b>${esc(COMP[0]?COMP[0].short:'KitKat')}</b><i></i><i></i><i></i><small>${tr('compStand')}</small>`);
+      h+=box(1450,240,240,90,'counter')+box(1630,200,50,40,'till')+box(1740,240,240,90,'counter')+box(1920,200,50,40,'till')+box(2060,90,130,240,'office',esc(tr('buyer')));}
   }
   h+=shelfHTML(t,v);
-  for(const sp of L.spots)h+=spotHTML(sp,v);
+  for(const sp of L_.spots)h+=spotHTML(sp,v);
   const npcCols={koshk:['#e8e2d0','#2b2b2b','#4a3b2a'],super:['#cf2e2e','#3b2416','#2c2f45'],hyper:['#ffffff','#141414','#2c2f45']}[t];
-  h+=`<div class="npc" data-act="owner" tabindex="0" role="button" aria-label="Talk to ${esc(st.owner)}" style="left:${L.owner-25}px;top:${t==='koshk'?128:220}px;width:50px;height:110px"><span class="bubble">${esc(st.owner)}</span>${personHTML(...npcCols)}</div>`;
+  h+=`<div class="npc" data-act="owner" tabindex="0" role="button" aria-label="${esc(tr('talk'))}" style="left:${L_.owner-25}px;top:${t==='koshk'?128:220}px;width:50px;height:110px"><span class="bubble">${esc(stOwner(t))}</span>${personHTML(...npcCols)}</div>`;
   if(t==='koshk')h+=box(860,236,300,94,'counter');
   h+=`<div class="player" id="player" style="left:0">${personHTML('var(--mars)','#2b1d14','#2c2f45','rep')}</div>`;
   w.innerHTML=h;
-  px=L.start;target=null;pending=null;
-  $('#hlBtn').setAttribute('aria-pressed','false');w.classList.remove('hl');
+  if(!quiet){px=L_.start;target=null;pending=null;$('#hlBtn').setAttribute('aria-pressed','false');w.classList.remove('hl');}
+  else w.classList.toggle('hl',$('#hlBtn').getAttribute('aria-pressed')==='true');
   renderAudit();place();startLoop();
-  if(!v.visited){v.visited=true;toast('Walk the store first. Tap shelves, empty tags and the dashed spots before you talk to '+st.owner+'.');}
+  if(!v.visited){v.visited=true;toast(tr('walkFirst',{name:stOwner(t)}));}
 }
 function shelfHTML(t,v){
-  const L=LAYOUT[t],cols=L.shelf.cols,W=cols*44+16;
-  let h=`<div class="shelf" style="left:${L.shelf.x}px;top:58px;width:${W}px;height:${4*62+12}px">`;
+  const L_=LAYOUT[t],cols=L_.shelf.cols,W=cols*44+16;
+  let h=`<div class="shelf" style="left:${L_.shelf.x}px;top:58px;width:${W}px;height:${4*62+12}px">`;
   for(let r=0;r<4;r++){
     h+=`<div class="board" style="top:${8+r*62+52}px"></div>`;
-    if(r===1)h+=`<div class="eyetag ${v.eyeFound?'found':''}" style="top:${8+r*62+16}px">Eye level</div>`;
+    if(r===1)h+=`<div class="eyetag ${v.eyeFound?'found':''}" style="top:${8+r*62+16}px">${tr('eye')}</div>`;
     for(let c=0;c<cols;c++){
       const id=v.shelf[r][c],x=8+c*44,y=8+r*62;
       if(id==='gap2')continue;
-      if(id.startsWith('gap:')){const sku=id.slice(4),f=v.oosFound.includes(sku);h+=`<div class="gap ${f?'flag':''}" data-act="gap" data-id="${sku}" tabindex="0" role="button" style="left:${x}px;top:${y}px;width:84px"><em>${f?'Flagged OOS':'Empty'}</em><span>${esc(SK[sku].short)}</span></div>`;continue;}
-      const m=!!SK[id],p=m?SK[id]:CP[id];
-      h+=`<div class="pack ${m?'m':''}" data-act="pack" data-id="${id}" data-r="${r}" style="left:${x}px;top:${y}px;background:${p.bg};color:${p.fg}"><span>${esc(p.short)}</span></div>`;
+      if(id.startsWith('gap:')){const sku=id.slice(4),f=v.oosFound.includes(sku);h+=`<div class="gap ${f?'flag':''}" data-act="gap" data-id="${esc(sku)}" tabindex="0" role="button" style="left:${x}px;top:${y}px;width:84px"><em>${tr(f?'flagged':'empty')}</em><span>${esc(pShort(prodOf(sku)))}</span></div>`;continue;}
+      const m=!!SK[id],p=prodOf(id);
+      h+=`<div class="pack ${m?'m':''}" data-act="pack" data-id="${esc(id)}" data-r="${r}" style="left:${x}px;top:${y}px;background:${esc(p.bg)};color:${esc(p.fg)}"><span>${esc(m?pShort(p):p.short)}</span></div>`;
     }
   }
   return h+'</div>';
@@ -1245,23 +1451,24 @@ function shelfHTML(t,v){
 function spotHTML(sp,v){
   const placed=v.spots[sp.id];
   if(placed)return box(sp.x,sp.y,sp.w,sp.h,'spot placed',posmVisual(placed.type,sp));
-  return box(sp.x,sp.y,sp.w,sp.h,'spot',`<span><b>+</b>${esc(sp.label)}</span>`,`data-act="spot" data-id="${sp.id}" tabindex="0" role="button"`);
+  return box(sp.x,sp.y,sp.w,sp.h,'spot',`<span><b>+</b>${esc(spLabel(sp))}</span>`,`data-act="spot" data-id="${sp.id}" tabindex="0" role="button"`);
 }
-function miniPacks(n){const ids=['galaxy','snickers','mms','twix','maltesers','flutes','bounty','mars'];return Array.from({length:n},(_,i)=>`<i style="background:${SK[ids[i%ids.length]].bg}"></i>`).join('');}
+function miniPacks(n){const ids=SKUS.map(s=>s.id);return Array.from({length:n},(_,i)=>`<i style="background:${esc(SK[ids[i%ids.length]].bg)}"></i>`).join('');}
 function posmVisual(type,sp){
-  if(type==='gondola')return `<div class="posm p-gondola"><div class="p-head">Galaxy · Snickers · M&amp;M's</div>${'<div class="p-tray">'+miniPacks(6)+'</div>'.repeat(1)}<div class="p-tray">${miniPacks(6)}</div><div class="p-tray">${miniPacks(6)}</div><div class="p-tray">${miniPacks(6)}</div></div>`;
+  const head=esc(SKUS.slice(0,3).map(s=>s.short).join(' · '));
+  if(type==='gondola')return `<div class="posm p-gondola"><div class="p-head">${head}</div><div class="p-tray">${miniPacks(6)}</div><div class="p-tray">${miniPacks(6)}</div><div class="p-tray">${miniPacks(6)}</div><div class="p-tray">${miniPacks(6)}</div></div>`;
   if(type==='floorstand')return `<div class="posm p-stand" style="width:min(100%,96px);margin:0 auto"><img src="${LOGO}" alt=""><div class="p-tray">${miniPacks(3)}</div><div class="p-tray">${miniPacks(3)}</div><div class="p-tray">${miniPacks(3)}</div></div>`;
-  if(type==='cdu')return `<div class="posm p-cdu"><div class="p-tray">${miniPacks(5)}</div><small>Snickers</small></div>`;
-  if(type==='sticker')return `<div class="posm p-strip">Galaxy · Snickers · Twix · M&amp;M's</div>`;
-  return `<div class="posm p-dangler"><div>New Galaxy</div></div>`;
+  if(type==='cdu')return `<div class="posm p-cdu"><div class="p-tray">${miniPacks(5)}</div><small>${esc(SKUS[0]?SKUS[0].short:'')}</small></div>`;
+  if(type==='sticker')return `<div class="posm p-strip">${esc(SKUS.slice(0,4).map(s=>s.short).join(' · '))}</div>`;
+  return `<div class="posm p-dangler"><div>${esc(SKUS[0]?SKUS[0].short:'Mars')}</div></div>`;
 }
 function renderAudit(){
-  const t=CUR,v=G.visits[t],L=LAYOUT[t];
+  const t=CUR,v=G.visits[t],L_=LAYOUT[t];
   const placed=Object.values(v.spots),best=placed.filter(p=>p.grade==='best').length;
   $('#audit').innerHTML=`
-   <div class="card"><div class="label">Out-of-stock check</div><div class="big num">${v.oosFound.length} / ${v.oos.length}</div><div class="tip">Empty price tags mean lost sales. Tap them to flag.</div></div>
-   <div class="card"><div class="label">Eye-level share</div><div class="big">${v.eyeFound?'<span style="color:var(--bad)">Competitor spotted</span>':'Not checked'}</div><div class="tip">Who owns the shelf at eye level? Tap the packs there to check.</div></div>
-   <div class="card"><div class="label">Visibility (POSM)</div><div class="big num">${placed.length} / ${L.spots.length} spots</div><div class="tip">${best} placed perfectly. Each item costs money from your wallet.</div></div>`;
+   <div class="card"><div class="label">${tr('aOos')}</div><div class="big num">${v.oosFound.length} / ${v.oos.length}</div><div class="tip">${tr('aOosT')}</div></div>
+   <div class="card"><div class="label">${tr('aEye')}</div><div class="big">${v.eyeFound?`<span style="color:var(--bad)">${tr('aEyeSpot')}</span>`:tr('aEyeNo')}</div><div class="tip">${tr('aEyeT')}</div></div>
+   <div class="card"><div class="label">${tr('aPosm')}</div><div class="big num">${placed.length} / ${L_.spots.length} ${tr('spots')}</div><div class="tip">${tr('aPosmT',{n:best})}</div></div>`;
 }
 function place(){
   const stage=$('#stage'),sw=stage.clientWidth,W=LAYOUT[CUR].W;
@@ -1292,17 +1499,18 @@ $('#world').addEventListener('click',e=>{
 });
 $('#world').addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){const el=e.target.closest('[data-act]');if(el){e.preventDefault();el.click();}}});
 function interact(act,id,el){
-  const v=G.visits[CUR],st=ST(CUR);
+  const v=G.visits[CUR];
   if(act==='exit')return leaveStore();
   if(act==='owner')return openNego();
   if(act==='pack'){
-    const r=+el.dataset.r,m=!!SK[id],p=m?SK[id]:CP[id];
-    if(r===1&&!m&&v.eyeIssue&&!v.eyeFound){v.eyeFound=true;G.money+=0;toast('Logged: '+p.co.split(' ')[0]+' owns eye level. Propose moving Galaxy and Snickers up in the meeting.','good');enterStoreRefresh();save();return;}
-    toast(m?`${p.name} · Mars range`:`${p.short} · ${p.co} · competitor`);return;
+    const r=+el.dataset.r,m=!!SK[id],p=prodOf(id);
+    if(r===1&&!m&&v.eyeIssue&&!v.eyeFound){v.eyeFound=true;toast(tr('eyeLogged',{co:String(p.co||'').split(' ')[0]||p.short}),'good');enterStoreRefresh();save();return;}
+    toast(m?`${pName(p)} · ${tr('marsRange')}`:`${p.short} · ${p.co} · ${tr('competitor')}`);return;
   }
   if(act==='gap'){
-    if(v.oosFound.includes(id)){toast(SK[id].short+' is already flagged.');return;}
-    v.oosFound.push(id);toast('Out of stock: '+SK[id].name+'. It is now marked in your order sheet.','good');enterStoreRefresh();save();return;
+    const p=prodOf(id);
+    if(v.oosFound.includes(id)){toast(tr('alreadyFlagged',{x:pShort(p)}));return;}
+    v.oosFound.push(id);toast(tr('oosFlag',{x:pName(p)}),'good');enterStoreRefresh();save();return;
   }
   if(act==='spot')return openPosm(id);
 }
@@ -1324,19 +1532,19 @@ addEventListener('resize',()=>{if(CUR)place();});
 function openPosm(spotId){
   const sp=LAYOUT[CUR].spots.find(s=>s.id===spotId),cost=S().posmCost;
   const icons={gondola:'<svg viewBox="0 0 44 52"><rect x="4" y="2" width="36" height="48" rx="3" fill="#0000A0"/><rect x="8" y="12" width="28" height="7" fill="#f2b705"/><rect x="8" y="23" width="28" height="7" fill="#fff"/><rect x="8" y="34" width="28" height="7" fill="#f2b705"/></svg>',floorstand:'<svg viewBox="0 0 44 52"><rect x="12" y="2" width="20" height="48" rx="3" fill="#0000A0"/><rect x="15" y="16" width="14" height="6" fill="#fff"/><rect x="15" y="28" width="14" height="6" fill="#fff"/></svg>',cdu:'<svg viewBox="0 0 44 52"><rect x="6" y="22" width="32" height="24" rx="3" fill="#0000A0"/><rect x="9" y="16" width="6" height="10" fill="#5b2615"/><rect x="17" y="16" width="6" height="10" fill="#3d2516"/><rect x="25" y="16" width="6" height="10" fill="#f2c230"/></svg>',sticker:'<svg viewBox="0 0 44 52"><rect x="2" y="20" width="40" height="12" rx="3" fill="#0000A0"/><rect x="6" y="24" width="20" height="4" fill="#fff"/></svg>',dangler:'<svg viewBox="0 0 44 52"><line x1="22" y1="0" x2="22" y2="16" stroke="#555" stroke-width="2"/><circle cx="22" cy="32" r="15" fill="#f2b705" stroke="#0000A0" stroke-width="3"/></svg>'};
-  openOv(`<div class="sheet narrow"><div class="sheethead"><div><div class="label">Place POSM</div><h2>${esc(sp.label)}</h2></div><button class="btn ghost sm" data-close>Cancel</button></div>
-   <p class="muted" style="margin:0 0 12px">Pick the material that fits this spot. Wrong choices waste money and annoy the owner.</p>
-   <div class="posmlist">${Object.entries(POSM).map(([k,p])=>`<button class="posmopt" data-posm="${k}" ${G.money<cost[k]?'disabled':''}><span class="ic">${icons[k]}</span><div><b>${p.name}</b><small>${p.desc}</small></div><span class="num" style="font-weight:800">${egp(cost[k])}</span></button>`).join('')}</div></div>`,
+  openOv(`<div class="sheet narrow"><div class="sheethead"><div><div class="label">${tr('placePosm')}</div><h2>${esc(spLabel(sp))}</h2></div><button class="btn ghost sm" data-close>${tr('cancel')}</button></div>
+   <p class="muted" style="margin:0 0 12px">${tr('posmP')}</p>
+   <div class="posmlist">${Object.keys(POSM).map(k=>`<button class="posmopt" data-posm="${k}" ${G.money<cost[k]?'disabled':''}><span class="ic">${icons[k]}</span><div><b>${esc(posmName(k))}</b><small>${esc(posmDesc(k))}</small></div><span class="num" style="font-weight:800">${egp(cost[k])}</span></button>`).join('')}</div></div>`,
    ov=>ov.addEventListener('click',e=>{const b=e.target.closest('[data-posm]');if(!b)return;placePosm(sp,b.dataset.posm);}));
 }
 function placePosm(sp,type){
   const cost=S().posmCost[type],v=G.visits[CUR];
   const grade=sp.best.includes(type)?'best':sp.ok.includes(type)?'ok':'bad';
   G.money-=cost;v.spots[sp.id]={type,grade};closeOv();
-  const name=POSM[type].name;
-  if(grade==='best')toast(`Strong placement: ${name}. ${sp.tip}`,'good');
-  else if(grade==='ok')toast(`${name} works here, but a ${sp.best.map(b=>POSM[b].name.toLowerCase()).join(' or ')} would work better.`,'warn');
-  else toast(`The owner frowns. ${sp.tip}`,'bad');
+  const name=posmName(type);
+  if(grade==='best')toast(tr('posmBest',{x:name,tip:spTip(sp)}),'good');
+  else if(grade==='ok')toast(tr('posmOk',{x:name,best:sp.best.map(b=>posmName(b)).join(' / ')}),'warn');
+  else toast(tr('posmBad',{tip:spTip(sp)}),'bad');
   enterStoreRefresh();save();
 }
 
@@ -1348,8 +1556,8 @@ addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('#overlay').hidden&&$('#o
 /* ---------- negotiation ---------- */
 function maxDisc(gross){const p=S().policy;return gross<p.t1?p.d1:gross<p.t2?p.d2:p.d3;}
 function calc(n){
-  const pr=S().prices;let gross=0,cartons=0;
-  for(const s of SKUS){const q=n.qty[s.id]||0;gross+=q*pr[s.id];cartons+=q;}
+  let gross=0,cartons=0;
+  for(const s of SKUS){const q=n.qty[s.id]||0;gross+=q*(+s.price||0);cartons+=q;}
   const freeC=n.free?Math.floor(cartons/6):0,freeCost=cartons?freeC*gross/cartons:0,disc=gross*n.disc/100;
   const net=gross-disc-freeCost;
   return{gross,cartons,freeC,freeCost,disc,net,comm:net*S().commission/100};
@@ -1357,54 +1565,53 @@ function calc(n){
 function openNego(){
   const t=CUR,st=ST(t),v=G.visits[t];
   if(v.status!=='open')return;
-  if(!v.nego){v.nego={qty:{},disc:0,free:false,terms:0,patience:st.patience,log:[{w:'o',t:st.open}],offers:0};
-    const s=prepNote(v,t);if(s)v.nego.log.push({w:'o',t:s});}
+  if(!v.nego){v.nego={qty:{},disc:0,free:false,terms:0,patience:st.patience,log:[{w:'o',k:'open'}],offers:0};
+    const s=prepNote(v);if(s)v.nego.log.push({w:'o',keys:s});}
   renderNego();
 }
-function prepNote(v,t){
-  const bits=[];const placed=Object.values(v.spots);
-  if(placed.some(p=>p.grade==='best'))bits.push('I like the display you set up outside.');
-  if(placed.some(p=>p.grade==='bad'))bits.push('That display you put up is in the wrong place.');
-  if(v.oosFound.length)bits.push('I see you checked my shelf.');
-  return bits.join(' ');
+function prepNote(v){
+  const k=[];const placed=Object.values(v.spots);
+  if(placed.some(p=>p.grade==='best'))k.push('prepGood');
+  if(placed.some(p=>p.grade==='bad'))k.push('prepBad');
+  if(v.oosFound.length)k.push('prepShelf');
+  return k.length?k:null;
 }
 function renderNego(){
   const t=CUR,st=ST(t),v=G.visits[t],n=v.nego,c=calc(n),s=S(),fast=list(st.fast);
-  const ev=evaluate(n,v,t,true);
-  const interest=clamp(ev.total/st.need,0,1);
-  openOv(`<div class="sheet"><div class="sheethead"><div><div class="label">Negotiation · ${esc(st.name)}</div><h2>Close the deal</h2></div><button class="btn ghost sm" data-step>Step out (keep talks open)</button></div>
+  const ini=stOwner(t).split(' ').filter(Boolean).map(w=>w[0]).join('').slice(0,2);
+  openOv(`<div class="sheet"><div class="sheethead"><div><div class="label">${tr('nego')} · ${esc(stName(t))}</div><h2>${tr('closeDeal')}</h2></div><button class="btn ghost sm" data-step>${tr('stepOutTalks')}</button></div>
   <div class="nego">
    <div>
     <div class="card">
-     <div class="owner"><div class="avatar">${esc(st.owner.split(' ').map(w=>w[0]).join('').slice(0,2))}</div><div style="min-width:0"><h3 style="font-size:20px">${esc(st.owner)}</h3><div class="muted" style="font-size:13px">${esc(st.role)} · ${esc(st.kind)}</div></div></div>
-     <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px;gap:8px"><span class="label">Patience</span><span class="pips">${Array.from({length:st.patience},(_,i)=>`<i class="${i<n.patience?'':'off'}"></i>`).join('')}</span></div>
-     <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;gap:8px"><span class="label">Interest after last offer</span><span class="num muted" style="font-size:12px">${n.offers?Math.round((n.lastInterest||0)*100)+'%':'no offer yet'}</span></div>
+     <div class="owner"><div class="avatar">${esc(ini)}</div><div style="min-width:0"><h3 style="font-size:20px">${esc(stOwner(t))}</h3><div class="muted" style="font-size:13px">${esc(stRole(t))} · ${esc(stKind(t))}</div></div></div>
+     <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px;gap:8px"><span class="label">${tr('patience')}</span><span class="pips">${Array.from({length:st.patience},(_,i)=>`<i class="${i<n.patience?'':'off'}"></i>`).join('')}</span></div>
+     <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;gap:8px"><span class="label">${tr('interest')}</span><span class="num muted" style="font-size:12px">${n.offers?Math.round((n.lastInterest||0)*100)+'%':tr('noOffer')}</span></div>
      <div class="meter" style="margin-top:4px"><i style="width:${(n.offers?(n.lastInterest||0):0)*100}%"></i></div>
-     <div class="chat" id="chat">${n.log.map(m=>`<div class="msg ${m.w}">${esc(m.t)}</div>`).join('')}</div>
+     <div class="chat" id="chat">${n.log.map(m=>`<div class="msg ${m.w}">${esc(msgText(m,t))}</div>`).join('')}</div>
     </div>
-    <div class="policy"><b>Company trade terms policy</b><ul>
-      <li>Discount: up to ${s.policy.d1}% under ${egp(s.policy.t1)}, up to ${s.policy.d2}% under ${egp(s.policy.t2)}, up to ${s.policy.d3}% above.</li>
-      <li>Payment terms in this channel: ${TERMS.slice(0,st.maxTerms+1).join(', ')} only.</li>
-      <li>Free goods (1 carton per 6) cannot stack with a discount above ${s.policy.freeStack}%.</li>
-      <li>Breaking policy costs one life. Each rejected offer costs patience.</li></ul></div>
+    <div class="policy"><b>${tr('policy')}</b><ul>
+      <li>${tr('pol1',{d1:s.policy.d1,t1:egp(s.policy.t1),d2:s.policy.d2,t2:egp(s.policy.t2),d3:s.policy.d3})}</li>
+      <li>${tr('pol2',{terms:Array.from({length:st.maxTerms+1},(_,i)=>termName(i)).join('، ')})}</li>
+      <li>${tr('pol3',{x:s.policy.freeStack})}</li>
+      <li>${tr('pol4')}</li></ul></div>
    </div>
    <div>
     <div class="card" style="padding:12px">
-     <div class="label" style="margin-bottom:6px">Order (cartons)</div>
-     <div style="overflow-x:auto"><table class="skus"><tbody>${SKUS.map(k=>`<tr><td><span class="sw" style="background:${k.bg}"></span></td><td style="min-width:0"><b>${esc(k.name)}</b>${v.oos.includes(k.id)&&v.oosFound.includes(k.id)?'<span class="tag oos">OOS</span>':''}${fast.includes(k.id)?'<span class="tag fast">Fast mover</span>':''}<div class="muted" style="font-size:11px">${k.pack} · ${egp(s.prices[k.id])}/ctn</div></td><td><div class="qty"><button data-q="${k.id}" data-d="-1" aria-label="Less ${esc(k.short)}">−</button><input id="q-${k.id}" type="number" min="0" max="999" inputmode="numeric" value="${n.qty[k.id]||0}" data-qi="${k.id}"><button data-q="${k.id}" data-d="1" aria-label="More ${esc(k.short)}">+</button></div></td></tr>`).join('')}</tbody></table></div>
+     <div class="label" style="margin-bottom:6px">${tr('order')}</div>
+     <div style="overflow-x:auto"><table class="skus"><tbody>${SKUS.map(k=>`<tr><td><span class="sw" style="background:${esc(k.bg)}"></span></td><td style="min-width:0"><b>${esc(pName(k))}</b>${v.oos.includes(k.id)&&v.oosFound.includes(k.id)?`<span class="tag oos">${tr('oosTag')}</span>`:''}${fast.includes(k.id)?`<span class="tag fast">${tr('fastTag')}</span>`:''}<div class="muted" style="font-size:11px">${esc(pPack(k))} · ${egp(k.price)}/${tr('ctn')}</div></td><td><div class="qty"><button data-q="${esc(k.id)}" data-d="-1" aria-label="−">−</button><input id="q-${esc(k.id)}" type="number" min="0" max="999" inputmode="numeric" value="${n.qty[k.id]||0}" data-qi="${esc(k.id)}"><button data-q="${esc(k.id)}" data-d="1" aria-label="+">+</button></div></td></tr>`).join('')}</tbody></table></div>
      <div class="levers">
-      <div><div class="label">Discount</div><div class="seg">${[0,2,3,5,8,10].map(d=>`<button data-disc="${d}" aria-pressed="${n.disc===d}">${d}%</button>`).join('')}</div></div>
-      <div><div class="label">Payment terms</div><div class="seg">${TERMS.map((tm,i)=>`<button data-terms="${i}" aria-pressed="${n.terms===i}">${tm}</button>`).join('')}</div></div>
-      <div><div class="label">Free goods</div><div class="seg"><button data-free="0" aria-pressed="${!n.free}">None</button><button data-free="1" aria-pressed="${n.free}">1 free carton per 6</button></div></div>
+      <div><div class="label">${tr('discount')}</div><div class="seg">${[0,2,3,5,8,10].map(d=>`<button data-disc="${d}" aria-pressed="${n.disc===d}">${d}%</button>`).join('')}</div></div>
+      <div><div class="label">${tr('terms')}</div><div class="seg">${TERMS.map((tm,i)=>`<button data-terms="${i}" aria-pressed="${n.terms===i}">${termName(i)}</button>`).join('')}</div></div>
+      <div><div class="label">${tr('freeGoods')}</div><div class="seg"><button data-free="0" aria-pressed="${!n.free}">${tr('none')}</button><button data-free="1" aria-pressed="${n.free}">${tr('freeOpt')}</button></div></div>
      </div>
      <div class="sum">
-      <span>Gross order (${c.cartons} cartons)</span><b>${egp(c.gross)}</b>
-      <span>Discount ${n.disc}% <span class="muted">(policy max ${maxDisc(c.gross)}%)</span></span><b>−${egp(c.disc)}</b>
-      <span>Free goods (${c.freeC} ctn)</span><b>−${egp(c.freeCost)}</b>
-      <span class="tot">Net order</span><b class="tot">${egp(c.net)}</b>
-      <span>Your commission (${s.commission}%)</span><b style="color:var(--good)">+${egp(c.comm)}</b>
+      <span>${tr('gross',{n:c.cartons})}</span><b>${egp(c.gross)}</b>
+      <span>${tr('discLine',{d:n.disc})} <span class="muted">${tr('polMax',{x:maxDisc(c.gross)})}</span></span><b>−${egp(c.disc)}</b>
+      <span>${tr('freeLine',{n:c.freeC})}</span><b>−${egp(c.freeCost)}</b>
+      <span class="tot">${tr('net')}</span><b class="tot">${egp(c.net)}</b>
+      <span>${tr('comm',{x:s.commission})}</span><b style="color:var(--good)">+${egp(c.comm)}</b>
      </div>
-     <div class="actions"><button class="btn gold" id="offerBtn">Make the offer</button><button class="btn ghost" data-step>Step out</button></div>
+     <div class="actions"><button class="btn gold" id="offerBtn">${tr('makeOffer')}</button><button class="btn ghost" data-step>${tr('stepOutShort')}</button></div>
     </div>
    </div>
   </div></div>`,ov=>{
@@ -1430,35 +1637,35 @@ function evaluate(n,v,t){
   f.push({k:'terms',p:n.terms>=st.wantTerms?1:(t==='hyper'?-1:0),m:1});
   if(st.likesFree)f.push({k:'free',p:n.free?1:0,m:1});
   const fast=list(st.fast),fc=fast.filter(id=>n.qty[id]>0).length;
-  f.push({k:'fast',p:fc>=2?1:0,m:1});
+  f.push({k:'fast',p:fc>=Math.min(2,fast.length||2)?1:0,m:1});
   const avoid=list(st.avoid);if(avoid.some(id=>n.qty[id]>0))f.push({k:'avoid',p:-1,m:0});
   const inc=v.oos.filter(id=>n.qty[id]>0).length,miss=v.oos.find(id=>!(n.qty[id]>0));
-  f.push({k:'oos',p:inc,m:v.oos.length,sku:miss?SK[miss].short:''});
+  f.push({k:'oos',p:inc,m:v.oos.length,sku:miss||''});
   const placed=Object.values(v.spots);
   f.push({k:'prep',p:(placed.some(p=>p.grade==='best')?1:0)-(placed.some(p=>p.grade==='bad')?1:0),m:1});
   if(v.eyeIssue)f.push({k:'eye',p:v.eyeFound?1:0,m:1});
   if(st.needsGondola)f.push({k:'gondola',p:placed.some(p=>p.type==='gondola')?0:-1,m:0});
   const total=f.reduce((a,b)=>a+b.p,0);
-  const gaps=f.filter(x=>x.m-x.p>0&&(LINES[t][x.k]||'')).sort((a,b)=>(b.m-b.p)-(a.m-a.p)||PRIORITY.indexOf(a.k)-PRIORITY.indexOf(b.k));
+  const gaps=f.filter(x=>x.m-x.p>0&&ownerLine(t,x.k)).sort((a,b)=>(b.m-b.p)-(a.m-a.p)||PRIORITY.indexOf(a.k)-PRIORITY.indexOf(b.k));
   return{total,ok:total>=st.need,top:gaps[0],c,f};
 }
 function policyBreach(n,t){
   const st=ST(t),c=calc(n),p=S().policy;
-  if(n.disc>maxDisc(c.gross))return `A ${n.disc}% discount is above the ${maxDisc(c.gross)}% limit for a ${egp(c.gross)} order.`;
-  if(n.terms>st.maxTerms)return `${TERMS[n.terms]} payment terms are not allowed in this channel.`;
-  if(n.free&&n.disc>p.freeStack)return `Free goods cannot be combined with a discount above ${p.freeStack}%.`;
-  return '';
+  if(n.disc>maxDisc(c.gross))return{tk:'brDisc',tv:{d:n.disc,m:maxDisc(c.gross),g:egp(c.gross)}};
+  if(n.terms>st.maxTerms)return{tk:'brTerms',tv:{t:termName(n.terms)}};
+  if(n.free&&n.disc>p.freeStack)return{tk:'brFree',tv:{x:p.freeStack}};
+  return null;
 }
 function makeOffer(){
   const t=CUR,st=ST(t),v=G.visits[t],n=v.nego,c=calc(n);
-  if(!c.cartons){toast('Add at least one carton to the order first.','warn');return;}
-  n.log.push({w:'p',t:`Offer: ${c.cartons} cartons, ${egp(c.gross)} gross, ${n.disc}% off, ${TERMS[n.terms]}${n.free?', 1 free per 6':''}.`});
+  if(!c.cartons){toast(tr('addCarton'),'warn');return;}
+  n.log.push({w:'p',tk:'offer',tv:{c:c.cartons,g:egp(c.gross),d:n.disc,t:termName(n.terms),f:n.free?tr('offerFree'):''}});
   n.offers++;
   const br=policyBreach(n,t);
   if(br){
     G.lives--;n.patience--;
-    n.log.push({w:'s',t:'Area manager: deal blocked. '+br+' You lose a life.'});
-    toast('Policy breach. You lost a life.','bad');renderHud();
+    n.log.push({w:'s',tk:'amBlock',tv:{x:tr(br.tk,br.tv)}});
+    toast(tr('breachToast'),'bad');renderHud();
     if(G.lives<=0){save(true);return gameOver();}
     if(n.patience<=0)return walkout();
     save();return renderNegoKeep();
@@ -1466,27 +1673,27 @@ function makeOffer(){
   const ev=evaluate(n,v,t);n.lastInterest=clamp(ev.total/st.need,0,1);
   if(ev.ok)return closeDeal(ev);
   n.patience--;
-  const line=ev.top?LINES[t][ev.top.k].replace('{sku}',ev.top.sku||'that product'):'Not good enough. Try again.';
-  n.log.push({w:'o',t:line});
+  n.log.push(ev.top?{w:'o',k:ev.top.k,sku:ev.top.sku||''}:{w:'o',tk:'notGood'});
   if(n.patience<=0)return walkout();
   save();renderNegoKeep();
 }
 function coaching(v,t,n){
-  const st=ST(t),L=LAYOUT[t],out=[];
-  out.push({k:v.oosFound.length===v.oos.length?'good':'bad',t:`Found ${v.oosFound.length} of ${v.oos.length} out-of-stock gaps${v.oosFound.length<v.oos.length?'. Missed: '+v.oos.filter(x=>!v.oosFound.includes(x)).map(x=>SK[x].short).join(', ')+'. Scan every shelf row before the meeting.':'.'}`});
-  if(v.eyeIssue)out.push({k:v.eyeFound?'good':'bad',t:v.eyeFound?'You spotted the competitor at eye level and used it in the pitch.':'A competitor held eye level and you did not raise it.'});
-  for(const sp of L.spots){const p=v.spots[sp.id];
-    if(!p){out.push({k:'warn',t:`Unused spot: ${sp.label}. Best fit: ${sp.best.map(b=>POSM[b].name).join(' or ')}.`});continue;}
-    out.push({k:p.grade==='best'?'good':p.grade==='ok'?'warn':'bad',t:`${sp.label}: ${POSM[p.type].name}${p.grade==='best'?' was the right call.':p.grade==='ok'?' worked; '+POSM[sp.best[0]].name+' would be stronger.':' was the wrong material. '+sp.tip}`});}
-  if(n&&n.offers)out.push({k:'warn',t:`${st.owner} expected about ${st.wantDisc}% discount and ${TERMS[st.wantTerms]} terms on an order of ${egp(st.min)} to ${egp(st.max)}.`});
+  const st=ST(t),L_=LAYOUT[t],out=[];
+  const missed=v.oos.filter(x=>!v.oosFound.includes(x)).map(x=>pShort(prodOf(x))).join(LANG==='ar'?'، ':', ');
+  out.push({k:missed?'bad':'good',tk:missed?'cOosMiss':'cOos',tv:{f:v.oosFound.length,n:v.oos.length,x:missed}});
+  if(v.eyeIssue)out.push({k:v.eyeFound?'good':'bad',tk:v.eyeFound?'cEyeYes':'cEyeNo'});
+  for(const sp of L_.spots){const p=v.spots[sp.id];
+    if(!p){out.push({k:'warn',tk:'cUnused',tv:{s:sp.id,b:sp.best.join('|')},spot:sp.id});continue;}
+    out.push({k:p.grade==='best'?'good':p.grade==='ok'?'warn':'bad',tk:p.grade==='best'?'cBest':p.grade==='ok'?'cOk':'cBad',spot:sp.id,posm:p.type});}
+  if(n&&n.offers)out.push({k:'warn',tk:'cExpect'});
   return out;
 }
 function closeDeal(ev){
-  const t=CUR,st=ST(t),v=G.visits[t],n=v.nego,s=S();
+  const t=CUR,v=G.visits[t],n=v.nego,s=S();
   const audit=s.auditBonus*(v.oosFound.length+(v.eyeFound?1:0));
   const comm=Math.round(ev.c.comm);
   v.status='won';v.earned=comm+audit;G.money+=comm+audit;G.earned+=comm+audit;G.deals++;
-  n.log.push({w:'o',t:LINES[t].accept});
+  n.log.push({w:'o',k:'accept'});
   v.coach=coaching(v,t,n);
   G.history.push({day:G.day,store:t,result:'won',net:Math.round(ev.c.net),earned:v.earned});
   save(true);renderHud();
@@ -1501,107 +1708,204 @@ function walkout(){
   showResult(false,t,{});
 }
 function showResult(won,t,x){
-  const st=ST(t),v=G.visits[t];
-  openOv(`<div class="sheet narrow result"><div class="label">${esc(st.name)}</div>
-   <h2 style="color:${won?'var(--good)':'var(--bad)'}">${won?'Deal closed':esc(st.owner)+' walked out'}</h2>
-   <p class="muted" style="margin:.4em 0 0">${won?esc(LINES[t].accept):esc(LINES[t].walkout)+' You lost a life.'}</p>
-   ${won?`<div class="sum"><span>Net order value</span><b>${egp(x.net)}</b><span>Commission</span><b style="color:var(--good)">+${egp(x.comm)}</b><span>Store-check bonus</span><b style="color:var(--good)">+${egp(x.audit)}</b><span class="tot">Wallet now</span><b class="tot">${egp(G.money)}</b></div>`:''}
-   <div class="label" style="margin-top:14px">Coaching notes</div>
-   <ul class="coach">${v.coach.map(c=>`<li class="${c.k}"><i></i><span>${esc(c.t)}</span></li>`).join('')}</ul>
-   <div class="actions"><button class="btn" id="resBtn">Back to the car</button></div></div>`,
+  const v=G.visits[t];
+  openOv(`<div class="sheet narrow result"><div class="label">${esc(stName(t))}</div>
+   <h2 style="color:${won?'var(--good)':'var(--bad)'}">${won?tr('dealClosedT'):esc(tr('walkedOut',{o:stOwner(t)}))}</h2>
+   <p class="muted" style="margin:.4em 0 0">${won?esc(ownerLine(t,'accept')):esc(ownerLine(t,'walkout'))+' '+tr('lostLife')}</p>
+   ${won?`<div class="sum"><span>${tr('netVal')}</span><b>${egp(x.net)}</b><span>${tr('commission')}</span><b style="color:var(--good)">+${egp(x.comm)}</b><span>${tr('bonus')}</span><b style="color:var(--good)">+${egp(x.audit)}</b><span class="tot">${tr('walletNow')}</span><b class="tot">${egp(G.money)}</b></div>`:''}
+   <div class="label" style="margin-top:14px">${tr('coachNotes')}</div>
+   <ul class="coach">${(v.coach||[]).map(c=>`<li class="${c.k}"><i></i><span>${esc(coachText(c,t))}</span></li>`).join('')}</ul>
+   <div class="actions"><button class="btn" id="resBtn">${tr('backToCar')}</button></div></div>`,
    ov=>ov.querySelector('#resBtn').addEventListener('click',()=>{closeOv();leaveStore();}));
 }
 
+function prodOf(id){return SK[id]||CP[id]||{short:id,name:id,co:'?',bg:'#9aa0b5',fg:'#fff'};}
+function msgText(m,t){
+  if(m.k)return ownerLine(t,m.k).replace('{sku}',m.sku?pShort(prodOf(m.sku)):tr('thatProduct'))||tr('notGood');
+  if(m.keys)return m.keys.map(k=>tr(k)).join(' ');
+  if(m.tk)return tr(m.tk,m.tv||{});
+  return m.t||'';
+}
+function coachText(c,t){
+  const st=ST(t),sp=c.spot?LAYOUT[t].spots.find(s=>s.id===c.spot):null;
+  if(c.t&&!c.tk)return c.t;
+  const v=Object.assign({},c.tv||{});
+  if(sp){v.s=spLabel(sp);v.b=sp.best.map(b=>posmName(b)).join(' / ');v.tip=spTip(sp);if(c.posm)v.p=posmName(c.posm);}
+  if(c.tk==='cExpect')Object.assign(v,{o:stOwner(t),d:st.wantDisc,t:termName(st.wantTerms),a:egp(st.min),b:egp(st.max)});
+  return tr(c.tk,v);
+}
 /* ---------- day end / game over ---------- */
 function endDay(){
   const s=S(),earned=G.money-G.dayStart,stars=earned>=s.dayTarget?3:earned>=s.dayTarget*.5?2:earned>0?1:0;
   const open=TYPES.filter(t=>G.visits[t].status==='open');
-  openOv(`<div class="sheet narrow result"><div class="label">Day ${G.day} summary</div><h2>${stars===3?'Target smashed':stars===2?'Solid day':stars===1?'Some progress':'Tough day'}</h2>
+  openOv(`<div class="sheet narrow result"><div class="label">${tr('daySum',{n:G.day})}</div><h2>${tr(['tough','some','solid','smashed'][stars])}</h2>
    <div class="stars" style="margin-top:10px">${[0,1,2].map(i=>star(i<stars)).join('')}</div>
-   <div class="sum">${TYPES.map(t=>{const v=G.visits[t];return `<span>${esc(ST(t).name)}</span><b>${v.status==='won'?'+'+egp(v.earned):v.status==='failed'?'Lost':'Not visited'}</b>`;}).join('')}
-    <span class="tot">Day result</span><b class="tot">${earned>=0?'+':''}${egp(earned)}</b></div>
-   ${open.length?`<p class="tip">${open.length} store${open.length>1?'s are':' is'} still open. Ending the day now skips ${open.length>1?'them':'it'}.</p>`:''}
-   ${stars===3&&G.lives<s.lives?'<p class="tip" style="color:var(--good);font-weight:800">Target hit: you win back one life.</p>':''}
-   <div class="actions"><button class="btn" id="nextDay">Start day ${G.day+1}</button><button class="btn ghost" data-close>Keep driving</button></div></div>`,
+   <div class="sum">${TYPES.map(t=>{const v=G.visits[t];return `<span>${esc(stName(t))}</span><b>${v.status==='won'?'+'+egp(v.earned):v.status==='failed'?tr('lost'):tr('notVisited')}</b>`;}).join('')}
+    <span class="tot">${tr('dayResult')}</span><b class="tot">${earned>=0?'+':''}${egp(earned)}</b></div>
+   ${open.length?`<p class="tip">${tr('stillOpen',{n:open.length})}</p>`:''}
+   ${stars===3&&G.lives<s.lives?`<p class="tip" style="color:var(--good);font-weight:800">${tr('lifeBack')}</p>`:''}
+   <div class="actions"><button class="btn" id="nextDay">${tr('startDay',{n:G.day+1})}</button><button class="btn ghost" data-close>${tr('keepDriving')}</button></div></div>`,
    ov=>ov.querySelector('#nextDay').addEventListener('click',()=>{
      if(stars===3&&G.lives<s.lives)G.lives++;
-     G.day++;G.car=null;G.odo=0;G.dayStart=G.money;G.visits=newVisits();save(true);closeOv();enterMap();toast('Day '+G.day+'. New stock levels, same owners. Check the shelves again.');
+     G.day++;G.car=null;G.odo=0;G.dayStart=G.money;G.visits=newVisits();save(true);closeOv();enterMap();toast(tr('newDayToast',{n:G.day}));
    }));
 }
-function gameOver(view){
+function gameOver(){
   G.over=true;save(true);stopLoop();stopDrive();renderHud();
-  openOv(`<div class="sheet narrow result"><div class="label">${esc(TEAM.name)}</div><h2 style="color:var(--bad)">Out of lives</h2>
-   <p class="muted">Your run ended on day ${G.day}. Final wallet ${egp(G.money)} with ${G.deals} deal${G.deals===1?'':'s'} closed. Your score stays on the leaderboard.</p>
-   <ul class="coach">${G.history.slice(-6).map(h=>`<li class="${h.result==='won'?'good':'bad'}"><i></i><span>Day ${h.day} · ${esc(ST(h.store).name)}: ${h.result==='won'?'closed, +'+egp(h.earned):'lost'}</span></li>`).join('')}</ul>
-   <div class="actions"><button class="btn" id="goLobby">Back to the lobby</button></div></div>`,
+  openOv(`<div class="sheet narrow result"><div class="label">${esc(TEAM.name)}</div><h2 style="color:var(--bad)">${tr('outLives')}</h2>
+   <p class="muted">${tr('endedOn',{d:G.day,w:egp(G.money),n:G.deals})}</p>
+   <ul class="coach">${G.history.slice(-6).map(h=>`<li class="${h.result==='won'?'good':'bad'}"><i></i><span>${tr('day')} ${h.day} · ${esc(stName(h.store))}: ${h.result==='won'?tr('closedPlus',{x:egp(h.earned)}):tr('lostW')}</span></li>`).join('')}</ul>
+   <div class="actions"><button class="btn" id="goLobby">${tr('toLobby')}</button></div></div>`,
    ov=>ov.querySelector('#goLobby').addEventListener('click',()=>{closeOv();clearInterval(leaseTimer);G=null;TEAM=null;renderHud();renderLobby();show('scrLobby');}));
 }
 
-/* ---------- facilitator panel ---------- */
-let ADM={tab:'event',scen:null,draft:null};
-$('#adminBtn').addEventListener('click',()=>{subTeams(true);ADM.scen=EVENT.activeScenario||'cairo-standard';ADM.draft=null;renderAdmin();});
-const SFIELDS=[['startMoney','Starting wallet (EGP)'],['lives','Lives'],['commission','Commission %'],['dayTarget','Daily target (EGP)'],['auditBonus','Bonus per shelf issue found'],['fuelRate','Fuel cost per map unit']];
-const PFIELDS=[['t1','Tier 1 upper limit (EGP)'],['d1','Tier 1 max discount %'],['t2','Tier 2 upper limit (EGP)'],['d2','Tier 2 max discount %'],['d3','Above tier 2 max %'],['freeStack','Max discount with free goods %']];
-const STFIELDS=[['name','Store name','text'],['owner','Owner name','text'],['role','Owner role','text'],['min','Min order (EGP)'],['max','Max order (EGP)'],['wantDisc','Discount owner expects %'],['wantTerms','Terms owner expects (0 cash, 1=15d, 2=30d)'],['maxTerms','Max terms allowed by policy'],['need','Points needed to accept'],['patience','Patience (offers)'],['marsShare','Mars shelf share (0–1)'],['eyeChance','Chance competitor holds eye level (0–1)'],['likesFree','Likes free goods','bool'],['needsGondola','Requires gondola end','bool'],['fast','Fast movers (ids, comma separated)','text'],['avoid','Wrong products (ids)','text'],['open','Opening line','area']];
-function renderAdmin(){
-  const ids=Object.keys(SCEN);if(!ids.includes('cairo-standard'))ids.unshift('cairo-standard');
-  if(!ADM.draft)ADM.draft=deepMerge(DEFAULT_SCENARIO,SCEN[ADM.scen]||{});
-  const d=ADM.draft;
-  const tab=(k,l)=>`<button class="btn sm ${ADM.tab===k?'':'ghost'}" data-tab="${k}">${l}</button>`;
-  const fld=(path,label,type,val)=>type==='bool'?`<div class="field"><label for="f-${path}">${esc(label)}</label><select id="f-${path}" data-f="${path}" data-t="bool"><option value="1" ${val?'selected':''}>Yes</option><option value="0" ${!val?'selected':''}>No</option></select></div>`:type==='area'?`<div class="field wide"><label for="f-${path}">${esc(label)}</label><textarea id="f-${path}" data-f="${path}">${esc(val)}</textarea></div>`:`<div class="field"><label for="f-${path}">${esc(label)}</label><input id="f-${path}" data-f="${path}" data-t="${type||'num'}" ${type==='text'?'type="text"':'type="number" step="any"'} value="${esc(val)}"></div>`;
-  let body='';
-  if(ADM.tab==='event'){
-    body=`<fieldset><legend>Event control</legend><div class="fields">
-      <div class="field"><label for="ev-status">Status</label><select id="ev-status"><option value="running" ${EVENT.status!=='paused'?'selected':''}>Running</option><option value="paused" ${EVENT.status==='paused'?'selected':''}>Paused for everyone</option></select></div>
-      <div class="field"><label for="ev-scen">Scenario for new teams</label><select id="ev-scen">${ids.map(i=>`<option value="${esc(i)}" ${i===EVENT.activeScenario?'selected':''}>${esc((SCEN[i]||DEFAULT_SCENARIO).name||i)}</option>`).join('')}</select></div>
-      <div class="field wide"><label for="ev-msg">Message on the lobby and pause screen</label><input id="ev-msg" type="text" value="${esc(EVENT.message||'')}" placeholder="e.g. Round 2 starts at 3 pm"></div></div>
-      <div class="actions"><button class="btn" id="evSave">Apply</button></div></fieldset>`;
-  }else if(ADM.tab==='scen'){
-    body=`<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:flex-end;margin-bottom:12px"><div class="field" style="flex:1 1 200px"><label for="sc-pick">Edit scenario</label><select id="sc-pick">${ids.map(i=>`<option value="${esc(i)}" ${i===ADM.scen?'selected':''}>${esc((SCEN[i]||DEFAULT_SCENARIO).name||i)}</option>`).join('')}</select></div><button class="btn ghost sm" id="scDup">Duplicate as new</button></div>
-     <fieldset><legend>General</legend><div class="fields">${fld('name','Scenario name','text',d.name)}${SFIELDS.map(([k,l])=>fld(k,l,'num',d[k])).join('')}</div></fieldset>
-     <fieldset><legend>Discount policy</legend><div class="fields">${PFIELDS.map(([k,l])=>fld('policy.'+k,l,'num',d.policy[k])).join('')}</div></fieldset>
-     <fieldset><legend>POSM costs (EGP)</legend><div class="fields">${Object.keys(POSM).map(k=>fld('posmCost.'+k,POSM[k].name,'num',d.posmCost[k])).join('')}</div></fieldset>
-     <fieldset><legend>Carton prices (EGP)</legend><div class="fields">${SKUS.map(k=>fld('prices.'+k.id,k.name+' ('+k.id+')','num',d.prices[k.id])).join('')}</div></fieldset>
-     ${TYPES.map(t=>`<fieldset><legend>${esc(d.stores[t].name)} · ${t}</legend><div class="fields">${STFIELDS.map(([k,l,ty])=>fld('stores.'+t+'.'+k,l,ty,d.stores[t][k])).join('')}</div></fieldset>`).join('')}
-     <div class="actions"><button class="btn" id="scSave">Save scenario</button><span class="muted" style="align-self:center;font-size:13px">Changes reach every team using this scenario on their next action.</span></div>`;
-  }else{
-    const sorted=[...TEAMS].sort((a,b)=>(b.money||0)-(a.money||0));
-    body=`<div style="overflow-x:auto"><table class="lb"><thead><tr><th>Team</th><th>Scenario</th><th class="r">Day</th><th class="r">Lives</th><th class="r">Wallet</th><th></th></tr></thead><tbody>${sorted.map(t=>`<tr><td><b>${esc(t.name)}</b></td><td>${esc((SCEN[t.scenarioId]||DEFAULT_SCENARIO).name)}</td><td class="r num">${t.day||1}</td><td class="r num">${t.lives??'-'}</td><td class="r num">${egp(t.money||0)}</td><td class="r" style="white-space:nowrap"><button class="btn ghost sm" data-reset="${esc(t.id)}">Restart</button> <button class="btn red sm" data-del="${esc(t.id)}">Remove</button></td></tr>`).join('')||'<tr><td colspan="6" class="muted">No teams yet.</td></tr>'}</tbody></table></div><div id="confirmBox"></div>`;
-  }
-  openOv(`<div class="sheet"><div class="sheethead"><div><div class="label">Facilitator</div><h2>Run the event</h2></div><button class="btn ghost sm" data-close>Close</button></div>
-   <div class="tabs">${tab('event','Event')}${tab('scen','Scenarios')}${tab('teams','Teams')}</div>${body}</div>`,ov=>{
-    ov.addEventListener('click',async e=>{
-      const tb=e.target.closest('[data-tab]');if(tb){ADM.tab=tb.dataset.tab;renderAdmin();return;}
-      if(e.target.id==='evSave'){const body={status:$('#ev-status').value,activeScenario:$('#ev-scen').value,message:$('#ev-msg').value.trim().slice(0,140)};
-        try{await adminWrite('config/event',body);EVENT={...EVENT,...body};toast('Event updated.','good');renderLobby();}catch(err){toast('Only facilitators can change the event.','bad');}return;}
-      if(e.target.id==='scDup'){const nid='scenario-'+Math.random().toString(36).slice(2,7);ADM.draft={...deepMerge(DEFAULT_SCENARIO,ADM.draft),name:(ADM.draft.name||'Scenario')+' copy'};ADM.scen=nid;try{await adminWrite('scenarios/'+nid,ADM.draft);SCEN[nid]=ADM.draft;toast('Created a copy. Edit it below.','good');}catch(err){toast('Could not create the copy.','bad');}renderAdmin();return;}
-      if(e.target.id==='scSave'){try{await adminWrite('scenarios/'+ADM.scen,ADM.draft);SCEN[ADM.scen]=JSON.parse(JSON.stringify(ADM.draft));toast('Scenario saved.','good');}catch(err){toast('Could not save. Only facilitators can edit scenarios.','bad');}return;}
-      const rs=e.target.closest('[data-reset]'),dl=e.target.closest('[data-del]');
-      if(rs||dl){const id=(rs||dl).dataset[rs?'reset':'del'],t=TEAMS.find(x=>x.id===id);
-        $('#confirmBox').innerHTML=`<div class="policy" style="margin-top:12px"><b>${rs?'Restart':'Remove'} ${esc(t?.name)}?</b> ${rs?'Their progress goes back to day 1.':'The team disappears from the leaderboard.'} This cannot be undone.<div class="actions"><button class="btn ${rs?'':'red'} sm" id="cfYes">${rs?'Restart team':'Remove team'}</button><button class="btn ghost sm" id="cfNo">Cancel</button></div></div>`;
-        $('#cfNo').onclick=()=>$('#confirmBox').innerHTML='';
-        $('#cfYes').onclick=async()=>{try{
-          if(rs){const saveTeam=TEAM,saveG=G;TEAM={id,name:t.name,color:t.color,scenarioId:EVENT.activeScenario};const g=newGame();TEAM=saveTeam;G=saveG;
-            const ref=db?db.doc('teams/'+id):null;const body={state:g,money:g.money,lives:g.lives,day:1,deals:0,earned:0,status:'playing',scenarioId:EVENT.activeScenario,updatedAt:Date.now()};
-            if(ref)await ref.update(body);else{Object.assign(t,body);saveLocalTeams();}}
-          else{if(db)await db.doc('teams/'+id).delete();else{TEAMS=TEAMS.filter(x=>x.id!==id);saveLocalTeams();}}
-          toast(rs?'Team restarted.':'Team removed.','good');renderAdmin();renderLobby();
-        }catch(err){toast('That change was not allowed.','bad');}};return;}
-    });
-    ov.addEventListener('change',e=>{
-      if(e.target.id==='sc-pick'){ADM.scen=e.target.value;ADM.draft=null;renderAdmin();return;}
-      const f=e.target.closest('[data-f]');if(!f)return;
-      const path=f.dataset.f.split('.'),ty=f.dataset.t;let val=f.value;
-      if(ty==='bool')val=val==='1';else if(ty==='num'||ty===undefined&&f.type==='number')val=parseFloat(val)||0;
-      let o=ADM.draft;for(let i=0;i<path.length-1;i++)o=o[path[i]];o[path[path.length-1]]=val;
-    });
-  });
+/* ---------- facilitator backend ---------- */
+let ADM={tab:'scen',scen:null,draft:null,dirty:false,confirm:null};
+const LINE_LABELS=[['open','Opening line','الجملة الافتتاحية'],['low','Order too small','الطلبية صغيرة'],['high','Order too big','الطلبية كبيرة'],['disc','Wants a discount','عايز خصم'],['terms','Wants payment terms','عايز شروط دفع'],['free','Wants free goods','عايز هدايا'],['fast','Wants fast movers','عايز أصناف سريعة'],['avoid','Wrong products in order','منتجات غلط في الطلبية'],['oos','Out of stock (use {sku} for the product)','ناقص (استخدم {sku} لاسم المنتج)'],['prep','Wants POSM support','عايز مواد دعاية'],['eye','Competitor holds eye level','منافس في مستوى النظر'],['gondola','Needs a gondola end','محتاج جندولة'],['accept','Accepts the deal','بيوافق على الصفقة'],['walkout','Walks out','بيمشي']];
+const GFIELDS=[['startMoney','Starting wallet (EGP)','رصيد البداية (ج.م)'],['lives','Lives','المحاولات'],['commission','Commission %','العمولة %'],['dayTarget','Daily target (EGP)','التارجت اليومي (ج.م)'],['auditBonus','Bonus per shelf issue (EGP)','مكافأة كل ملاحظة رف (ج.م)'],['fuelRate','Fuel cost factor','معامل تكلفة البنزين']];
+const PFIELDS=[['t1','Tier 1 order limit (EGP)','حد الشريحة ١ (ج.م)'],['d1','Tier 1 max discount %','أقصى خصم شريحة ١ %'],['t2','Tier 2 order limit (EGP)','حد الشريحة ٢ (ج.م)'],['d2','Tier 2 max discount %','أقصى خصم شريحة ٢ %'],['d3','Above tier 2 max %','أقصى خصم فوق الشريحة ٢ %'],['freeStack','Max discount with free goods %','أقصى خصم مع الهدايا %']];
+const STNUM=[['min','Min order (EGP)','أقل طلبية (ج.م)'],['max','Max order (EGP)','أكبر طلبية (ج.م)'],['wantDisc','Discount owner expects %','الخصم المتوقع %'],['need','Points needed to accept','النقاط المطلوبة للموافقة'],['patience','Patience (offers)','الصبر (عدد العروض)'],['marsShare','Mars shelf share (0–1)','حصة مارس على الرف (0–1)'],['eyeChance','Chance competitor holds eye level (0–1)','احتمال منافس في مستوى النظر (0–1)']];
+const STTXT=[['name','Store name','اسم المحل'],['kind','Channel label','القناة'],['owner','Owner name','اسم صاحب المحل'],['role','Owner role','الوظيفة']];
+const TYPE_LABEL={koshk:'kiosk',super:'supermarket',hyper:'hypermarket'};
+const LB=a=>LANG==='ar'?a[2]:a[1];
+function openAdmin(){
+  if(G){if(CAR&&!$('#scrMap').hidden)G.car={x:CAR.x,y:CAR.y,a:CAR.a};save(true);stopLoop();stopDrive();}
+  closeOv();ADM.scen=ADM.scen||EVENT.activeScenario||'cairo-standard';if(!ADM.draft)loadDraft(ADM.scen);
+  show('scrAdmin');renderAdmin();
 }
+function loadDraft(id){ADM.scen=id;const d=buildScenario(SCEN[id]||null);delete d.prices;ADM.draft=JSON.parse(JSON.stringify(d));ADM.dirty=false;}
+$('#adminBtn').addEventListener('click',openAdmin);
+$('#admBack').addEventListener('click',()=>{if(ADM.dirty&&!ADM.leaveOk){ADM.leaveOk=true;toast(tr('leaveWarn'),'warn');return;}ADM.leaveOk=false;if(ADM.dirty){loadDraft(ADM.scen);}if(G)enterMap();else{renderLobby();show('scrLobby');}});
+function scenIds(){const ids=Object.keys(SCEN);if(!ids.includes('cairo-standard'))ids.unshift('cairo-standard');return ids;}
+function scenName(id){return (SCEN[id]&&SCEN[id].name)||(id==='cairo-standard'?DEFAULT_SCENARIO.name:id);}
+function setPath(obj,path,val){const p=path.split('.');let o=obj;for(let i=0;i<p.length-1;i++){const k=/^\d+$/.test(p[i])?+p[i]:p[i];if(o[k]==null||typeof o[k]!=='object')o[k]={};o=o[k];}o[p[p.length-1]]=val;}
+function fld(path,label,val,type='num',cls=''){
+  const id='a-'+path.replace(/\./g,'-');
+  if(type==='bool')return `<div class="field ${cls}"><label for="${id}">${esc(label)}</label><select id="${id}" data-f="${path}" data-t="bool"><option value="1" ${val?'selected':''}>${tr('yes')}</option><option value="0" ${!val?'selected':''}>${tr('no')}</option></select></div>`;
+  if(type==='area')return `<div class="field ${cls||'wide'}"><label for="${id}">${esc(label)}</label><textarea id="${id}" data-f="${path}" data-t="text">${esc(val)}</textarea></div>`;
+  if(type==='terms')return `<div class="field ${cls}"><label for="${id}">${esc(label)}</label><select id="${id}" data-f="${path}" data-t="num">${TERMS.map((t,i)=>`<option value="${i}" ${+val===i?'selected':''}>${termName(i)}</option>`).join('')}</select></div>`;
+  if(type==='color')return `<div class="field ${cls}"><label for="${id}">${esc(label)}</label><input id="${id}" type="color" data-f="${path}" data-t="text" value="${esc(val)}"></div>`;
+  return `<div class="field ${cls}"><label for="${id}">${esc(label)}</label><input id="${id}" data-f="${path}" data-t="${type}" ${type==='text'?'type="text"':'type="number" step="any" inputmode="decimal"'} value="${esc(val)}"></div>`;
+}
+function renderAdmin(){
+  const tabs=[['scen',tr('tScen')],['event',tr('tEvent')],['teams',tr('tTeams')]];
+  $('#admTabs').innerHTML=tabs.map(([k,l])=>`<button class="btn sm ${ADM.tab===k?'':'ghost'}" data-atab="${k}" role="tab" aria-selected="${ADM.tab===k}">${l}</button>`).join('');
+  if(!isAdmin){$('#admBody').innerHTML=`<div class="card"><h3 style="font-size:20px">${tr('needAccess')}</h3><p class="muted">${tr('needAccessP')}</p></div>`;$('#admSave').hidden=true;return;}
+  $('#admSave').hidden=ADM.tab!=='scen';
+  if(ADM.tab==='event')return renderAdmEvent();
+  if(ADM.tab==='teams')return renderAdmTeams();
+  renderAdmScen();
+}
+function renderAdmEvent(){
+  $('#admBody').innerHTML=`<div class="card"><div class="fields">
+   <div class="field"><label for="ev-status">${tr('gStatus')}</label><select id="ev-status"><option value="running" ${EVENT.status!=='paused'?'selected':''}>${tr('running')}</option><option value="paused" ${EVENT.status==='paused'?'selected':''}>${tr('pausedAll')}</option></select></div>
+   <div class="field"><label for="ev-scen">${tr('scenNew')}</label><select id="ev-scen">${scenIds().map(i=>`<option value="${esc(i)}" ${i===EVENT.activeScenario?'selected':''}>${esc(scenName(i))}</option>`).join('')}</select></div>
+   <div class="field wide"><label for="ev-msg">${tr('evMsg')}</label><input id="ev-msg" type="text" maxlength="140" value="${esc(EVENT.message||'')}" placeholder="${tr('evMsgPh')}"></div></div>
+   <div class="actions"><button class="btn" id="evSave">${tr('applyAll')}</button></div>
+   <p class="tip">${tr('evTip')}</p></div>`;
+}
+function renderAdmTeams(){
+  const sorted=[...TEAMS].sort((a,b)=>(b.money||0)-(a.money||0));
+  $('#admBody').innerHTML=`<div class="card"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap"><h3 style="font-size:20px">${tr('nTeams',{n:sorted.length})}</h3><button class="btn ghost sm" id="csvBtn" ${sorted.length?'':'disabled'}>${tr('csv')}</button></div>
+   <div class="teamcards">${sorted.map((t,i)=>`<div class="teamcard"><div class="tc-head"><span class="rank">${i+1}</span><span class="dot" style="background:${esc(t.color||'#0000A0')}"></span><b>${esc(t.name)}</b>${t.status==='over'?'<span class="chip bad">'+tr('out')+'</span>':''}</div>
+     <div class="tc-stats num"><span>${tr('wallet')} <b>${egp(t.money||0)}</b></span><span>${tr('day')} <b>${t.day||1}</b></span><span>${tr('deals')} <b>${t.deals||0}</b></span><span>${tr('lives')} <b>${t.lives??'-'}</b></span></div>
+     <div class="muted" style="font-size:12px">${esc(scenName(t.scenarioId||'cairo-standard'))}</div>
+     ${ADM.confirm&&ADM.confirm.id===t.id?`<div class="policy"><b>${tr(ADM.confirm.kind==='reset'?'restartQ':'removeQ',{x:esc(t.name)})}</b> ${tr(ADM.confirm.kind==='reset'?'restartP':'removeP')} ${tr('noUndo')}<div class="actions"><button class="btn sm ${ADM.confirm.kind==='reset'?'':'red'}" data-yes="${esc(t.id)}">${tr(ADM.confirm.kind==='reset'?'restartBtn':'removeBtn')}</button><button class="btn ghost sm" data-no>${tr('cancel')}</button></div></div>`:
+     `<div class="actions" style="margin-top:6px"><button class="btn ghost sm" data-reset="${esc(t.id)}">${tr('restart')}</button><button class="btn ghost sm" style="color:var(--bad);box-shadow:0 0 0 2px var(--bad) inset" data-del="${esc(t.id)}">${tr('remove')}</button></div>`}</div>`).join('')||'<p class="muted">'+tr('noTeamsA')+'</p>'}</div></div>`;
+}
+function chipsFor(path,selected){const sel=list(selected);return `<div class="seg">${SKUSdraft().map(p=>`<button type="button" data-chip="${path}" data-id="${esc(p.id)}" aria-pressed="${sel.includes(p.id)}">${esc(pShort(p)||p.name)}</button>`).join('')}</div>`;}
+function SKUSdraft(){return ADM.draft.products||[];}
+function renderAdmScen(){
+  const d=ADM.draft,ids=scenIds();
+  const prodRows=d.products.map((p,i)=>`<div class="prow"><span class="pk-prev" style="background:${esc(p.bg)};color:${esc(p.fg)}">${esc(p.short||'?')}</span>
+     <div class="fields">${fld(`products.${i}.name`,LANG==='ar'?'اسم المنتج (إنجليزي)':'Product name',p.name,'text','w2')}${fld(`products.${i}.name_ar`,LANG==='ar'?'اسم المنتج (عربي)':'Product name (Arabic)',p.name_ar||'','text','w2')}${fld(`products.${i}.short`,LANG==='ar'?'اسم على العبوة':'Shelf label',p.short,'text')}${fld(`products.${i}.pack`,LANG==='ar'?'حجم الكرتونة':'Carton size',p.pack,'text')}${fld(`products.${i}.pack_ar`,LANG==='ar'?'حجم الكرتونة (عربي)':'Carton size (Arabic)',p.pack_ar||'','text')}${fld(`products.${i}.price`,LANG==='ar'?'سعر الكرتونة (ج.م)':'Price per carton (EGP)',p.price)}${fld(`products.${i}.bg`,LANG==='ar'?'لون العبوة':'Pack colour',p.bg,'color')}${fld(`products.${i}.fg`,LANG==='ar'?'لون الكتابة':'Text colour',p.fg,'color')}</div>
+     <button class="btn ghost sm" data-delprod="${i}" ${d.products.length<=3?'disabled title="'+tr('keep3')+'"':''}>${tr('remove')}</button></div>`).join('');
+  const compRows=d.competitors.map((c,i)=>`<div class="prow"><span class="pk-prev" style="background:${esc(c.bg)};color:${esc(c.fg)}">${esc(c.short||'?')}</span>
+     <div class="fields">${fld(`competitors.${i}.short`,LANG==='ar'?'البراند':'Brand',c.short,'text')}${fld(`competitors.${i}.co`,LANG==='ar'?'الشركة':'Company',c.co,'text')}${fld(`competitors.${i}.bg`,LANG==='ar'?'لون العبوة':'Pack colour',c.bg,'color')}${fld(`competitors.${i}.fg`,LANG==='ar'?'لون الكتابة':'Text colour',c.fg,'color')}</div>
+     <button class="btn ghost sm" data-delcomp="${i}" ${d.competitors.length<=1?'disabled':''}>${tr('remove')}</button></div>`).join('');
+  const stores=TYPES.map(t=>{const s=d.stores[t];return `<details class="acc"><summary><span><span class="label">${tr(TYPE_LABEL[t])}</span><b>${esc(L(s,'name'))}</b></span><span class="muted">${esc(L(s,'owner'))}</span></summary><div class="accbody">
+     <h4>${tr('identity')}</h4><div class="fields">${STTXT.map(a=>fld(`stores.${t}.${a[0]}`,LB(a),s[a[0]],'text')+fld(`stores.${t}.${a[0]}_ar`,LB(a)+' ('+tr('arabic')+')',s[a[0]+'_ar']||'','text')).join('')}</div>
+     <h4>${tr('ownerWants')}</h4><div class="fields">${STNUM.map(a=>fld(`stores.${t}.${a[0]}`,LB(a),s[a[0]])).join('')}${fld(`stores.${t}.wantTerms`,LANG==='ar'?'شروط الدفع المتوقعة':'Terms the owner expects',s.wantTerms,'terms')}${fld(`stores.${t}.maxTerms`,LANG==='ar'?'أطول شروط تسمح بيها السياسة':'Longest terms policy allows',s.maxTerms,'terms')}${fld(`stores.${t}.likesFree`,LANG==='ar'?'بيحب الهدايا':'Likes free goods',s.likesFree,'bool')}${fld(`stores.${t}.needsGondola`,LANG==='ar'?'لازم جندولة':'Requires a gondola end',s.needsGondola,'bool')}</div>
+     <h4>${tr('fastWants')}</h4>${chipsFor(`stores.${t}.fast`,s.fast)}
+     <h4>${tr('wrongProd')}</h4>${chipsFor(`stores.${t}.avoid`,s.avoid)}
+     <h4>${tr('ownerSays')}</h4><p class="tip">${tr('emptyLineTip')}</p><div class="fields two">${LINE_LABELS.map(a=>{const k=a[0];return k==='open'?fld(`stores.${t}.open`,LB(a),s.open,'area','')+fld(`stores.${t}.open_ar`,LB(a)+' ('+tr('arabic')+')',s.open_ar||'','area',''):fld(`stores.${t}.lines.${k}`,LB(a),(s.lines||{})[k]||'','area','')+fld(`stores.${t}.lines_ar.${k}`,LB(a)+' ('+tr('arabic')+')',(s.lines_ar||{})[k]||'','area','');}).join('')}</div></div></details>`;}).join('');
+  $('#admBody').innerHTML=`
+   <div class="card scbar"><div class="field" style="flex:1 1 220px"><label for="sc-pick">${tr('scenario')}</label><select id="sc-pick">${ids.map(i=>`<option value="${esc(i)}" ${i===ADM.scen?'selected':''}>${esc(scenName(i))}${i===EVENT.activeScenario?' ('+tr('live')+')':''}</option>`).join('')}</select></div>
+    <div class="actions" style="margin:0"><button class="btn ghost sm" id="scNew">${tr('newB')}</button><button class="btn ghost sm" id="scDup">${tr('dup')}</button><button class="btn ghost sm" id="scDel" ${ADM.scen==='cairo-standard'||ADM.scen===EVENT.activeScenario?'disabled title="'+tr('liveNoDel')+'"':''}>${tr('del')}</button></div></div>
+   ${ADM.confirm&&ADM.confirm.kind==='scdel'?`<div class="policy"><b>${tr('delQ',{x:esc(scenName(ADM.scen))})}</b> ${tr('delP')} <div class="actions"><button class="btn red sm" id="scDelYes">${tr('delBtn')}</button><button class="btn ghost sm" data-no>${tr('cancel')}</button></div></div>`:''}
+   <details class="acc" open><summary><span><span class="label">${tr('basics')}</span><b>${tr('gameRules')}</b></span></summary><div class="accbody"><div class="fields">${fld('name',LANG==='ar'?'اسم السيناريو':'Scenario name',d.name,'text','w2')}${GFIELDS.map(a=>fld(a[0],LB(a),d[a[0]])).join('')}</div></div></details>
+   <details class="acc"><summary><span><span class="label">${tr('policyH')}</span><b>${tr('discFree')}</b></span></summary><div class="accbody"><div class="fields">${PFIELDS.map(a=>fld('policy.'+a[0],LB(a),d.policy[a[0]])).join('')}</div></div></details>
+   <details class="acc"><summary><span><span class="label">${tr('items',{n:d.products.length})}</span><b>${tr('marsProducts')}</b></span></summary><div class="accbody">${prodRows}<button class="btn ghost sm" id="addProd">${tr('addProd')}</button></div></details>
+   <details class="acc"><summary><span><span class="label">${tr('brands',{n:d.competitors.length})}</span><b>${tr('competitors')}</b></span></summary><div class="accbody">${compRows}<button class="btn ghost sm" id="addComp">${tr('addComp')}</button></div></details>
+   ${stores}
+   <details class="acc"><summary><span><span class="label">POSM</span><b>${tr('posmCosts')}</b></span></summary><div class="accbody"><div class="fields">${Object.keys(POSM).map(k=>fld('posmCost.'+k,posmName(k)+(LANG==='ar'?' (ج.م)':' (EGP)'),d.posmCost[k])).join('')}</div></div></details>`;
+  updateSaveBar();
+}
+function updateSaveBar(){$('#admSaveMsg').textContent=tr(ADM.dirty?'unsaved':'allSaved');$('#admSaveBtn').disabled=!ADM.dirty;$('#admSave').classList.toggle('dirty',ADM.dirty);}
+function keepOpen(){return [...document.querySelectorAll('#admBody details')].map(x=>x.open);}
+function restoreOpen(st){document.querySelectorAll('#admBody details').forEach((x,i)=>{if(st[i]!==undefined)x.open=st[i];});}
+function rerenderScen(){const st=keepOpen(),y=window.scrollY;renderAdmScen();restoreOpen(st);window.scrollTo(0,y);}
+$('#scrAdmin').addEventListener('click',async e=>{
+  const tb=e.target.closest('[data-atab]');if(tb){ADM.tab=tb.dataset.atab;ADM.confirm=null;renderAdmin();return;}
+  const t=e.target;
+  if(t.closest('[data-no]')){ADM.confirm=null;ADM.tab==='teams'?renderAdmTeams():rerenderScen();return;}
+  if(t.id==='evSave'){const body={status:$('#ev-status').value,activeScenario:$('#ev-scen').value,message:$('#ev-msg').value.trim().slice(0,140)};
+    try{await adminWrite('config/event',body);EVENT={...EVENT,...body};toast(tr('evSaved'),'good');renderLobby();}catch(err){toast(tr('saveFail'),'bad');}return;}
+  if(t.id==='admSaveBtn'){await saveScenario();return;}
+  if(t.id==='scNew'||t.id==='scDup'){
+    if(ADM.dirty){toast(tr('saveFirst'),'warn');return;}
+    const nid='scenario-'+Math.random().toString(36).slice(2,7);
+    const base=t.id==='scNew'?buildScenario(null):JSON.parse(JSON.stringify(ADM.draft));delete base.prices;
+    base.name=t.id==='scNew'?(LANG==='ar'?'سيناريو جديد':'New scenario'):(ADM.draft.name||'Scenario')+' copy';
+    try{await adminWrite('scenarios/'+nid,base);SCEN[nid]=JSON.parse(JSON.stringify(base));loadDraft(nid);toast(tr('scenCreated'),'good');renderAdmScen();}catch(err){toast(tr('scenCreateFail'),'bad');}return;}
+  if(t.id==='scDel'){ADM.confirm={kind:'scdel'};rerenderScen();return;}
+  if(t.id==='scDelYes'){try{if(db)await db.doc('scenarios/'+ADM.scen).delete();delete SCEN[ADM.scen];ADM.confirm=null;loadDraft(EVENT.activeScenario||'cairo-standard');toast(tr('scenDeleted'),'good');renderAdmScen();}catch(err){toast(tr('scenDelFail'),'bad');}return;}
+  if(t.id==='addProd'){ADM.draft.products.push({id:'p'+Math.random().toString(36).slice(2,8),name:'New product',short:'New',pack:'24 pcs',price:600,bg:'#0000A0',fg:'#ffffff'});markDirty();rerenderScen();return;}
+  if(t.id==='addComp'){ADM.draft.competitors.push({id:'c'+Math.random().toString(36).slice(2,8),short:'Brand',co:'Company',bg:'#888888',fg:'#ffffff'});markDirty();rerenderScen();return;}
+  const dp=t.closest('[data-delprod]');if(dp){const p=ADM.draft.products.splice(+dp.dataset.delprod,1)[0];for(const s of TYPES){for(const k of ['fast','avoid'])ADM.draft.stores[s][k]=list2(ADM.draft.stores[s][k]).filter(x=>x!==p.id).join(',');}markDirty();rerenderScen();return;}
+  const dc=t.closest('[data-delcomp]');if(dc){ADM.draft.competitors.splice(+dc.dataset.delcomp,1);markDirty();rerenderScen();return;}
+  const ch=t.closest('[data-chip]');if(ch){const path=ch.dataset.chip,[,st,key]=path.split('.');const cur=list2(ADM.draft.stores[st][key]);const id=ch.dataset.id;const nx=cur.includes(id)?cur.filter(x=>x!==id):[...cur,id];ADM.draft.stores[st][key]=nx.join(',');ch.setAttribute('aria-pressed',!cur.includes(id));markDirty();return;}
+  if(t.id==='csvBtn'){const rows=[['Rank','Team','Scenario','Day','Deals','Lives','Wallet EGP','Status']].concat([...TEAMS].sort((a,b)=>(b.money||0)-(a.money||0)).map((x,i)=>[i+1,x.name,scenName(x.scenarioId||'cairo-standard'),x.day||1,x.deals||0,x.lives??'',Math.round(x.money||0),x.status||'playing']));
+    const csv=rows.map(r=>r.map(c=>'"'+String(c).replace(/"/g,'""')+'"').join(',')).join('\n');
+    try{await navigator.clipboard.writeText(csv);toast(tr('csvDone'),'good');}catch(err){const ta=document.createElement('textarea');ta.value=csv;ta.style.cssText='width:100%;height:160px;margin-top:10px';$('#admBody .card').appendChild(ta);ta.select();toast(tr('csvManual'),'warn');}return;}
+  const rs=t.closest('[data-reset]'),dl=t.closest('[data-del]');
+  if(rs||dl){ADM.confirm={kind:rs?'reset':'del',id:(rs||dl).dataset[rs?'reset':'del']};renderAdmTeams();return;}
+  const yes=t.closest('[data-yes]');
+  if(yes){const id=yes.dataset.yes,tm=TEAMS.find(x=>x.id===id),kind=ADM.confirm.kind;
+    try{
+      if(kind==='reset'){const keepT=TEAM,keepG=G;TEAM={id,name:tm.name,color:tm.color,scenarioId:EVENT.activeScenario};const g=newGame();TEAM=keepT;G=keepG;
+        const body={state:g,money:g.money,lives:g.lives,day:1,deals:0,earned:0,status:'playing',scenarioId:EVENT.activeScenario,updatedAt:Date.now()};
+        if(db)await db.doc('teams/'+id).update(body);else{Object.assign(tm,body);saveLocalTeams();}}
+      else{if(db)await db.doc('teams/'+id).delete();else{TEAMS=TEAMS.filter(x=>x.id!==id);saveLocalTeams();}}
+      toast(tr(kind==='reset'?'teamRestarted':'teamRemoved'),'good');
+    }catch(err){toast(tr('notAllowed'),'bad');}
+    ADM.confirm=null;renderAdmTeams();return;}
+});
+function list2(s){return String(s||'').split(',').map(x=>x.trim()).filter(Boolean);}
+function markDirty(){ADM.dirty=true;ADM.leaveOk=false;updateSaveBar();}
+$('#scrAdmin').addEventListener('change',e=>{
+  if(e.target.id==='sc-pick'){if(ADM.dirty){toast(tr('saveFirst'),'warn');e.target.value=ADM.scen;return;}loadDraft(e.target.value);ADM.confirm=null;renderAdmScen();return;}
+  const f=e.target.closest('[data-f]');if(!f)return;
+  let v=f.value;if(f.dataset.t==='bool')v=v==='1';else if(f.dataset.t==='num')v=parseFloat(v)||0;
+  setPath(ADM.draft,f.dataset.f,v);markDirty();
+  const m=f.dataset.f.match(/^(products|competitors)\.(\d+)\.(short|bg|fg)$/);
+  if(m){const row=f.closest('.prow'),prev=row&&row.querySelector('.pk-prev'),it=ADM.draft[m[1]][+m[2]];if(prev){prev.textContent=it.short||'?';prev.style.background=it.bg;prev.style.color=it.fg;}}
+  if(/^stores\.\w+\.(name|owner)(_ar)?$/.test(f.dataset.f)){const det=f.closest('details'),[,st]=f.dataset.f.split('.');det.querySelector('summary b').textContent=L(ADM.draft.stores[st],'name');det.querySelector('summary .muted').textContent=L(ADM.draft.stores[st],'owner');}
+});
+async function saveScenario(){
+  const d=ADM.draft;
+  for(const t of TYPES){const s=d.stores[t];if(+s.min>=+s.max){toast(tr('minMax',{x:s.name}),'bad');return;}}
+  if(!d.products.length){toast(tr('needProd'),'bad');return;}
+  try{const body=JSON.parse(JSON.stringify(d));delete body.prices;await adminWrite('scenarios/'+ADM.scen,body);SCEN[ADM.scen]=body;ADM.dirty=false;updateSaveBar();renderLobby();toast(tr('scenSaved'),'good');}
+  catch(err){toast(tr('saveFail'),'bad');}
+}
+addEventListener('beforeunload',e=>{if(ADM.dirty){e.preventDefault();e.returnValue='';}});
 async function adminWrite(path,body){if(!db)throw new Error('offline');await db.doc(path).set(JSON.parse(JSON.stringify(body)));}
 
 /* ---------- boot ---------- */
-renderLobby();renderHud();
-initBackend();
+$('#langBtn').addEventListener('click',()=>setLang(LANG==='ar'?'en':'ar'));
+applyLang();renderLobby();renderHud();
+initBackend().then(()=>{if(location.hash==='#admin'&&isAdmin)openAdmin();});
 </script>
 
 </body>
