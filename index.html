@@ -110,10 +110,13 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .rep .bd{box-shadow:inset 0 -6px 0 var(--gold)}
 .stores{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:14px}
 @media (max-width:760px){.stores{grid-template-columns:1fr}}
+@media (min-width:761px){.stores{grid-template-columns:repeat(3,minmax(0,1fr))}}
 .storecard{display:flex;flex-direction:column;gap:6px}
 .storecard h3{font-size:19px}
 .storecard .row{display:flex;justify-content:space-between;gap:8px;font-size:13px}
 .storecard .btn{margin-top:auto}
+.fuelcard{border-color:#17c25c;box-shadow:inset 0 4px 0 #17c25c}
+.fuelcard .meter{height:8px}.fuelcard .meter i{background:#17c25c}
 
 /* store stage */
 .storehead{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;justify-content:space-between;margin-bottom:10px}
@@ -881,7 +884,7 @@ Object.assign(I18N.en,{
  coverWeeks:'{w} week(s) of cover',idealOrder:'Right-sized order was about: {x}.',cFitGood:'Your quantities matched the store\'s sales data.',cFitBad:'Your quantities did not match the store\'s sales and stock.',
  answerFirst:'Answer the owner first.',objHint:'Pick your answer',youSaid:'You',rapportGood:'Good answer',rapportBad:'Weak answer',okAnswer:'OK answer',
  dayOver:'5 pm: the working day is over',dayOverP:'Stores are closing. Here is how today went.',lateWarn:'It is after 4:30 pm. Plan your last visit.',
- refuel:'Refuel {l} L · {x}',refueled:'Refuelled {l} L for {x}.',lowFuel:'Fuel is low. Find the fuel station (green on the map).',noFuel:'Out of fuel. The van can only crawl. Get to the fuel station.',fuelStation:'Fuel station',tankFull:'Tank is full.',noMoneyFuel:'Not enough money in the wallet for fuel.',
+ refuel:'Refuel {l} L · {x}',refueled:'Refuelled {l} L for {x}.',lowFuel:'Fuel is low. Find the fuel station (green on the map).',lowFuelGps:'Fuel is low. GPS now points to the fuel station: follow the gold arrow.',noFuel:'Out of fuel. The van can only crawl. Get to the fuel station.',fuelStation:'Fuel station',tankFull:'Tank is full.',noMoneyFuel:'Not enough money in the wallet for fuel.',
  checkpoint:'Traffic police',checkpointAhead:'Checkpoint ahead: slow down below 25 km/h',fined:'Traffic police: speeding through the checkpoint. Fine −{x}.',traffic:'Watch the traffic!',
  objTitle:'Today\'s objectives',objCartons:'Sell {n} cartons of {p}',objStores:'List {p} in {n} stores',objMet:'Objective met: +{x}',objBonus:'Objective bonuses',noObj:'No objectives today.',
  marketNews:'Market news',mkPromo:'{b} is running a promotion: owners expect about 2% more discount.',mkPrice:'Mars price increase of {x}%: owners are harder to convince.',mkOOS:'Depot is out of {p} today: it cannot be ordered.',mkChanged:'Market news: {x}',depotOut:'Out at depot',
@@ -900,7 +903,7 @@ Object.assign(I18N.ar,{
  coverWeeks:'تغطية {w} أسبوع',idealOrder:'الطلبية المظبوطة كانت تقريباً: {x}.',cFitGood:'كمياتك كانت على قد مبيعات المحل.',cFitBad:'كمياتك ماكانتش على قد مبيعات ومخزون المحل.',
  answerFirst:'رد على صاحب المحل الأول.',objHint:'اختار ردك',youSaid:'إنت',rapportGood:'رد كويس',rapportBad:'رد ضعيف',okAnswer:'رد عادي',
  dayOver:'الساعة ٥: يوم الشغل خلص',dayOverP:'المحلات بتقفل. ده ملخص النهارده.',lateWarn:'الساعة عدّت ٤:٣٠. خطط لآخر زيارة.',
- refuel:'موّن {l} لتر · {x}',refueled:'موّنت {l} لتر بـ {x}.',lowFuel:'البنزين قليل. روح البنزينة (الأخضر على الخريطة).',noFuel:'البنزين خلص. العربية بتزحف بالعافية. روح البنزينة.',fuelStation:'بنزينة',tankFull:'التانك مليان.',noMoneyFuel:'الفلوس اللي في المحفظة مش كفاية للبنزين.',
+ refuel:'موّن {l} لتر · {x}',refueled:'موّنت {l} لتر بـ {x}.',lowFuel:'البنزين قليل. روح البنزينة (الأخضر على الخريطة).',lowFuelGps:'البنزين قليل. الملاحة دلوقتي على البنزينة: امشي ورا السهم الدهبي.',noFuel:'البنزين خلص. العربية بتزحف بالعافية. روح البنزينة.',fuelStation:'بنزينة',tankFull:'التانك مليان.',noMoneyFuel:'الفلوس اللي في المحفظة مش كفاية للبنزين.',
  checkpoint:'شرطة المرور',checkpointAhead:'كمين قدام: هدّي تحت ٢٥ كم/س',fined:'شرطة المرور: عديت الكمين بسرعة. مخالفة −{x}.',traffic:'خلي بالك من العربيات!',
  objTitle:'أهداف النهارده',objCartons:'بيع {n} كرتونة {p}',objStores:'نزّل {p} في {n} محلات',objMet:'حققت هدف: +{x}',objBonus:'مكافآت الأهداف',noObj:'مفيش أهداف النهارده.',
  marketNews:'أخبار السوق',mkPromo:'{b} عامل عرض: أصحاب المحلات متوقعين خصم زيادة حوالي ٢٪.',mkPrice:'زيادة أسعار مارس {x}٪: إقناع أصحاب المحلات بقى أصعب.',mkOOS:'المخزن مفيهوش {p} النهارده: مينفعش يتطلب.',mkChanged:'أخبار السوق: {x}',depotOut:'خلصان في المخزن',
@@ -1182,7 +1185,9 @@ function buildScene3D(){
       const canopy=box3(W,.5,D*.55,mat('#178a4c'),cx,s.h,fz+D*.3,g);for(const px of [-W/3,W/3])box3(.4,s.h,.4,mat('#c9ccd3'),cx+px,s.h/2,fz+D*.3,g);
       for(const px of [-W/5,W/5])box3(.8,1.6,.6,mat('#e53935'),cx+px,.8,fz+D*.3,g);box3(W*.6,3.2,D*.35,mat('#f4f6f2'),cx,1.6,fz+D*.8,g);
       const sign=new THREE.Mesh(new THREE.PlaneGeometry(W*.8,1.5),mat('#fff',{map:signTex(tr('fuelStation'),'#178a4c','#fff')}));sign.position.set(cx,s.h+1.1,fz-.1);sign.rotation.y=Math.PI;g.add(sign);
-      R3.stores.fuel={sign,h:s.h,name:tr('fuelStation')};continue;}
+      R3.stores.fuel={sign,h:s.h,name:tr('fuelStation')};
+      const fring=new THREE.Mesh(new THREE.TorusGeometry(4.6,.22,8,48),mat('#17c25c',{emissive:'#17c25c',emissiveIntensity:.7}));fring.rotation.x=-Math.PI/2;fring.position.set(P.door[0]*K,.12,(P.door[1]-32)*K);scene.add(fring);R3.rings.fuel=fring;
+      const flb=labelSprite();flb.position.set(cx,s.h+4.5,fz+1);scene.add(flb);R3.labels.fuel=flb;continue;}
     box3(W,s.h,D,mat(s.c),cx,s.h/2,cz,g);
     const glass=mat('#3d5f86',{roughness:.15,metalness:.6,emissive:'#1a2a40',emissiveIntensity:.25});
     box3(W*.72,Math.min(3,s.h*.5),.12,glass,cx,Math.min(3,s.h*.5)/2+.1,fz-.04,g,false);
@@ -1214,6 +1219,7 @@ function updateWorld3D(){
     drawLabel(R3.labels[t],stName(t),(PL(ST(t).persona)+' · ')+tr(v.status==='won'?'lblDone':v.status==='failed'?'lblLost':(v.nego?'lblTalks':'lblOpen')),v.status==='won'?'#7fe0a6':v.status==='failed'?'#ff8a8a':'#f2b705');
   }
   const fs=R3.stores.fuel;if(fs&&fs.name!==tr('fuelStation')){fs.name=tr('fuelStation');const old=fs.sign.material.map;fs.sign.material.map=signTex(tr('fuelStation'),'#178a4c','#fff');fs.sign.material.needsUpdate=true;old&&old.dispose();}
+  if(R3.labels.fuel)drawLabel(R3.labels.fuel,tr('fuelStation'),tr('fuelL')+' '+Math.round(100*clamp((G.fuel??S().tank)/S().tank,0,1))+'%','#3ddc84');
   if(R3.checkLabel)drawLabel(R3.checkLabel,tr('checkpoint'),LANG==='ar'?'٢٥ كم/س':'25 km/h','#f2b705');
 }
 function buildVan(){
@@ -1264,8 +1270,10 @@ function render3D(now,dt){
     const sw=Math.sin(now/110)*.6;rp.legL.rotation.z=sw;rp.legR.rotation.z=-sw;rp.armL.rotation.z=-sw*.8;rp.armR.rotation.z=sw*.8;
   }else rp.g.visible=false;
   const ar=R3.arrow;
-  if(gpsTarget&&!stepOut&&G.visits[gpsTarget]&&G.visits[gpsTarget].status==='open'){const d=PLACES[gpsTarget].door,dx=d[0]-CAR.x,dy=d[1]-32-CAR.y;
+  if(!stepOut&&gpsOn()){const d=PLACES[gpsTarget].door,dx=d[0]-CAR.x,dy=d[1]-32-CAR.y;
     ar.visible=Math.hypot(dx,dy)>90;ar.position.set(cx,3.3+Math.sin(now/300)*.12,cz);ar.rotation.y=-Math.atan2(dy,dx);}else ar.visible=false;
+  {const fp=Math.round(100*clamp((G.fuel??S().tank)/S().tank,0,1));if(R3.labels.fuel&&R3.lastFp!==fp){R3.lastFp=fp;drawLabel(R3.labels.fuel,tr('fuelStation'),tr('fuelL')+' '+fp+'%','#3ddc84');}}
+  if(R3.rings.fuel){const s=1+Math.sin(now/260)*.05;R3.rings.fuel.scale.set(s,s,s);R3.rings.fuel.material.emissiveIntensity=gpsTarget==='fuel'?.6+.5*Math.sin(now/200):.35;}
   for(const t of ALL_STORES){const r=R3.rings[t];if(r&&r.visible){const s=1+Math.sin(now/260)*.05;r.scale.set(s,s,s);r.material.emissiveIntensity=t===gpsTarget?.6+.5*Math.sin(now/200):.35;}}
   let target,look;
   if(stepOut){target=new THREE.Vector3(cx-fx*6+fz*6,4,cz-fz*6-fx*6);look=new THREE.Vector3(PLACES[stepOut.t].door[0]*K,1.6,PLACES[stepOut.t].door[1]*K);}
@@ -1353,7 +1361,7 @@ function enterMap(){
   G.odo=G.odo||0;
   CAR={x:G.car.x,y:G.car.y,a:G.car.a,v:0,brake:false,steer:0};if(R3){R3.camInit=false;updateWorld3D();}
   stepOut=null;
-  if(!gpsTarget||!G.visits[gpsTarget]||G.visits[gpsTarget].status!=='open'||!TYPES.includes(gpsTarget))gpsTarget=TYPES.find(t=>G.visits[t].status==='open')||null;
+  if(gpsTarget!=='fuel'&&(!gpsTarget||!G.visits[gpsTarget]||G.visits[gpsTarget].status!=='open'||!TYPES.includes(gpsTarget)))gpsTarget=TYPES.find(t=>G.visits[t].status==='open')||null;
   $('#mapDayLabel').textContent=tr('dayRoute',{n:G.day});
   const dayEarn=G.money-G.dayStart;
   $('#targetChip').textContent=tr('todayTarget',{x:(dayEarn>=0?'+':'')+egp(dayEarn),y:egp(s.dayTarget)});
@@ -1362,7 +1370,9 @@ function enterMap(){
   if($('#drive').parentElement.clientWidth<760)requestAnimationFrame(()=>window.scrollTo(0,$('.drivebox').getBoundingClientRect().top+window.scrollY-($('#hud').offsetHeight||50)-8));
 }
 function renderStoreCards(){
-  $('#storeCards').innerHTML=TYPES.map(t=>{const st=ST(t),v=G.visits[t];
+  const sc=S(),fp=Math.round(100*clamp((G.fuel??sc.tank)/sc.tank,0,1));
+  const fuelCard=`<div class="card storecard fuelcard"><div class="label">${tr('fuelL')}</div><h3>${tr('fuelStation')}</h3><div class="row"><span class="muted">${tr('fuelL')}</span><b class="num" style="color:${fp<20?'var(--bad)':fp<40?'var(--warn)':'var(--good)'}">${fp}%</b></div><div class="meter"><i style="width:${fp}%"></i></div><div class="row"><span class="muted">${LANG==='ar'?'سعر اللتر':'Price per litre'}</span><b class="num">${egp(sc.fuelPrice)}</b></div><button class="btn ${gpsTarget==='fuel'?'gold':'ghost'}" data-gps="fuel">${tr(gpsTarget==='fuel'?'gpsSet':'setGps')}</button></div>`;
+  $('#storeCards').innerHTML=fuelCard+TYPES.map(t=>{const st=ST(t),v=G.visits[t];
     const status=v.status==='won'?`<span class="chip good">${tr('dealClosed')}</span>`:v.status==='failed'?`<span class="chip bad">${tr('lost')}</span>`:v.nego?`<span class="chip warn">${tr('inTalks')}</span>`:`<span class="chip">${tr('open')}</span>`;
     return `<div class="card storecard"><div class="label">${esc(stKind(t))}</div><h3>${esc(stName(t))}</h3>
      <div class="row"><span class="muted">${tr('contact')}</span><b>${esc(stOwner(t))}</b></div>
@@ -1372,7 +1382,7 @@ function renderStoreCards(){
      <button class="btn ${gpsTarget===t?'gold':'ghost'}" data-gps="${t}" ${v.status!=='open'?'disabled':''}>${tr(gpsTarget===t?'gpsSet':'setGps')}</button></div>`;}).join('');
   renderMapExtras();
 }
-$('#storeCards').addEventListener('click',e=>{const b=e.target.closest('[data-gps]');if(!b)return;gpsTarget=b.dataset.gps;renderStoreCards();toast(tr('gpsToast',{name:stName(gpsTarget)}));$('#drive').scrollIntoView({behavior:reduce()?'auto':'smooth',block:'center'});});
+$('#storeCards').addEventListener('click',e=>{const b=e.target.closest('[data-gps]');if(!b)return;gpsTarget=b.dataset.gps;renderStoreCards();toast(tr('gpsToast',{name:gpsName()}));$('#drive').scrollIntoView({behavior:reduce()?'auto':'smooth',block:'center'});});
 function sizeCanvas(){
   const c=$('#drive'),hc=$('#hudc'),bx=c.parentElement,dpr=Math.min(2,window.devicePixelRatio||1);
   const w=bx.clientWidth,narrow=w<760;
@@ -1420,7 +1430,7 @@ function physics(dt){
   else moved=false;
   const now=performance.now();
   if(moved){const d=Math.hypot(dx,dy);G.odo+=d;G.clock=(G.clock??s.dayStart*60)+d/40;G.fuel=Math.max(0,(G.fuel??s.tank)-d/300);
-    if(G.fuel<s.tank*.2&&!G.fuelWarn){G.fuelWarn=true;toast(tr('lowFuel'),'warn');}
+    if(G.fuel<s.tank*.2&&!G.fuelWarn){G.fuelWarn=true;gpsTarget='fuel';renderStoreCards();toast(tr('lowFuelGps'),'warn');}
     if(G.fuel<=0&&!G.fuelEmpty){G.fuelEmpty=true;toast(tr('noFuel'),'bad');}}
   else{const hitCar=npcHit(CAR.x+dx,CAR.y+dy);if(Math.abs(CAR.v)>40&&now-lastBump>2500){lastBump=now;toast(tr(hitCar?'traffic':'bump'),'warn');}CAR.v*=-.2;if(carHits(CAR.x,CAR.y,CAR.a))CAR.a-=yaw*dt;}
   // police checkpoint
@@ -1520,7 +1530,7 @@ function render2D(now){
     drawRep(ctx,x,y,Math.atan2(stepOut.to[1]-stepOut.from[1],stepOut.to[0]-stepOut.from[0]),now);
   }else drawVan(ctx,CAR.x,CAR.y,CAR.a,CAR.brake);
   // gps arrow
-  if(gpsTarget&&!stepOut&&G.visits[gpsTarget].status==='open'){
+  if(!stepOut&&gpsOn()){
     const d=PLACES[gpsTarget].door,dx=d[0]-CAR.x,dy=d[1]-40-CAR.y,dist=Math.hypot(dx,dy);
     if(dist>140){const a=Math.atan2(dy,dx),ax=CAR.x+Math.cos(a)*70,ay=CAR.y+Math.sin(a)*70;
       ctx.save();ctx.translate(ax,ay);ctx.rotate(a);ctx.fillStyle='#f2b705';ctx.strokeStyle='#5a4300';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(18,0);ctx.lineTo(-10,-12);ctx.lineTo(-4,0);ctx.lineTo(-10,12);ctx.closePath();ctx.fill();ctx.stroke();ctx.restore();
@@ -1531,9 +1541,9 @@ function render2D(now){
 }
 function drawHud(ctx,cw,ch){
   const s=S();
-  if(gpsTarget&&G.visits[gpsTarget]&&G.visits[gpsTarget].status==='open'){
+  if(gpsOn()){
     const d=PLACES[gpsTarget].door,m=Math.round(Math.hypot(d[0]-CAR.x,d[1]-CAR.y)/4/10)*10;
-    const txt='GPS · '+stName(gpsTarget)+' · '+(m<40?tr('arrived'):m+(LANG==='ar'?' م':' m'));
+    const txt='GPS · '+gpsName()+' · '+(m<40?tr('arrived'):m+(LANG==='ar'?' م':' m'));
     ctx.font='800 13px Nunito Sans, Cairo, sans-serif';const tw=ctx.measureText(txt).width;
     ctx.fillStyle='rgba(21,22,59,.85)';ctx.beginPath();ctx.roundRect(12,12,tw+24,30,10);ctx.fill();ctx.fillStyle='#fff';ctx.fillText(txt,24,32);
   }
@@ -1541,7 +1551,7 @@ function drawHud(ctx,cw,ch){
   ctx.fillStyle='rgba(255,255,255,.88)';ctx.beginPath();ctx.roundRect(mx-4,my-4,mw+8,mh+8,8);ctx.fill();
   ctx.fillStyle='#9aa0b5';for(const h of WORLD.hr)ctx.fillRect(mx,my+(h-WORLD.rw)*ms,mw,WORLD.rw*2*ms);for(const v of WORLD.vr)ctx.fillRect(mx+(v-WORLD.rw)*ms,my,WORLD.rw*2*ms,mh);
   for(const t of TYPES){const r=PLACES[t].rect,st=G.visits[t]?G.visits[t].status:'open';ctx.fillStyle=st==='won'?'#178a4c':st==='failed'?'#cf2e2e':t===gpsTarget?'#f2b705':'#0000A0';ctx.fillRect(mx+r[0]*ms,my+r[1]*ms,Math.max(6,r[2]*ms),Math.max(5,r[3]*ms));}
-  const fr=PLACES.fuel.rect;ctx.fillStyle='#17c25c';ctx.fillRect(mx+fr[0]*ms,my+fr[1]*ms,Math.max(6,fr[2]*ms),Math.max(5,fr[3]*ms));
+  const fr=PLACES.fuel.rect;ctx.fillStyle=gpsTarget==='fuel'?'#f2b705':'#17c25c';ctx.fillRect(mx+fr[0]*ms,my+fr[1]*ms,Math.max(9,fr[2]*ms),Math.max(8,fr[3]*ms));ctx.fillStyle='#fff';ctx.font='800 8px sans-serif';ctx.fillText('F',mx+fr[0]*ms+2,my+fr[1]*ms+8);
   ctx.fillStyle='#ff6a00';ctx.fillRect(mx+CHECK.x*ms-2,my+CHECK.y*ms-4,4,8);
   ctx.fillStyle='#555';const dr=PLACES.depot.rect;ctx.fillRect(mx+dr[0]*ms,my+dr[1]*ms,dr[2]*ms,dr[3]*ms);
   ctx.fillStyle='#cf2e2e';ctx.beginPath();ctx.arc(mx+CAR.x*ms,my+CAR.y*ms,4,0,7);ctx.fill();ctx.strokeStyle='#fff';ctx.lineWidth=1.5;ctx.stroke();
@@ -2203,9 +2213,11 @@ function doRefuel(){
   const afford=Math.max(0,G.money)/s.fuelPrice,l=Math.min(need,afford);
   if(l<.5){toast(tr('noMoneyFuel'),'bad');return;}
   const cost=Math.round(l*s.fuelPrice);G.money-=cost;G.fuel=(G.fuel??0)+l;G.fuelWarn=false;G.fuelEmpty=false;addTime(5);stat('fuelSpent',cost);
-  toast(tr('refueled',{l:Math.round(l),x:egp(cost)}),'good');renderHud();lastPrompt='';save();
+  toast(tr('refueled',{l:Math.round(l),x:egp(cost)}),'good');if(gpsTarget==='fuel')gpsTarget=TYPES.find(t=>G.visits[t].status==='open')||null;renderStoreCards();renderHud();lastPrompt='';save();
 }
 
+function gpsOn(){return !!gpsTarget&&(gpsTarget==='fuel'||(G.visits[gpsTarget]&&G.visits[gpsTarget].status==='open'));}
+function gpsName(){return gpsTarget==='fuel'?tr('fuelStation'):stName(gpsTarget);}
 function addTime(m){if(!G)return;G.clock=(G.clock??S().dayStart*60)+m;renderHud();}
 function dayIsOver(){return G&&G.clock>=S().dayEnd*60;}
 
