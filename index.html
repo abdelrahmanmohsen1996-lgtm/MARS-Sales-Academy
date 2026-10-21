@@ -1427,6 +1427,7 @@ function enterStore(t,quiet){
   if(t==='koshk')h+=box(860,236,300,94,'counter');
   h+=`<div class="player" id="player" style="left:0">${personHTML('var(--mars)','#2b1d14','#2c2f45','rep')}</div>`;
   w.innerHTML=h;
+  if(!quiet&&v.nego){v.nego.qty={};v.nego.disc=0;v.nego.free=false;v.nego.terms=0;}
   if(!quiet){px=L_.start;target=null;pending=null;$('#hlBtn').setAttribute('aria-pressed','false');w.classList.remove('hl');}
   else w.classList.toggle('hl',$('#hlBtn').getAttribute('aria-pressed')==='true');
   renderAudit();place();startLoop();
@@ -1549,7 +1550,7 @@ function placePosm(sp,type){
 }
 
 /* ---------- overlay helpers ---------- */
-function openOv(html,bind){const o=$('#overlay');o.innerHTML=html;o.hidden=false;keys.l=keys.r=false;o.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',closeOv));bind&&bind(o);const f=o.querySelector('button,input');f&&f.focus({preventScroll:true});}
+function openOv(html,bind){const prev=$('#overlay'),o=prev.cloneNode(false);prev.replaceWith(o);o.innerHTML=html;o.hidden=false;keys.l=keys.r=false;o.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',closeOv));bind&&bind(o);const f=o.querySelector('button,input');f&&f.focus({preventScroll:true});}
 function closeOv(){$('#overlay').hidden=true;$('#overlay').innerHTML='';if($('#scrLobby').hidden)subTeams(false);}
 addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('#overlay').hidden&&$('#overlay').querySelector('[data-close]'))closeOv();});
 
