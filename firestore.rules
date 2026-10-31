@@ -2,14 +2,43 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     function signedIn() { return request.auth != null; }
-    // Keep this list in sync with FACILITATOR_EMAILS in docs/firebase-config.js
+    // Keep this list in sync with FACILITATOR_EMAILS in firebase-config.js
     function facilitator() {
       return signedIn() && request.auth.token.email != null
-        && request.auth.token.email.lower() in ['admins@mars.com'];
+        && request.auth.token.email.lower() in ['admin@mars.com', 'admins@mars.com'];
+    }
+    // A player becomes a member of a team only after proving they know its code.
+    function memberOf(team) {
+      return signedIn()
+        && exists(/databases/$(database)/documents/members/$(request.auth.uid))
+        && get(/databases/$(database)/documents/members/$(request.auth.uid)).data.team == team;
     }
     match /scenarios/{id} { allow read: if signedIn(); allow write: if facilitator(); }
     match /config/{id}    { allow read: if signedIn(); allow write: if facilitator(); }
-    match /teams/{id}     { allow read, create, update: if signedIn(); allow delete: if facilitator(); }
-    match /locks/{id}     { allow read, write: if signedIn(); }
+    // Public leaderboard rows. Only the facilitator creates or deletes teams.
+    match /teams/{id} {
+      allow read: if signedIn();
+      allow create, delete: if facilitator();
+      allow update: if facilitator() || (memberOf(id)
+        && request.resource.data.name == resource.data.name
+        && request.resource.data.color == resource.data.color);
+    }
+    // Saved games. The document id contains the secret team code, so only
+    // people who know the code can open it. Nobody but the facilitator can list them.
+    match /saves/{sid} {
+      allow get, update: if signedIn();
+      allow create, delete, list: if facilitator();
+    }
+    // Team codes: facilitator only.
+    match /keys/{id} { allow read, write: if facilitator(); }
+    match /members/{uid} {
+      allow read: if signedIn() && (request.auth.uid == uid || facilitator());
+      allow create, update: if signedIn() && request.auth.uid == uid
+        && request.resource.data.sid is string
+        && request.resource.data.sid.matches(request.resource.data.team + '-[A-Z0-9]+')
+        && exists(/databases/$(database)/documents/saves/$(request.resource.data.sid));
+      allow delete: if facilitator() || (signedIn() && request.auth.uid == uid);
+    }
+    match /locks/{id} { allow read, write: if signedIn(); }
   }
 }

@@ -1,42 +1,41 @@
 # Mars Field Sales Run
 
-Team sales-training game: drive the Mars van, audit the store, place POSM, negotiate. Live leaderboard, save & resume, facilitator panel for scenarios.
+Team sales-training game: drive the Mars van through Maadi, check the store, place POSM, negotiate. Private teams with join codes, live leaderboard, facilitator Control room, English/Arabic.
 
-Runs free on Firebase Spark plan (Firestore + Auth) and either GitHub Pages or Firebase Hosting.
+## Update an existing setup (from the previous version)
+1. **Firestore rules**: Firebase console → Firestore Database → Rules → replace everything with `firestore.rules` from this folder → **Publish**.
+   (Adds private team codes: `saves`, `keys`, `members` collections.)
+2. **GitHub**: upload `index.html` (and `firebase-config.js` only if you changed it) to the repo's main folder → Commit.
+3. Open the game → Facilitator sign-in → **Control room → Teams**:
+   - Old teams show **Issue code**: press it once per team to give it a private code.
+   - New teams: type a name → **Create team**, or **Quick add** N numbered teams.
+   - **Copy all codes** gives you every team's code and join link to send out.
 
-## 1. Firebase project (10 min, free)
-1. https://console.firebase.google.com → **Add project** (Google Analytics off is fine). Stay on the free **Spark** plan.
-2. **Build → Authentication → Get started → Sign-in method**: enable **Anonymous** and **Email/Password**.
-3. **Authentication → Users → Add user**: create the facilitator login (e.g. abdelrahman.mohsen@r-kain.com).
-4. **Build → Firestore Database → Create database** → production mode → location `europe-west` (closest to Egypt).
-5. **Firestore → Rules**: paste the contents of `firestore.rules` → **Publish**. Edit the email list if needed.
-6. **Project settings (gear) → Your apps → Web (</>)** → register app → copy the `firebaseConfig` values into `docs/firebase-config.js`.
+## How players join
+- Open the link → pick their team → type the 6-character code → **Join and play** (or open the team's join link directly).
+- The device remembers the team, so next time it's one tap: **Continue as …**
+- Wrong code = no access. **New code** in the Control room locks out the old code instantly.
 
-## 2a. Host on GitHub Pages
-1. Create a repo on github.com (e.g. `mars-sales-run`), upload this folder (keep the `docs/` folder).
-2. Repo **Settings → Pages** → Source: *Deploy from a branch* → Branch `main`, folder `/docs` → Save.
-3. Your game: `https://<your-username>.github.io/mars-sales-run/`
-4. Firebase console → **Authentication → Settings → Authorized domains** → add `<your-username>.github.io`.
+## Free plan budget (Firebase Spark: 50k reads / 20k writes per day)
+The game is tuned for this:
+- Progress saves at most every 30 s while playing, plus right away on important moments (deal closed, leaving a store, day end, pause, phone locked).
+- The leaderboard only reloads a team when its score changes, not on every save.
+- Team "in use" locks renew every 3 minutes.
+- Offline cache: reloading the page doesn't re-download everything.
 
-## 2b. Or host on Firebase Hosting
-```
-npm install -g firebase-tools
-firebase login
-firebase use --add          # pick your project
-firebase deploy             # deploys docs/ and firestore.rules
-```
-Your game: `https://<project-id>.web.app`
+Rough use per team per hour: ~100 writes and ~60 reads, plus ~60 reads per hour for each open leaderboard or projector screen.
+**About 25 teams playing for 4 hours fits comfortably in one day's free quota.** Running over doesn't charge you; saving just pauses until the next day.
 
-## 3. Before the event
-1. Open the game → **Facilitator sign-in** (bottom of the lobby) → sign in.
-2. **Facilitator → Scenarios** → adjust prices, owners, policy → **Save scenario** (this also stores the default in the database).
-3. **Event** tab → pick the scenario, add a message → **Apply**.
-4. Share the link. Players just open it, create a team and play. No accounts needed.
-
-## Free-tier limits (Spark plan)
-50,000 reads / 20,000 writes / 1 GiB per day. Comfortable for ~30 teams playing a full session.
-If you go over, the game stops saving until the next day (no charges unless you upgrade to Blaze).
+## GitHub Pages (free)
+Single self-contained `index.html` (~310 KB, ~90 KB gzipped). 3D graphics load in the background after the lobby appears.
+Settings → Pages → Branch `main`, folder `/ (root)`.
 
 ## Notes
-- Mars logo and brand names are client material: keep the repo **private** if Mars requires it (GitHub Pages on private repos needs a paid GitHub plan; Firebase Hosting works either way).
-- Players are anonymous per browser. A team can be resumed from any device; only one device plays a team at a time.
+- Full screen starts automatically when a player joins (Android and desktop). iPhone Safari doesn't allow full screen for websites; there the game still uses the whole screen.
+- Facilitator emails: `firebase-config.js` (FACILITATOR_EMAILS) **and** `firestore.rules` (facilitator()) must list the same emails.
+
+## Realistic people (models folder)
+The `models/` folder holds the 3D people (sales rep, kiosk owners, store managers) and their walk, idle and talk animations.
+Upload the **whole `models` folder** next to `index.html` in the repository root. Without it the game still works, but uses the simple built-in characters.
+The people come from the Microsoft Rocketbox avatar library (MIT licence, free for commercial use); see `models/ROCKETBOX-LICENSE.txt`.
+Players can switch between Realistic and Simple people in Settings.
